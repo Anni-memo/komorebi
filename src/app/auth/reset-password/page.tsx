@@ -29,45 +29,43 @@ function EyeIcon({ open }: { open: boolean }) {
   );
 }
 
-export default function LoginPage() {
+export default function ResetPasswordPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (password !== confirmPassword) {
+      setError("パスワードが一致しません。もう一度ご確認ください。");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("パスワードは6文字以上で設定してください。");
+      return;
+    }
+
     setLoading(true);
 
     try {
       const supabase = createClient();
-      const { error: authError } = await supabase.auth.signInWithPassword({
-        email,
+      const { error: updateError } = await supabase.auth.updateUser({
         password,
       });
 
-      if (authError) {
-        switch (authError.message) {
-          case "Invalid login credentials":
-            setError("メールアドレスまたはパスワードが正しくありません。");
-            break;
-          case "Email not confirmed":
-            setError(
-              "メールアドレスの確認が完了していません。確認メールをご確認ください。"
-            );
-            break;
-          default:
-            setError(
-              "ログインに失敗しました。しばらくしてからもう一度お試しください。"
-            );
-        }
+      if (updateError) {
+        setError("パスワードの更新に失敗しました。もう一度お試しください。");
         return;
       }
 
-      router.push("/home");
+      router.push("/auth/login?message=password-reset-success");
     } catch {
       setError("予期しないエラーが発生しました。もう一度お試しください。");
     } finally {
@@ -85,10 +83,10 @@ export default function LoginPage() {
               🌿
             </span>
             <h1 className="text-2xl font-bold text-foreground mb-2">
-              おかえりなさい
+              新しいパスワードの設定
             </h1>
             <p className="text-sm text-muted-foreground">
-              こもれびにログインして、あなたの子育てをサポートします。
+              新しいパスワードを入力してください。
             </p>
           </div>
 
@@ -97,46 +95,21 @@ export default function LoginPage() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <label
-                    htmlFor="email"
+                    htmlFor="password"
                     className="text-sm font-medium text-foreground"
                   >
-                    メールアドレス
+                    新しいパスワード
                   </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="you@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    autoComplete="email"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <label
-                      htmlFor="password"
-                      className="text-sm font-medium text-foreground"
-                    >
-                      パスワード
-                    </label>
-                    <Link
-                      href="/auth/forgot-password"
-                      className="text-xs text-primary hover:underline"
-                    >
-                      パスワードを忘れた方
-                    </Link>
-                  </div>
                   <div className="relative">
                     <Input
                       id="password"
                       type={showPassword ? "text" : "password"}
-                      placeholder="パスワードを入力"
+                      placeholder="6文字以上"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      autoComplete="current-password"
+                      minLength={6}
+                      autoComplete="new-password"
                       className="pr-10"
                     />
                     <button
@@ -146,6 +119,36 @@ export default function LoginPage() {
                       aria-label={showPassword ? "パスワードを隠す" : "パスワードを表示"}
                     >
                       <EyeIcon open={showPassword} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label
+                    htmlFor="confirm-password"
+                    className="text-sm font-medium text-foreground"
+                  >
+                    新しいパスワード（確認）
+                  </label>
+                  <div className="relative">
+                    <Input
+                      id="confirm-password"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="もう一度入力"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
+                      minLength={6}
+                      autoComplete="new-password"
+                      className="pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1"
+                      aria-label={showConfirmPassword ? "パスワードを隠す" : "パスワードを表示"}
+                    >
+                      <EyeIcon open={showConfirmPassword} />
                     </button>
                   </div>
                 </div>
@@ -161,19 +164,18 @@ export default function LoginPage() {
                   className="w-full"
                   disabled={loading}
                 >
-                  {loading ? "ログイン中..." : "ログイン"}
+                  {loading ? "更新中..." : "パスワードを更新"}
                 </Button>
               </form>
             </CardContent>
           </Card>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            アカウントをお持ちでない方{" "}
             <Link
-              href="/auth/signup"
+              href="/auth/login"
               className="text-primary hover:underline font-medium"
             >
-              新規登録
+              ログインページへ戻る
             </Link>
           </p>
         </div>

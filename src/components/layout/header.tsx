@@ -18,27 +18,53 @@ const navItems = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [onboardingCompleted, setOnboardingCompleted] = useState<boolean | null>(null);
 
   useEffect(() => {
     const supabase = createClient();
 
     supabase.auth.getUser().then(({ data: { user } }) => {
       setUser(user);
+      if (user) {
+        checkOnboarding(user.id);
+      }
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        checkOnboarding(session.user.id);
+      } else {
+        setOnboardingCompleted(null);
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
+  const checkOnboarding = async (userId: string) => {
+    try {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from("profiles")
+        .select("onboarding_completed")
+        .eq("id", userId)
+        .single();
+
+      setOnboardingCompleted(data?.onboarding_completed ?? false);
+    } catch {
+      // テーブルが存在しない場合など
+      setOnboardingCompleted(false);
+    }
+  };
+
   const handleLogout = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
     setUser(null);
+    setOnboardingCompleted(null);
   };
 
   const userInitial = user?.email?.charAt(0).toUpperCase() ?? "?";
@@ -70,6 +96,14 @@ export function Header() {
         <div className="hidden md:flex items-center gap-2">
           {user ? (
             <>
+              {onboardingCompleted === false && (
+                <Link
+                  href="/onboarding"
+                  className="text-xs text-primary hover:underline mr-2"
+                >
+                  プロフィールを設定する
+                </Link>
+              )}
               <Link
                 href="/mypage"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -136,6 +170,15 @@ export function Header() {
               </Link>
               {user ? (
                 <>
+                  {onboardingCompleted === false && (
+                    <Link
+                      href="/onboarding"
+                      onClick={() => setOpen(false)}
+                      className="text-sm text-primary py-2"
+                    >
+                      プロフィールを設定する
+                    </Link>
+                  )}
                   <Link
                     href="/mypage"
                     onClick={() => setOpen(false)}
