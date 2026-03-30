@@ -57,6 +57,14 @@ const items = [
     href: "/prepare/wipes",
   },
   {
+    name: "授乳クッション",
+    category: "あれば助かる",
+    scene: "授乳・妊娠中の睡眠",
+    audience: "母乳・混合育児の家庭",
+    reviews: 134,
+    href: "/prepare/nursing-pillow",
+  },
+  {
     name: "バウンサー",
     category: "あれば助かる",
     scene: "家事中の見守り",
