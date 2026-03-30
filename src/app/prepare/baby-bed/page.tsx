@@ -47,6 +47,8 @@ const products = [
     name: "ネオママイズム ベビーベッド",
     brand: "ネオママイズム",
     type: "折りたたみ・ミニ" as const,
+    asin: "B09TVFF1PC",
+    officialUrl: "",
     features: [
       "折りたたみ式で収納・持ち運びが容易",
       "キャスター付きで部屋間の移動がスムーズ",
@@ -62,6 +64,8 @@ const products = [
     name: "カトージ ミニベビーベッド",
     brand: "カトージ",
     type: "ミニ" as const,
+    asin: "B07K319ZXG",
+    officialUrl: "https://www.katoji.co.jp/",
     features: [
       "国内老舗ブランドの安心感",
       "ミニサイズながらしっかりした作り",
@@ -77,6 +81,8 @@ const products = [
     name: "ファルスカ ベッドインベッド",
     brand: "ファルスカ",
     type: "添い寝型" as const,
+    asin: "B07YBQC92Z",
+    officialUrl: "https://farska.com/",
     features: [
       "大人のベッドの上に置いて添い寝ができる",
       "三角形のフレームで寝返りによる圧迫を防止",
@@ -92,6 +98,8 @@ const products = [
     name: "西松屋 ベビー布団セット",
     brand: "西松屋",
     type: "布団セット" as const,
+    asin: "",
+    officialUrl: "https://www.24028.jp/",
     features: [
       "掛け布団・敷き布団・カバー類が一式そろう",
       "圧倒的なコストパフォーマンス",
@@ -252,38 +260,50 @@ export default function BabyBedPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li key={f} className="text-sm text-foreground flex items-start gap-2">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">生活シーンで言うと:</strong>
-                        </p>
-                        <p className="text-sm text-foreground">{product.scene}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
                         <div>
-                          <span className="text-muted-foreground">向いている方: </span>
-                          <span className="text-foreground">{product.bestFor}</span>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li key={f} className="text-sm text-foreground flex items-start gap-2">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        <div>
-                          <span className="text-muted-foreground">合わないかも: </span>
-                          <span className="text-foreground">{product.notFor}</span>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">生活シーンで言うと:</strong>
+                          </p>
+                          <p className="text-sm text-foreground">{product.scene}</p>
                         </div>
-                        <div>
-                          <span className="text-muted-foreground">価格帯: </span>
-                          <span className="text-foreground">{product.priceRange}</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">向いている方: </span>
+                            <span className="text-foreground">{product.bestFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">合わないかも: </span>
+                            <span className="text-foreground">{product.notFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">価格帯: </span>
+                            <span className="text-foreground">{product.priceRange}</span>
+                          </div>
                         </div>
                       </div>
+                      {product.asin && (
+                        <div className="md:w-48 shrink-0">
+                          <AmazonProductCard
+                            name={product.name}
+                            asin={product.asin}
+                            price={product.priceRange}
+                            officialUrl={product.officialUrl || undefined}
+                          />
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -397,11 +417,13 @@ export default function BabyBedPage() {
                 name="カトージ ミニベビーベッド"
                 asin="B07K319ZXG"
                 price="¥18,000〜"
+                officialUrl="https://www.katoji.co.jp/"
               />
               <AmazonProductCard
                 name="ファルスカ ベッドインベッド"
                 asin="B07YBQC92Z"
                 price="¥8,800〜"
+                officialUrl="https://farska.com/"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">

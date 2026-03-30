@@ -47,6 +47,8 @@ const products = [
     name: "メルシーポット S-504",
     brand: "シースター",
     type: "据え置き" as const,
+    asin: "B08X42FTR9",
+    officialUrl: "https://www.babysmile.ne.jp/",
     features: [
       "電動鼻吸い器の代名詞。圧倒的な知名度と販売実績",
       "耳鼻科レベルの吸引力（-83kPa±10%）",
@@ -62,6 +64,8 @@ const products = [
     name: "ピジョン 電動鼻吸い器",
     brand: "ピジョン",
     type: "据え置き" as const,
+    asin: "B089Y12RHN",
+    officialUrl: "https://products.pigeon.co.jp/",
     features: [
       "哺乳瓶メーカーの安心感と品質",
       "吸引力をダイヤルで細かく調整できる",
@@ -77,6 +81,8 @@ const products = [
     name: "ベビースマイル S-303",
     brand: "シースター",
     type: "ハンディ" as const,
+    asin: "B08FSBNZWN",
+    officialUrl: "https://www.babysmile.ne.jp/",
     features: [
       "電池式でどこでも使えるハンディタイプ",
       "メルシーポットと同じメーカーの技術力",
@@ -92,6 +98,8 @@ const products = [
     name: "コンビ 電動鼻吸い器 S-80",
     brand: "コンビ",
     type: "据え置き" as const,
+    asin: "B0BXNQG5Q8",
+    officialUrl: "https://www.combi.co.jp/",
     features: [
       "静音設計で赤ちゃんが嫌がりにくい",
       "医療機器メーカーとの共同開発",
@@ -252,37 +260,47 @@ export default function NasalAspiratorPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li key={f} className="text-sm text-foreground flex items-start gap-2">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li key={f} className="text-sm text-foreground flex items-start gap-2">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">生活シーンで言うと:</strong>
+                          </p>
+                          <p className="text-sm text-foreground">{product.scene}</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">向いている方: </span>
+                            <span className="text-foreground">{product.bestFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">合わないかも: </span>
+                            <span className="text-foreground">{product.notFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">価格帯: </span>
+                            <span className="text-foreground">{product.priceRange}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">生活シーンで言うと:</strong>
-                        </p>
-                        <p className="text-sm text-foreground">{product.scene}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                        <div>
-                          <span className="text-muted-foreground">向いている方: </span>
-                          <span className="text-foreground">{product.bestFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">合わないかも: </span>
-                          <span className="text-foreground">{product.notFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">価格帯: </span>
-                          <span className="text-foreground">{product.priceRange}</span>
-                        </div>
+                      <div className="md:w-48 shrink-0">
+                        <AmazonProductCard
+                          name={product.name}
+                          asin={product.asin}
+                          price={product.priceRange}
+                          officialUrl={product.officialUrl}
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -392,21 +410,25 @@ export default function NasalAspiratorPage() {
                 name="メルシーポット"
                 asin="B08X42FTR9"
                 price="¥9,800〜"
+                officialUrl="https://www.babysmile.ne.jp/"
               />
               <AmazonProductCard
                 name="ピジョン 電動鼻吸い器"
                 asin="B089Y12RHN"
                 price="¥5,500〜"
+                officialUrl="https://products.pigeon.co.jp/"
               />
               <AmazonProductCard
                 name="ベビースマイル"
                 asin="B08FSBNZWN"
                 price="¥3,800〜"
+                officialUrl="https://www.babysmile.ne.jp/"
               />
               <AmazonProductCard
                 name="コンビ 電動鼻吸い器"
                 asin="B0BXNQG5Q8"
                 price="¥4,500〜"
+                officialUrl="https://www.combi.co.jp/"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">

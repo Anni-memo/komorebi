@@ -51,6 +51,8 @@ const products = [
     name: "コンビ クルムーヴ スマート",
     brand: "コンビ",
     type: "回転式" as const,
+    asin: "B0C6HD29CG",
+    officialUrl: "https://www.combi.co.jp/",
     features: [
       "360度回転式で乗せ降ろしが楽。ドアが狭くても対応しやすい",
       "ISOFIX対応でワンタッチ取り付け。取り付けミスを防げる",
@@ -69,6 +71,8 @@ const products = [
     name: "アップリカ フラディア グロウ",
     brand: "アップリカ",
     type: "回転式・ベッド型" as const,
+    asin: "B0BN3SD8YG",
+    officialUrl: "https://www.aprica.jp/",
     features: [
       "横向きベッド型にできるのは国内ほぼアップリカだけ。新生児の呼吸が楽",
       "360度回転式でISOFIX対応",
@@ -87,6 +91,8 @@ const products = [
     name: "サイベックス シローナ",
     brand: "サイベックス",
     type: "回転式" as const,
+    asin: "B0C5KQ3VCM",
+    officialUrl: "https://cybex-online.com/ja-jp",
     features: [
       "ヨーロッパ安全基準で高評価。世界的に支持されるブランド",
       "360度回転式でISOFIX対応",
@@ -105,6 +111,8 @@ const products = [
     name: "ジョイー アーク360",
     brand: "ジョイー",
     type: "回転式" as const,
+    asin: "B0BGM8R4H8",
+    officialUrl: "https://joie-baby.jp/",
     features: [
       "回転式・ISOFIX対応でありながらコスパが高い",
       "新生児から4歳頃まで使用可能",
@@ -265,37 +273,47 @@ export default function ChildseatPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li key={f} className="text-sm text-foreground flex items-start gap-2">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li key={f} className="text-sm text-foreground flex items-start gap-2">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">生活シーンで言うと:</strong>
+                          </p>
+                          <p className="text-sm text-foreground">{product.scene}</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">向いている方: </span>
+                            <span className="text-foreground">{product.bestFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">合わないかも: </span>
+                            <span className="text-foreground">{product.notFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">価格帯: </span>
+                            <span className="text-foreground">{product.priceRange}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">生活シーンで言うと:</strong>
-                        </p>
-                        <p className="text-sm text-foreground">{product.scene}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                        <div>
-                          <span className="text-muted-foreground">向いている方: </span>
-                          <span className="text-foreground">{product.bestFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">合わないかも: </span>
-                          <span className="text-foreground">{product.notFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">価格帯: </span>
-                          <span className="text-foreground">{product.priceRange}</span>
-                        </div>
+                      <div className="md:w-48 shrink-0">
+                        <AmazonProductCard
+                          name={product.name}
+                          asin={product.asin}
+                          price={product.priceRange}
+                          officialUrl={product.officialUrl}
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -410,21 +428,25 @@ export default function ChildseatPage() {
                 name="コンビ クルムーヴ スマート"
                 asin="B0C6HD29CG"
                 price="¥45,000〜"
+                officialUrl="https://www.combi.co.jp/"
               />
               <AmazonProductCard
                 name="アップリカ フラディア グロウ"
                 asin="B0BN3SD8YG"
                 price="¥48,000〜"
+                officialUrl="https://www.aprica.jp/"
               />
               <AmazonProductCard
                 name="サイベックス シローナ"
                 asin="B0C5KQ3VCM"
                 price="¥55,000〜"
+                officialUrl="https://cybex-online.com/ja-jp"
               />
               <AmazonProductCard
                 name="ジョイー アーク360"
                 asin="B0BGM8R4H8"
                 price="¥28,000〜"
+                officialUrl="https://joie-baby.jp/"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">

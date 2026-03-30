@@ -51,6 +51,8 @@ const products = [
     name: "コンビ スゴカルα エッグショック",
     brand: "コンビ",
     type: "超軽量" as const,
+    asin: "B0C6HBQP8M",
+    officialUrl: "https://www.combi.co.jp/",
     features: [
       "重さ約5.0kgで片手で持ち上げられる軽さ",
       "エッグショック（卵を落としても割れない衝撃吸収素材）搭載",
@@ -66,6 +68,8 @@ const products = [
     name: "アップリカ ラクーナクッション AF",
     brand: "アップリカ",
     type: "バランス型" as const,
+    asin: "B0C7K8VW6G",
+    officialUrl: "https://www.aprica.jp/",
     features: [
       "重さ約5.4kgで軽量と走行性を両立",
       "しっかりフレームとゆれぐらガード機構で安定走行",
@@ -81,6 +85,8 @@ const products = [
     name: "ピジョン ランフィ RB2",
     brand: "ピジョン",
     type: "走行性バランス" as const,
+    asin: "B0BZ5BWVQH",
+    officialUrl: "https://products.pigeon.co.jp/",
     features: [
       "シングルタイヤ採用で段差をスムーズに乗り越える",
       "重さ約5.6kgでバランスの良い重量",
@@ -96,6 +102,8 @@ const products = [
     name: "サイベックス メリオ カーボン",
     brand: "サイベックス",
     type: "走行性特化" as const,
+    asin: "B0CDQJGGFZ",
+    officialUrl: "https://cybex-online.com/ja-jp",
     features: [
       "カーボンフレームで約5.9kgながら剛性が高い",
       "大径タイヤ＋4輪サスペンションで走行性はトップクラス",
@@ -216,37 +224,47 @@ export default function StrollerPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li key={f} className="text-sm text-foreground flex items-start gap-2">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li key={f} className="text-sm text-foreground flex items-start gap-2">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">生活シーンで言うと:</strong>
+                          </p>
+                          <p className="text-sm text-foreground">{product.scene}</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">向いている方: </span>
+                            <span className="text-foreground">{product.bestFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">合わないかも: </span>
+                            <span className="text-foreground">{product.notFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">価格帯: </span>
+                            <span className="text-foreground">{product.priceRange}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">生活シーンで言うと:</strong>
-                        </p>
-                        <p className="text-sm text-foreground">{product.scene}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                        <div>
-                          <span className="text-muted-foreground">向いている方: </span>
-                          <span className="text-foreground">{product.bestFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">合わないかも: </span>
-                          <span className="text-foreground">{product.notFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">価格帯: </span>
-                          <span className="text-foreground">{product.priceRange}</span>
-                        </div>
+                      <div className="md:w-48 shrink-0">
+                        <AmazonProductCard
+                          name={product.name}
+                          asin={product.asin}
+                          price={product.priceRange}
+                          officialUrl={product.officialUrl}
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -361,21 +379,25 @@ export default function StrollerPage() {
                 name="コンビ スゴカルα"
                 asin="B0C6HBQP8M"
                 price="¥55,000〜"
+                officialUrl="https://www.combi.co.jp/"
               />
               <AmazonProductCard
                 name="アップリカ ラクーナクッション"
                 asin="B0C7K8VW6G"
                 price="¥50,000〜"
+                officialUrl="https://www.aprica.jp/"
               />
               <AmazonProductCard
                 name="ピジョン ランフィ"
                 asin="B0BZ5BWVQH"
                 price="¥52,000〜"
+                officialUrl="https://products.pigeon.co.jp/"
               />
               <AmazonProductCard
                 name="サイベックス メリオ"
                 asin="B0CDQJGGFZ"
                 price="¥64,000〜"
+                officialUrl="https://cybex-online.com/ja-jp"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">

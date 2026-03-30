@@ -46,6 +46,8 @@ const products = [
     name: "アカチャンホンポ 水99% Super 厚手",
     brand: "アカチャンホンポ",
     type: "厚手" as const,
+    asin: "B0BKJQF8WK",
+    officialUrl: "https://www.akachan.jp/",
     features: [
       "水分量が豊富で肌への摩擦が少ない",
       "厚手で1枚で拭ききりやすい",
@@ -61,6 +63,8 @@ const products = [
     name: "パンパース 肌へのいちばん",
     brand: "P&G",
     type: "厚手" as const,
+    asin: "B06W5T41QK",
+    officialUrl: "https://www.jp.pampers.com/",
     features: [
       "全商品中トップクラスの水分量",
       "拭き取り性能が高く、1回のスワイプでしっかり取れる",
@@ -76,6 +80,8 @@ const products = [
     name: "ムーニー ナチュラル",
     brand: "ユニ・チャーム",
     type: "厚手" as const,
+    asin: "B0CPXRQ1JM",
+    officialUrl: "https://www.unicharm.co.jp/moony/",
     features: [
       "オーガニックコットン配合でふわふわの肌触り",
       "どの評価項目でも平均的に高スコア",
@@ -91,6 +97,8 @@ const products = [
     name: "ピジョン おしりナップ やわらか厚手仕上げ",
     brand: "ピジョン",
     type: "厚手" as const,
+    asin: "B07YBQBHVV",
+    officialUrl: "https://products.pigeon.co.jp/",
     features: [
       "哺乳瓶メーカーの安心感",
       "厚手で丈夫、破れにくい",
@@ -248,37 +256,47 @@ export default function WipesPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li key={f} className="text-sm text-foreground flex items-start gap-2">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li key={f} className="text-sm text-foreground flex items-start gap-2">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">生活シーンで言うと:</strong>
+                          </p>
+                          <p className="text-sm text-foreground">{product.scene}</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">向いている方: </span>
+                            <span className="text-foreground">{product.bestFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">合わないかも: </span>
+                            <span className="text-foreground">{product.notFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">価格帯: </span>
+                            <span className="text-foreground">{product.priceRange}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">生活シーンで言うと:</strong>
-                        </p>
-                        <p className="text-sm text-foreground">{product.scene}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                        <div>
-                          <span className="text-muted-foreground">向いている方: </span>
-                          <span className="text-foreground">{product.bestFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">合わないかも: </span>
-                          <span className="text-foreground">{product.notFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">価格帯: </span>
-                          <span className="text-foreground">{product.priceRange}</span>
-                        </div>
+                      <div className="md:w-48 shrink-0">
+                        <AmazonProductCard
+                          name={product.name}
+                          asin={product.asin}
+                          price={product.priceRange}
+                          officialUrl={product.officialUrl}
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -383,21 +401,25 @@ export default function WipesPage() {
                 name="アカチャンホンポ 水99% Super 厚手"
                 asin="B0BKJQF8WK"
                 price="¥1,280〜"
+                officialUrl="https://www.akachan.jp/"
               />
               <AmazonProductCard
                 name="パンパース 肌へのいちばん"
                 asin="B06W5T41QK"
                 price="¥1,480〜"
+                officialUrl="https://www.jp.pampers.com/"
               />
               <AmazonProductCard
                 name="ムーニー ナチュラル"
                 asin="B0CPXRQ1JM"
                 price="¥1,380〜"
+                officialUrl="https://www.unicharm.co.jp/moony/"
               />
               <AmazonProductCard
                 name="ピジョン おしりナップ"
                 asin="B07YBQBHVV"
                 price="¥1,080〜"
+                officialUrl="https://products.pigeon.co.jp/"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">

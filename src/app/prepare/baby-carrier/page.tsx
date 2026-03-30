@@ -51,6 +51,8 @@ const products = [
     name: "エルゴベビー OMNI Breeze",
     brand: "エルゴベビー",
     type: "多機能メッシュ" as const,
+    asin: "B093L84C7H",
+    officialUrl: "https://ergobaby.jp/",
     features: [
       "新生児〜48ヶ月（20kg）まで。インサートなしで新生児対応",
       "SoftFlexメッシュ採用で通気性に優れる",
@@ -66,6 +68,8 @@ const products = [
     name: "ベビービョルン HARMONY",
     brand: "ベビービョルン",
     type: "メッシュ特化" as const,
+    asin: "B08GKQFBFG",
+    officialUrl: "https://babybjorn.jp/",
     features: [
       "新生児〜36ヶ月（15kg）まで。インサート不要",
       "フルメッシュ構造で抜群の通気性",
@@ -81,6 +85,8 @@ const products = [
     name: "アップリカ コアラウルトラメッシュ EX",
     brand: "アップリカ",
     type: "ひとり装着特化" as const,
+    asin: "B0BN3QXHXV",
+    officialUrl: "https://www.aprica.jp/",
     features: [
       "新生児（横抱き）〜36ヶ月まで対応",
       "「ペタル構造」で前から赤ちゃんを入れられる。ひとりで装着しやすさNo.1",
@@ -96,6 +102,8 @@ const products = [
     name: "コンビ ジョイン EL-E",
     brand: "コンビ",
     type: "コスパ型" as const,
+    asin: "B0BXNRM8SF",
+    officialUrl: "https://www.combi.co.jp/",
     features: [
       "首すわり（4ヶ月）〜36ヶ月まで対応",
       "肩ラクフィットベルトで肩への負担を分散",
@@ -221,37 +229,47 @@ export default function BabyCarrierPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li key={f} className="text-sm text-foreground flex items-start gap-2">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li key={f} className="text-sm text-foreground flex items-start gap-2">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">生活シーンで言うと:</strong>
+                          </p>
+                          <p className="text-sm text-foreground">{product.scene}</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">向いている方: </span>
+                            <span className="text-foreground">{product.bestFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">合わないかも: </span>
+                            <span className="text-foreground">{product.notFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">価格帯: </span>
+                            <span className="text-foreground">{product.priceRange}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">生活シーンで言うと:</strong>
-                        </p>
-                        <p className="text-sm text-foreground">{product.scene}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                        <div>
-                          <span className="text-muted-foreground">向いている方: </span>
-                          <span className="text-foreground">{product.bestFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">合わないかも: </span>
-                          <span className="text-foreground">{product.notFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">価格帯: </span>
-                          <span className="text-foreground">{product.priceRange}</span>
-                        </div>
+                      <div className="md:w-48 shrink-0">
+                        <AmazonProductCard
+                          name={product.name}
+                          asin={product.asin}
+                          price={product.priceRange}
+                          officialUrl={product.officialUrl}
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -366,21 +384,25 @@ export default function BabyCarrierPage() {
                 name="エルゴベビー OMNI Breeze"
                 asin="B093L84C7H"
                 price="¥28,000〜"
+                officialUrl="https://ergobaby.jp/"
               />
               <AmazonProductCard
                 name="ベビービョルン HARMONY"
                 asin="B08GKQFBFG"
                 price="¥27,000〜"
+                officialUrl="https://babybjorn.jp/"
               />
               <AmazonProductCard
                 name="アップリカ コアラウルトラメッシュ"
                 asin="B0BN3QXHXV"
                 price="¥22,000〜"
+                officialUrl="https://www.aprica.jp/"
               />
               <AmazonProductCard
                 name="コンビ ジョイン"
                 asin="B0BXNRM8SF"
                 price="¥12,000〜"
+                officialUrl="https://www.combi.co.jp/"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">

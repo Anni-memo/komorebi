@@ -51,6 +51,8 @@ const products = [
     name: "エールベベ ギュット4WAY マシュマロ",
     brand: "エールベベ（カーメイト）",
     type: "4WAY多用途型" as const,
+    asin: "B0BXNF98WP",
+    officialUrl: "https://www.carmate.co.jp/ailebebe/",
     features: [
       "授乳クッション・抱き枕・お座りサポート・読書クッションの4通りに変形",
       "厚みがしっかりあり、赤ちゃんが胸の高さに来やすい",
@@ -67,6 +69,8 @@ const products = [
     name: "サンデシカ 妊娠中から使える抱きまくら",
     brand: "サンデシカ",
     type: "抱き枕兼用型" as const,
+    asin: "B07V31JQJN",
+    officialUrl: "https://www.sandesica.co.jp/",
     features: [
       "三日月型の大きなカーブで妊娠中の横向き寝をしっかりサポート",
       "スナップボタンでC型授乳クッションに変形可能",
@@ -83,6 +87,8 @@ const products = [
     name: "dacco 授乳用クッション",
     brand: "dacco（オオサキメディカル）",
     type: "産院採用・硬め型" as const,
+    asin: "B004OR5GE2",
+    officialUrl: "https://www.osaki-inc.co.jp/",
     features: [
       "産院での採用実績が多く、助産師からの評価が高い",
       "硬めのしっかりした中綿で赤ちゃんが沈み込みにくい",
@@ -99,6 +105,8 @@ const products = [
     name: "西松屋 ふんわり授乳クッション",
     brand: "西松屋（PB商品）",
     type: "コスパ重視型" as const,
+    asin: "",
+    officialUrl: "https://www.24028.jp/",
     features: [
       "2,000円前後で購入できる圧倒的なコストパフォーマンス",
       "ふんわり柔らかい肌触り",
@@ -294,61 +302,73 @@ export default function NursingPillowPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">
-                          特徴
-                        </p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li
-                              key={f}
-                              className="text-sm text-foreground flex items-start gap-2"
-                            >
-                              <span className="text-primary mt-0.5 shrink-0">
-                                &#10003;
-                              </span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">
-                            生活シーンで言うと:
-                          </strong>
-                        </p>
-                        <p className="text-sm text-foreground">
-                          {product.scene}
-                        </p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
                         <div>
-                          <span className="text-muted-foreground">
-                            向いている方:{" "}
-                          </span>
-                          <span className="text-foreground">
-                            {product.bestFor}
-                          </span>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">
+                            特徴
+                          </p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li
+                                key={f}
+                                className="text-sm text-foreground flex items-start gap-2"
+                              >
+                                <span className="text-primary mt-0.5 shrink-0">
+                                  &#10003;
+                                </span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        <div>
-                          <span className="text-muted-foreground">
-                            合わないかも:{" "}
-                          </span>
-                          <span className="text-foreground">
-                            {product.notFor}
-                          </span>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">
+                              生活シーンで言うと:
+                            </strong>
+                          </p>
+                          <p className="text-sm text-foreground">
+                            {product.scene}
+                          </p>
                         </div>
-                        <div>
-                          <span className="text-muted-foreground">
-                            価格帯:{" "}
-                          </span>
-                          <span className="text-foreground">
-                            {product.priceRange}
-                          </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">
+                              向いている方:{" "}
+                            </span>
+                            <span className="text-foreground">
+                              {product.bestFor}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">
+                              合わないかも:{" "}
+                            </span>
+                            <span className="text-foreground">
+                              {product.notFor}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">
+                              価格帯:{" "}
+                            </span>
+                            <span className="text-foreground">
+                              {product.priceRange}
+                            </span>
+                          </div>
                         </div>
                       </div>
+                      {product.asin && (
+                        <div className="md:w-48 shrink-0">
+                          <AmazonProductCard
+                            name={product.name}
+                            asin={product.asin}
+                            price={product.priceRange}
+                            officialUrl={product.officialUrl || undefined}
+                          />
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -486,16 +506,19 @@ export default function NursingPillowPage() {
                 name="エールベベ ギュット4WAY"
                 asin="B0BXNF98WP"
                 price="¥5,500〜"
+                officialUrl="https://www.carmate.co.jp/ailebebe/"
               />
               <AmazonProductCard
                 name="サンデシカ 抱きまくら"
                 asin="B07V31JQJN"
                 price="¥4,400〜"
+                officialUrl="https://www.sandesica.co.jp/"
               />
               <AmazonProductCard
                 name="dacco 授乳用クッション"
                 asin="B004OR5GE2"
                 price="¥2,800〜"
+                officialUrl="https://www.osaki-inc.co.jp/"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">

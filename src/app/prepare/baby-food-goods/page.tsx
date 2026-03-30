@@ -47,6 +47,8 @@ const products = [
     name: "リッチェル わけわけフリージングブロックトレー",
     brand: "リッチェル",
     type: "冷凍保存" as const,
+    asin: "B009AULKVY",
+    officialUrl: "https://www.richell.co.jp/",
     features: [
       "離乳食の冷凍ストック作りの定番中の定番",
       "15ml・25ml・50mlの3サイズ展開で月齢に合わせやすい",
@@ -62,6 +64,8 @@ const products = [
     name: "ピジョン 調理セット",
     brand: "ピジョン",
     type: "手動・セット" as const,
+    asin: "B000FHR5GM",
+    officialUrl: "https://products.pigeon.co.jp/",
     features: [
       "おろし器・裏ごし器・すり鉢・すり棒など一式がコンパクトにまとまる",
       "電子レンジ・食洗機対応で衛生的",
@@ -77,6 +81,8 @@ const products = [
     name: "コンビ ベビーレーベル 離乳食ナビゲート調理セット",
     brand: "コンビ",
     type: "手動・セット" as const,
+    asin: "B00BQ1MN9O",
+    officialUrl: "https://www.combi.co.jp/",
     features: [
       "すりつぶし・裏ごし・角切りなど段階別に使える",
       "重ねてコンパクトに収納できる",
@@ -92,6 +98,8 @@ const products = [
     name: "ベビーブレッツァ フードメーカー",
     brand: "ベビーブレッツァ",
     type: "電動・時短" as const,
+    asin: "B08GY4Y6J7",
+    officialUrl: "",
     features: [
       "蒸す＋刻む＋混ぜるを1台で完結",
       "ボタン1つで蒸し野菜のペーストが完成",
@@ -252,37 +260,47 @@ export default function BabyFoodGoodsPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li key={f} className="text-sm text-foreground flex items-start gap-2">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li key={f} className="text-sm text-foreground flex items-start gap-2">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">生活シーンで言うと:</strong>
+                          </p>
+                          <p className="text-sm text-foreground">{product.scene}</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">向いている方: </span>
+                            <span className="text-foreground">{product.bestFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">合わないかも: </span>
+                            <span className="text-foreground">{product.notFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">価格帯: </span>
+                            <span className="text-foreground">{product.priceRange}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">生活シーンで言うと:</strong>
-                        </p>
-                        <p className="text-sm text-foreground">{product.scene}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                        <div>
-                          <span className="text-muted-foreground">向いている方: </span>
-                          <span className="text-foreground">{product.bestFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">合わないかも: </span>
-                          <span className="text-foreground">{product.notFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">価格帯: </span>
-                          <span className="text-foreground">{product.priceRange}</span>
-                        </div>
+                      <div className="md:w-48 shrink-0">
+                        <AmazonProductCard
+                          name={product.name}
+                          asin={product.asin}
+                          price={product.priceRange}
+                          officialUrl={product.officialUrl || undefined}
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -392,16 +410,19 @@ export default function BabyFoodGoodsPage() {
                 name="リッチェル フリージングトレー"
                 asin="B009AULKVY"
                 price="¥600〜"
+                officialUrl="https://www.richell.co.jp/"
               />
               <AmazonProductCard
                 name="ピジョン 調理セット"
                 asin="B000FHR5GM"
                 price="¥2,200〜"
+                officialUrl="https://products.pigeon.co.jp/"
               />
               <AmazonProductCard
                 name="コンビ ベビーレーベル"
                 asin="B00BQ1MN9O"
                 price="¥3,500〜"
+                officialUrl="https://www.combi.co.jp/"
               />
               <AmazonProductCard
                 name="ベビーブレッツァ"

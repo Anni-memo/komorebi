@@ -47,6 +47,8 @@ const products = [
     name: "ピジョン 母乳実感",
     brand: "ピジョン",
     type: "母乳併用の定番" as const,
+    asin: "B0BZ5CKJF6",
+    officialUrl: "https://products.pigeon.co.jp/",
     features: [
       "母乳を飲む動きを研究して設計された「母乳実感乳首」",
       "SSサイズ（新生児）からLLサイズまで5段階の乳首展開",
@@ -62,6 +64,8 @@ const products = [
     name: "コンビ テテオ 授乳のお手本",
     brand: "コンビ",
     type: "飲む練習特化" as const,
+    asin: "B07DFQJM5V",
+    officialUrl: "https://www.combi.co.jp/",
     features: [
       "「4段階の流量調節」が乳首1つでできる独自設計",
       "乳首を回すだけで流量を変えられるので、買い替え頻度が低い",
@@ -77,6 +81,8 @@ const products = [
     name: "ビーンスターク 赤ちゃん思い 広口タイプ",
     brand: "ビーンスターク（雪印）",
     type: "ミルクメーカー品質" as const,
+    asin: "B000FQQ5VG",
+    officialUrl: "https://www.beanstalksnow.co.jp/",
     features: [
       "粉ミルクメーカーの雪印ビーンスタークが開発。ミルクとの相性を考慮",
       "ニプル（乳首）は「クロスカット」で流量が赤ちゃんの吸う力に応じて変化",
@@ -92,6 +98,8 @@ const products = [
     name: "ChuChu（チュチュ）広口タイプ",
     brand: "ジェクス",
     type: "コスパ型" as const,
+    asin: "B00BEXNH86",
+    officialUrl: "https://www.jex-inc.co.jp/",
     features: [
       "「スーパークロスカット乳首」で月齢に合わせた買い替えが不要",
       "赤ちゃんが吸った分だけミルクが出る構造で、むせにくい",
@@ -250,37 +258,47 @@ export default function BottlePage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li key={f} className="text-sm text-foreground flex items-start gap-2">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li key={f} className="text-sm text-foreground flex items-start gap-2">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">生活シーンで言うと:</strong>
+                          </p>
+                          <p className="text-sm text-foreground">{product.scene}</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">向いている方: </span>
+                            <span className="text-foreground">{product.bestFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">合わないかも: </span>
+                            <span className="text-foreground">{product.notFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">価格帯: </span>
+                            <span className="text-foreground">{product.priceRange}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">生活シーンで言うと:</strong>
-                        </p>
-                        <p className="text-sm text-foreground">{product.scene}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                        <div>
-                          <span className="text-muted-foreground">向いている方: </span>
-                          <span className="text-foreground">{product.bestFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">合わないかも: </span>
-                          <span className="text-foreground">{product.notFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">価格帯: </span>
-                          <span className="text-foreground">{product.priceRange}</span>
-                        </div>
+                      <div className="md:w-48 shrink-0">
+                        <AmazonProductCard
+                          name={product.name}
+                          asin={product.asin}
+                          price={product.priceRange}
+                          officialUrl={product.officialUrl}
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -390,21 +408,25 @@ export default function BottlePage() {
                 name="ピジョン 母乳実感"
                 asin="B0BZ5CKJF6"
                 price="¥1,800〜"
+                officialUrl="https://products.pigeon.co.jp/"
               />
               <AmazonProductCard
                 name="コンビ テテオ"
                 asin="B07DFQJM5V"
                 price="¥1,600〜"
+                officialUrl="https://www.combi.co.jp/"
               />
               <AmazonProductCard
                 name="ビーンスターク 哺乳瓶"
                 asin="B000FQQ5VG"
                 price="¥1,400〜"
+                officialUrl="https://www.beanstalksnow.co.jp/"
               />
               <AmazonProductCard
                 name="チュチュ 広口タイプ"
                 asin="B00BEXNH86"
                 price="¥1,200〜"
+                officialUrl="https://www.jex-inc.co.jp/"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">

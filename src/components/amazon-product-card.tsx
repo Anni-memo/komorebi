@@ -5,6 +5,8 @@ type AmazonProductCardProps = {
   asin: string;
   price?: string;
   storeId?: string;
+  officialUrl?: string;
+  officialName?: string;
 };
 
 export function AmazonProductCard({
@@ -12,6 +14,8 @@ export function AmazonProductCard({
   asin,
   price,
   storeId = "constellahdli-22",
+  officialUrl,
+  officialName,
 }: AmazonProductCardProps) {
   const amazonUrl = `https://www.amazon.co.jp/dp/${asin}?tag=${storeId}`;
   const imageUrl = `https://m.media-amazon.com/images/P/${asin}.01._SL200_.jpg`;
@@ -38,13 +42,24 @@ export function AmazonProductCard({
         {price && (
           <p className="text-xs text-muted-foreground">{price}</p>
         )}
-        <a
-          href={amazonUrl}
-          rel="noopener noreferrer nofollow sponsored"
-          className={buttonVariants({ variant: "outline", size: "sm" })}
-        >
-          Amazonで見る
-        </a>
+        <div className="flex flex-wrap gap-2">
+          <a
+            href={amazonUrl}
+            rel="noopener noreferrer nofollow sponsored"
+            className={buttonVariants({ variant: "outline", size: "sm" })}
+          >
+            Amazonで見る
+          </a>
+          {officialUrl && (
+            <a
+              href={officialUrl}
+              rel="noopener noreferrer"
+              className={buttonVariants({ variant: "ghost", size: "sm" })}
+            >
+              {officialName ?? "公式サイト"}
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );

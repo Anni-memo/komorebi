@@ -47,6 +47,8 @@ const products = [
     name: "パナソニック ベビーモニター KX-HBC200",
     brand: "パナソニック",
     type: "専用モニター型" as const,
+    asin: "B07B9NBHQF",
+    officialUrl: "https://panasonic.jp/",
     features: [
       "専用モニター付きでWi-Fi不要。セットアップが簡単",
       "DECT準拠方式で安定した映像伝送。ハッキングリスクなし",
@@ -62,6 +64,8 @@ const products = [
     name: "トリビュート ワイヤレスベビーカメラ BM-LTL2",
     brand: "トリビュート",
     type: "コスパ専用モニター型" as const,
+    asin: "B0BW254GT5",
+    officialUrl: "",
     features: [
       "Wi-Fi不要の専用モニター型。すぐに使い始められる",
       "赤外線暗視で暗い部屋でもくっきり",
@@ -77,6 +81,8 @@ const products = [
     name: "Cubo Ai Plus",
     brand: "Cubo Ai",
     type: "AI高機能型" as const,
+    asin: "B09YDRQKFK",
+    officialUrl: "https://www.getcubo.com/",
     features: [
       "AI顔認識で「顔が覆われた」「うつぶせ寝」を検知して即通知",
       "1080p HD画質。暗視でも高画質",
@@ -92,6 +98,8 @@ const products = [
     name: "TP-Link Tapo C200",
     brand: "TP-Link",
     type: "コスパ代表" as const,
+    asin: "B09N384TJ2",
+    officialUrl: "https://www.tapo.com/jp/",
     features: [
       "見守りカメラとして圧倒的なコストパフォーマンス",
       "1080p HD画質、360度回転（パン・チルト）対応",
@@ -249,37 +257,47 @@ export default function BabyMonitorPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li key={f} className="text-sm text-foreground flex items-start gap-2">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li key={f} className="text-sm text-foreground flex items-start gap-2">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">生活シーンで言うと:</strong>
+                          </p>
+                          <p className="text-sm text-foreground">{product.scene}</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">向いている方: </span>
+                            <span className="text-foreground">{product.bestFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">合わないかも: </span>
+                            <span className="text-foreground">{product.notFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">価格帯: </span>
+                            <span className="text-foreground">{product.priceRange}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">生活シーンで言うと:</strong>
-                        </p>
-                        <p className="text-sm text-foreground">{product.scene}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                        <div>
-                          <span className="text-muted-foreground">向いている方: </span>
-                          <span className="text-foreground">{product.bestFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">合わないかも: </span>
-                          <span className="text-foreground">{product.notFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">価格帯: </span>
-                          <span className="text-foreground">{product.priceRange}</span>
-                        </div>
+                      <div className="md:w-48 shrink-0">
+                        <AmazonProductCard
+                          name={product.name}
+                          asin={product.asin}
+                          price={product.priceRange}
+                          officialUrl={product.officialUrl || undefined}
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -389,6 +407,7 @@ export default function BabyMonitorPage() {
                 name="パナソニック ベビーモニター"
                 asin="B07B9NBHQF"
                 price="¥15,000〜"
+                officialUrl="https://panasonic.jp/"
               />
               <AmazonProductCard
                 name="トリビュート ベビーモニター"
@@ -399,11 +418,13 @@ export default function BabyMonitorPage() {
                 name="Cubo Ai Plus"
                 asin="B09YDRQKFK"
                 price="¥35,000〜"
+                officialUrl="https://www.getcubo.com/"
               />
               <AmazonProductCard
                 name="Tapo C200"
                 asin="B09N384TJ2"
                 price="¥3,500〜"
+                officialUrl="https://www.tapo.com/jp/"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">

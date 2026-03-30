@@ -51,6 +51,8 @@ const products = [
     name: "ベビービョルン バウンサーBliss",
     brand: "ベビービョルン",
     type: "手動" as const,
+    asin: "B07GBYVZ59",
+    officialUrl: "https://babybjorn.jp/",
     features: [
       "赤ちゃん自身の動きで自然に揺れるエルゴノミックデザイン",
       "メッシュ素材で通気性抜群。夏場も蒸れにくい",
@@ -66,6 +68,8 @@ const products = [
     name: "コンビ ネムリラ AUTO SWING",
     brand: "コンビ",
     type: "電動" as const,
+    asin: "B0BXNT75HJ",
+    officialUrl: "https://www.combi.co.jp/",
     features: [
       "電動スウィングで寝かしつけをサポート",
       "ダッコシートプラスで包まれるような安心感",
@@ -81,6 +85,8 @@ const products = [
     name: "アップリカ ユラリズム オート",
     brand: "アップリカ",
     type: "電動" as const,
+    asin: "B0BN3T8NTF",
+    officialUrl: "https://www.aprica.jp/",
     features: [
       "電動でゆったりとしたスウィング",
       "ママの抱っこに近い「ヨコ抱き」対応",
@@ -96,6 +102,8 @@ const products = [
     name: "リッチェル バウンシングシート",
     brand: "リッチェル",
     type: "手動・コスパ" as const,
+    asin: "B0051SSSV2",
+    officialUrl: "https://www.richell.co.jp/",
     features: [
       "主要メーカーの中で圧倒的なコスパ",
       "メッシュシートで通気性が良い",
@@ -256,37 +264,47 @@ export default function BouncerPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
-                        <ul className="space-y-1">
-                          {product.features.map((f) => (
-                            <li key={f} className="text-sm text-foreground flex items-start gap-2">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">特徴</p>
+                          <ul className="space-y-1">
+                            {product.features.map((f) => (
+                              <li key={f} className="text-sm text-foreground flex items-start gap-2">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <strong className="text-foreground">生活シーンで言うと:</strong>
+                          </p>
+                          <p className="text-sm text-foreground">{product.scene}</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">向いている方: </span>
+                            <span className="text-foreground">{product.bestFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">合わないかも: </span>
+                            <span className="text-foreground">{product.notFor}</span>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">価格帯: </span>
+                            <span className="text-foreground">{product.priceRange}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="bg-muted/30 rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          <strong className="text-foreground">生活シーンで言うと:</strong>
-                        </p>
-                        <p className="text-sm text-foreground">{product.scene}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                        <div>
-                          <span className="text-muted-foreground">向いている方: </span>
-                          <span className="text-foreground">{product.bestFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">合わないかも: </span>
-                          <span className="text-foreground">{product.notFor}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">価格帯: </span>
-                          <span className="text-foreground">{product.priceRange}</span>
-                        </div>
+                      <div className="md:w-48 shrink-0">
+                        <AmazonProductCard
+                          name={product.name}
+                          asin={product.asin}
+                          price={product.priceRange}
+                          officialUrl={product.officialUrl}
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -396,21 +414,25 @@ export default function BouncerPage() {
                 name="ベビービョルン Bliss"
                 asin="B07GBYVZ59"
                 price="¥25,000〜"
+                officialUrl="https://babybjorn.jp/"
               />
               <AmazonProductCard
                 name="コンビ ネムリラ"
                 asin="B0BXNT75HJ"
                 price="¥38,000〜"
+                officialUrl="https://www.combi.co.jp/"
               />
               <AmazonProductCard
                 name="アップリカ ユラリズム"
                 asin="B0BN3T8NTF"
                 price="¥35,000〜"
+                officialUrl="https://www.aprica.jp/"
               />
               <AmazonProductCard
                 name="リッチェル バウンシングシート"
                 asin="B0051SSSV2"
                 price="¥5,500〜"
+                officialUrl="https://www.richell.co.jp/"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">
