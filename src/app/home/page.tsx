@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/client";
+import { TodoCard, type TodoPriority } from "@/components/home/todo-card";
 
 interface Profile {
   stage: string | null;
@@ -227,36 +228,89 @@ export default function PersonalHomePage() {
           </div>
 
           <div className="space-y-6">
-            {/* 通知ルールに基づく「今やること」 */}
-            {notifications.length > 0 && (
-              <Card className="border-primary/20 shadow-none">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <span aria-hidden>📋</span>
-                    あなたの今やること
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {notifications.map((n) => (
-                      <li key={n.title}>
-                        <Link
-                          href={n.action_url}
-                          className="flex flex-col rounded-lg px-3 py-2.5 hover:bg-muted/50 transition-colors group"
-                        >
-                          <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                            {n.title}
-                          </span>
-                          <span className="text-xs text-muted-foreground mt-0.5">
-                            {n.reason}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            )}
+            {/* 通知ルールに基づく「今やること」- TodoCard表示 */}
+            {(() => {
+              const priorityMap: Record<string, TodoPriority> = {
+                high: "today",
+                medium: "this-week",
+                low: "later",
+              };
+              const todayCards = notifications
+                .filter((n) => priorityMap[n.priority] === "today")
+                .slice(0, 3);
+              const weekCards = notifications
+                .filter((n) => priorityMap[n.priority] === "this-week" || priorityMap[n.priority] === "later")
+                .concat(
+                  notifications
+                    .filter((n) => priorityMap[n.priority] === "today")
+                    .slice(3)
+                );
+
+              return (
+                <>
+                  {todayCards.length > 0 && (
+                    <div>
+                      <h2 className="text-base font-bold text-foreground mb-3 flex items-center gap-2">
+                        <span aria-hidden>📋</span>
+                        今日やること
+                      </h2>
+                      <div className="space-y-3">
+                        {todayCards.map((n) => (
+                          <TodoCard
+                            key={n.title}
+                            title={n.title}
+                            reason={n.reason}
+                            category={n.category}
+                            priority={priorityMap[n.priority] ?? "later"}
+                            actionUrl={n.action_url}
+                            onComplete={() => {
+                              setNotifications((prev) =>
+                                prev.filter((item) => item.title !== n.title)
+                              );
+                            }}
+                            onDismiss={() => {
+                              setNotifications((prev) =>
+                                prev.filter((item) => item.title !== n.title)
+                              );
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {weekCards.length > 0 && (
+                    <div>
+                      <h2 className="text-base font-bold text-foreground mb-3 flex items-center gap-2">
+                        <span aria-hidden>📅</span>
+                        今週中に確認したいこと
+                      </h2>
+                      <div className="space-y-3">
+                        {weekCards.map((n) => (
+                          <TodoCard
+                            key={n.title}
+                            title={n.title}
+                            reason={n.reason}
+                            category={n.category}
+                            priority={priorityMap[n.priority] ?? "later"}
+                            actionUrl={n.action_url}
+                            onComplete={() => {
+                              setNotifications((prev) =>
+                                prev.filter((item) => item.title !== n.title)
+                              );
+                            }}
+                            onDismiss={() => {
+                              setNotifications((prev) =>
+                                prev.filter((item) => item.title !== n.title)
+                              );
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
 
             {/* 制度 */}
             <Card className="border-border/50 shadow-none">

@@ -82,7 +82,7 @@ export default function SignupPage() {
 
       // Supabaseでメール確認が無効の場合、セッションが即座に返る
       if (data.session) {
-        router.push("/home");
+        router.push("/onboarding");
         return;
       }
 

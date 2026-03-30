@@ -1,0 +1,10 @@
+{
+  "name": "こもれび — 子育ての案内所",
+  "short_name": "こもれび",
+  "description": "子育ての負担と不安を減らし、子に向ける時間を増やす",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f6f0",
+  "theme_color": "#4a8c6f",
+  "icons": []
+}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SearchBar } from "@/components/search-bar";
+import { AuthRedirect } from "@/components/auth-redirect";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
@@ -102,6 +103,7 @@ const safetyPoints = [
 export default function HomePage() {
   return (
     <>
+      <AuthRedirect />
       <Header />
       <main className="flex-1">
         {/* 1. ファーストビュー */}

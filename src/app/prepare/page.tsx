@@ -14,6 +14,7 @@ const items = [
     scene: "睡眠環境の確保",
     audience: "すべての家庭",
     reviews: 128,
+    href: undefined as string | undefined,
   },
   {
     name: "おむつ（新生児用）",
@@ -21,6 +22,7 @@ const items = [
     scene: "日常のお世話",
     audience: "すべての家庭",
     reviews: 256,
+    href: undefined as string | undefined,
   },
   {
     name: "抱っこ紐",
@@ -28,6 +30,23 @@ const items = [
     scene: "外出・寝かしつけ",
     audience: "すべての家庭",
     reviews: 189,
+    href: "/prepare/baby-carrier",
+  },
+  {
+    name: "ベビーカー",
+    category: "必需品",
+    scene: "外出・散歩",
+    audience: "すべての家庭",
+    reviews: 172,
+    href: "/prepare/stroller",
+  },
+  {
+    name: "おしりふき",
+    category: "必需品",
+    scene: "日常のお世話",
+    audience: "すべての家庭",
+    reviews: 210,
+    href: "/prepare/wipes",
   },
   {
     name: "バウンサー",
@@ -35,6 +54,7 @@ const items = [
     scene: "家事中の見守り",
     audience: "ワンオペになりやすい家庭",
     reviews: 95,
+    href: undefined as string | undefined,
   },
   {
     name: "電動鼻吸い器",
@@ -42,6 +62,7 @@ const items = [
     scene: "風邪・鼻詰まりのとき",
     audience: "すべての家庭",
     reviews: 143,
+    href: undefined as string | undefined,
   },
   {
     name: "ベビーモニター",
@@ -49,6 +70,7 @@ const items = [
     scene: "別室での見守り",
     audience: "部屋数が多い家庭",
     reviews: 67,
+    href: undefined as string | undefined,
   },
 ];
 
@@ -78,20 +100,24 @@ export default function PreparePage() {
           </div>
 
           <div className="space-y-4">
-            {items.map((item) => (
-              <Card
-                key={item.name}
-                className="border-border/50 shadow-none hover:border-primary/30 transition-colors cursor-pointer"
-              >
+            {items.map((item) => {
+              const cardContent = (
                 <CardContent className="pt-5">
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <h3 className="font-semibold text-foreground">{item.name}</h3>
-                    <Badge
-                      variant={item.category === "必需品" ? "default" : "secondary"}
-                      className="text-xs shrink-0"
-                    >
-                      {item.category}
-                    </Badge>
+                    <div className="flex gap-2 shrink-0">
+                      {item.href && (
+                        <Badge variant="outline" className="text-xs">
+                          比較ガイドあり
+                        </Badge>
+                      )}
+                      <Badge
+                        variant={item.category === "必需品" ? "default" : "secondary"}
+                        className="text-xs"
+                      >
+                        {item.category}
+                      </Badge>
+                    </div>
                   </div>
                   <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
                     <span>使用シーン: {item.scene}</span>
@@ -99,8 +125,23 @@ export default function PreparePage() {
                     <span>レビュー {item.reviews}件</span>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              );
+
+              return item.href ? (
+                <Link key={item.name} href={item.href} className="block">
+                  <Card className="border-border/50 shadow-none hover:border-primary/30 transition-colors cursor-pointer">
+                    {cardContent}
+                  </Card>
+                </Link>
+              ) : (
+                <Card
+                  key={item.name}
+                  className="border-border/50 shadow-none hover:border-primary/30 transition-colors cursor-pointer"
+                >
+                  {cardContent}
+                </Card>
+              );
+            })}
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
