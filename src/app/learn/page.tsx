@@ -60,6 +60,15 @@ const articles = [
     audience: "保育園を考えている方向け",
     readTime: "5分で読める",
     summary: "申請時期・見学のポイント・必要書類など、全体像を把握する。",
+    href: "/learn/hokatsu",
+  },
+  {
+    title: "子どもの発熱対応ガイド",
+    tag: "健康・病気",
+    audience: "すべての親向け",
+    readTime: "保存版",
+    summary: "月齢別の対応・受診の目安・家でできるケア・救急に行くべきサイン。#8000の使い方も。",
+    href: "/learn/fever-guide",
   },
   {
     title: "産後のメンタルケア",

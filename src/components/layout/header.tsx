@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import type { User } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/client";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const navItems = [
@@ -14,6 +17,31 @@ const navItems = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setUser(null);
+  };
+
+  const userInitial = user?.email?.charAt(0).toUpperCase() ?? "?";
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -40,9 +68,29 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
-          <Link href="/mypage" className={buttonVariants({ variant: "ghost", size: "sm" })}>
-            ログイン
-          </Link>
+          {user ? (
+            <>
+              <Link
+                href="/mypage"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Avatar size="sm">
+                  <AvatarFallback>{userInitial}</AvatarFallback>
+                </Avatar>
+                <span>マイページ</span>
+              </Link>
+              <Button variant="ghost" size="sm" onClick={handleLogout}>
+                ログアウト
+              </Button>
+            </>
+          ) : (
+            <Link
+              href="/auth/login"
+              className={buttonVariants({ variant: "ghost", size: "sm" })}
+            >
+              ログイン
+            </Link>
+          )}
           <Link href="/concierge" className={buttonVariants({ size: "sm" })}>
             AIに相談する
           </Link>
@@ -86,13 +134,37 @@ export function Header() {
               >
                 AIに相談する
               </Link>
-              <Link
-                href="/mypage"
-                onClick={() => setOpen(false)}
-                className="text-base text-muted-foreground py-2"
-              >
-                ログイン
-              </Link>
+              {user ? (
+                <>
+                  <Link
+                    href="/mypage"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-2 text-base text-muted-foreground py-2"
+                  >
+                    <Avatar size="sm">
+                      <AvatarFallback>{userInitial}</AvatarFallback>
+                    </Avatar>
+                    <span>マイページ</span>
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setOpen(false);
+                    }}
+                    className="text-base text-muted-foreground hover:text-foreground transition-colors py-2 text-left"
+                  >
+                    ログアウト
+                  </button>
+                </>
+              ) : (
+                <Link
+                  href="/auth/login"
+                  onClick={() => setOpen(false)}
+                  className="text-base text-muted-foreground py-2"
+                >
+                  ログイン
+                </Link>
+              )}
             </nav>
           </SheetContent>
         </Sheet>
