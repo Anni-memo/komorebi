@@ -111,6 +111,14 @@ const articles = [
     href: "/learn/mental-care",
   },
   {
+    title: "新生児のまくら｜必要性・窒息リスク・商品比較",
+    tag: "睡眠",
+    audience: "0歳の親向け",
+    readTime: "5分で読める",
+    summary: "まくらは必要？窒息リスクは？人気5商品の比較と、安全に使うためのルールを整理。",
+    href: "/learn/baby-pillow",
+  },
+  {
     title: "地域の子育て支援制度の調べかた",
     tag: "制度",
     audience: "すべての親向け",

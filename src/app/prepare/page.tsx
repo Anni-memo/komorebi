@@ -105,6 +105,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "妊娠中",
     concernTag: "日常のお世話",
+    href: "/learn/baby-clothing",
   },
   {
     name: "ガーゼ・タオル",
