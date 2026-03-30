@@ -71,6 +71,14 @@ const articles = [
     href: "/learn/fever-guide",
   },
   {
+    title: "ベビー服・肌着の選びかた",
+    tag: "出産準備",
+    audience: "妊婦・すべての親向け",
+    readTime: "5分で読める",
+    summary: "短肌着、コンビ肌着、ツーウェイオール...種類・枚数・季節別の組み合わせを整理。",
+    href: "/learn/baby-clothing",
+  },
+  {
     title: "産後のメンタルケア",
     tag: "メンタル",
     audience: "すべての親向け",

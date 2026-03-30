@@ -17,6 +17,7 @@ const searchIndex = [
   { title: "産後のメンタルケア", type: "記事", keywords: ["メンタル", "産後うつ", "相談", "カウンセリング"], href: "/learn/mental-care" },
   { title: "保活ガイド", type: "記事", keywords: ["保活", "保育園", "申請", "見学", "点数"], href: "/learn/hokatsu" },
   { title: "子どもの発熱対応", type: "記事", keywords: ["発熱", "熱", "受診", "解熱剤", "#8000"], href: "/learn/fever-guide" },
+  { title: "ベビー服・肌着の選びかた", type: "記事", keywords: ["肌着", "短肌着", "コンビ肌着", "洋服", "ベビー服", "出産準備", "季節"], href: "/learn/baby-clothing" },
   { title: "おしりふきの選びかた", type: "準備", keywords: ["おしりふき", "パンパース", "ムーニー"], href: "/prepare/wipes" },
   { title: "ベビーベッド・寝具の選びかた", type: "準備", keywords: ["ベビーベッド", "布団", "寝具", "ネオママイズム", "カトージ", "ファルスカ", "西松屋"], href: "/prepare/baby-bed" },
   { title: "おむつの選びかた", type: "準備", keywords: ["おむつ", "パンパース", "メリーズ", "ムーニー", "グーン"], href: "/prepare/diapers" },
