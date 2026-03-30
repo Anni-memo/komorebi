@@ -41,6 +41,14 @@ const items = [
     href: "/prepare/stroller",
   },
   {
+    name: "チャイルドシート",
+    category: "必需品",
+    scene: "車での移動",
+    audience: "車を使う家庭",
+    reviews: 156,
+    href: "/prepare/childseat",
+  },
+  {
     name: "おしりふき",
     category: "必需品",
     scene: "日常のお世話",

@@ -53,7 +53,7 @@ export function SearchBar() {
       }
     }
 
-    router.push("/learn");
+    router.push(`/search?q=${encodeURIComponent(q)}`);
   }
 
   return (

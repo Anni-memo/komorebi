@@ -149,66 +149,147 @@ export function Header() {
             </svg>
           </SheetTrigger>
           <SheetContent side="right" className="w-72">
-            <nav className="flex flex-col gap-4 mt-8">
-              {navItems.map((item) => (
+            <div className="flex flex-col h-full pt-8 pb-6">
+              {/* ブランド */}
+              <div className="flex items-center gap-2 px-4 mb-6">
+                <span className="text-xl" aria-hidden>🌿</span>
+                <span className="font-semibold text-lg text-foreground">こもれび</span>
+              </div>
+
+              {/* AI相談（最優先CTA） */}
+              <div className="px-4 mb-4">
                 <Link
-                  key={item.href}
-                  href={item.href}
+                  href={user && onboardingCompleted ? "/concierge/chat" : "/concierge"}
                   onClick={() => setOpen(false)}
-                  className="text-base text-muted-foreground hover:text-foreground transition-colors py-2"
+                  className="flex items-center justify-center gap-2 w-full rounded-lg bg-primary text-primary-foreground py-2.5 text-sm font-medium"
                 >
-                  {item.label}
+                  AIに相談する
                 </Link>
-              ))}
-              <hr className="my-2" />
-              <Link
-                href="/concierge"
-                onClick={() => setOpen(false)}
-                className="text-base font-medium text-primary py-2"
-              >
-                AIに相談する
-              </Link>
-              {user ? (
-                <>
-                  {onboardingCompleted === false && (
-                    <Link
-                      href="/onboarding"
-                      onClick={() => setOpen(false)}
-                      className="text-sm text-primary py-2"
-                    >
-                      プロフィールを設定する
-                    </Link>
-                  )}
+              </div>
+
+              <hr className="mx-4 mb-2" />
+
+              {/* メインナビ */}
+              <nav className="flex flex-col px-4">
+                {user && onboardingCompleted && (
                   <Link
-                    href="/mypage"
+                    href="/home"
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-2 text-base text-muted-foreground py-2"
+                    className="flex items-center gap-3 text-base text-foreground font-medium hover:text-primary transition-colors py-3"
                   >
-                    <Avatar size="sm">
-                      <AvatarFallback>{userInitial}</AvatarFallback>
-                    </Avatar>
-                    <span>マイページ</span>
+                    <span className="text-lg" aria-hidden>🏠</span>
+                    パーソナルホーム
                   </Link>
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setOpen(false);
-                    }}
-                    className="text-base text-muted-foreground hover:text-foreground transition-colors py-2 text-left"
-                  >
-                    ログアウト
-                  </button>
-                </>
-              ) : (
+                )}
+                {navItems.map((item) => {
+                  const icons: Record<string, string> = {
+                    "/learn": "📖", "/qa": "💬", "/benefits": "🏛️", "/prepare": "🛒",
+                  };
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 text-base text-muted-foreground hover:text-foreground transition-colors py-3"
+                    >
+                      <span className="text-lg" aria-hidden>{icons[item.href] || "📄"}</span>
+                      {item.label}
+                    </Link>
+                  );
+                })}
                 <Link
-                  href="/auth/login"
+                  href="/search"
                   onClick={() => setOpen(false)}
-                  className="text-base text-muted-foreground py-2"
+                  className="flex items-center gap-3 text-base text-muted-foreground hover:text-foreground transition-colors py-3"
                 >
-                  ログイン
+                  <span className="text-lg" aria-hidden>🔍</span>
+                  検索
                 </Link>
-              )}
-            </nav>
+                <Link
+                  href="/notifications"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 text-base text-muted-foreground hover:text-foreground transition-colors py-3"
+                >
+                  <span className="text-lg" aria-hidden>🔔</span>
+                  通知
+                </Link>
+              </nav>
+
+              <hr className="mx-4 my-2" />
+
+              {/* アカウント */}
+              <div className="flex flex-col px-4 mt-auto">
+                {user ? (
+                  <>
+                    {onboardingCompleted === false && (
+                      <Link
+                        href="/onboarding"
+                        onClick={() => setOpen(false)}
+                        className="flex items-center gap-3 text-sm text-primary py-3"
+                      >
+                        <span className="text-lg" aria-hidden>✨</span>
+                        プロフィールを設定する
+                      </Link>
+                    )}
+                    <Link
+                      href="/mypage"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 text-base text-muted-foreground hover:text-foreground transition-colors py-3"
+                    >
+                      <Avatar size="sm">
+                        <AvatarFallback>{userInitial}</AvatarFallback>
+                      </Avatar>
+                      <span>マイページ</span>
+                    </Link>
+                    <Link
+                      href="/about"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors py-3"
+                    >
+                      <span className="text-lg" aria-hidden>ℹ️</span>
+                      このサービスについて
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setOpen(false);
+                      }}
+                      className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors py-3"
+                    >
+                      <span className="text-lg" aria-hidden>🚪</span>
+                      ログアウト
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/auth/login"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 text-base text-muted-foreground hover:text-foreground transition-colors py-3"
+                    >
+                      <span className="text-lg" aria-hidden>🔑</span>
+                      ログイン
+                    </Link>
+                    <Link
+                      href="/auth/signup"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 text-base text-primary font-medium py-3"
+                    >
+                      <span className="text-lg" aria-hidden>📝</span>
+                      新規登録
+                    </Link>
+                    <Link
+                      href="/about"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors py-3"
+                    >
+                      <span className="text-lg" aria-hidden>ℹ️</span>
+                      このサービスについて
+                    </Link>
+                  </>
+                )}
+              </div>
+            </div>
           </SheetContent>
         </Sheet>
       </div>

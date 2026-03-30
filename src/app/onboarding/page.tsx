@@ -256,19 +256,38 @@ export default function OnboardingPage() {
       } = await supabase.auth.getUser();
 
       if (user) {
-        const stage = finalAnswers.stage as string | undefined;
+        const stageRaw = finalAnswers.stage as string | undefined;
+        const stageMap: Record<string, string> = {
+          "妊娠中": "pregnant", "出産直後": "newborn", "0歳": "0",
+          "1歳": "1", "2歳": "2", "3歳以上": "3+",
+        };
+        const stage = stageRaw ? stageMap[stageRaw] || stageRaw : undefined;
         const dateVal = finalAnswers.date as string | undefined;
-        const familySituation = (finalAnswers.family_situation as string[]) || [];
+        const familySituationRaw = (finalAnswers.family_situation as string[]) || [];
+        const familyMap: Record<string, string> = {
+          "第一子": "first", "第二子以降": "second+", "共働き": "dual-income",
+          "保育園を考えている": "nursery", "ひとり親": "single",
+          "実家サポートあり": "family-support", "実家サポートなし": "no-family-support",
+          "今は答えない": "skip",
+        };
+        const familySituation = familySituationRaw.map((s) => familyMap[s] || s);
+        const interestRaw = finalAnswers.interests as string | undefined;
+        const interestMap: Record<string, string> = {
+          "手続き・制度": "procedures", "睡眠": "sleep", "食事": "food",
+          "体調": "health", "発達": "development", "保活": "nursery-search",
+          "買い物": "shopping", "メンタル": "mental", "誰かに相談したい": "consult",
+        };
+        const interests = interestRaw ? [interestMap[interestRaw] || interestRaw] : [];
 
         await supabase.from("profiles").upsert({
           id: user.id,
           stage,
-          child_birthdate: stage !== "妊娠中" ? dateVal : null,
-          expected_due_date: stage === "妊娠中" ? dateVal : null,
+          child_birthdate: stageRaw !== "妊娠中" ? dateVal : null,
+          expected_due_date: stageRaw === "妊娠中" ? dateVal : null,
           municipality: finalAnswers.municipality as string | undefined,
-          is_first_child: familySituation.includes("第一子"),
+          is_first_child: familySituation.includes("first"),
           family_situation: familySituation,
-          interests: finalAnswers.interests as string | undefined,
+          interests,
           notification_categories:
             (finalAnswers.notification_categories as string[]) || [],
           notification_channels:
