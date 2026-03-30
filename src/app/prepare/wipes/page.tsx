@@ -382,25 +382,21 @@ export default function WipesPage() {
               <AmazonProductCard
                 name="アカチャンホンポ 水99% Super 厚手"
                 asin="B0BKJQF8WK"
-                imageId="41kXVOFbMaL"
                 price="¥1,280〜"
               />
               <AmazonProductCard
                 name="パンパース 肌へのいちばん"
-                asin="B0CQ4DRR8J"
-                imageId="41mXGlMZURL"
+                asin="B06W5T41QK"
                 price="¥1,480〜"
               />
               <AmazonProductCard
                 name="ムーニー ナチュラル"
                 asin="B0CPXRQ1JM"
-                imageId="41m0xS-lEYL"
                 price="¥1,380〜"
               />
               <AmazonProductCard
                 name="ピジョン おしりナップ"
                 asin="B07YBQBHVV"
-                imageId="41JiVqKpURL"
                 price="¥1,080〜"
               />
             </div>

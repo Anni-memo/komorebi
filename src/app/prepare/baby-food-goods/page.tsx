@@ -391,25 +391,21 @@ export default function BabyFoodGoodsPage() {
               <AmazonProductCard
                 name="リッチェル フリージングトレー"
                 asin="B009AULKVY"
-                imageId="41kXeYzNURL"
                 price="¥600〜"
               />
               <AmazonProductCard
                 name="ピジョン 調理セット"
                 asin="B000FHR5GM"
-                imageId="41JiVqKpURL"
                 price="¥2,200〜"
               />
               <AmazonProductCard
                 name="コンビ ベビーレーベル"
                 asin="B00BQ1MN9O"
-                imageId="41FqYzXNURL"
                 price="¥3,500〜"
               />
               <AmazonProductCard
                 name="ベビーブレッツァ"
                 asin="B08GY4Y6J7"
-                imageId="41mXgLzMURL"
                 price="¥12,000〜"
               />
             </div>

@@ -396,25 +396,21 @@ export default function DiapersPage() {
               <AmazonProductCard
                 name="パンパース はじめての肌へのいちばん"
                 asin="B0CQ4K15T3"
-                imageId="41mXGlMZURL"
                 price="¥1,600〜"
               />
               <AmazonProductCard
                 name="メリーズ ファーストプレミアム"
                 asin="B0CPXS7HGV"
-                imageId="41m0xS-lEYL"
                 price="¥1,500〜"
               />
               <AmazonProductCard
                 name="ムーニー ナチュラル"
                 asin="B0CPXPG5JN"
-                imageId="41kXVOFbMaL"
                 price="¥1,400〜"
               />
               <AmazonProductCard
                 name="グーン プラス"
                 asin="B0BGM6BWMX"
-                imageId="41JiVqKpURL"
                 price="¥1,200〜"
               />
             </div>

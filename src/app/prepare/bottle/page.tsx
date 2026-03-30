@@ -389,25 +389,21 @@ export default function BottlePage() {
               <AmazonProductCard
                 name="ピジョン 母乳実感"
                 asin="B0BZ5CKJF6"
-                imageId="41kXeVzKURL"
                 price="¥1,800〜"
               />
               <AmazonProductCard
                 name="コンビ テテオ"
                 asin="B07DFQJM5V"
-                imageId="41FqYzXNURL"
                 price="¥1,600〜"
               />
               <AmazonProductCard
                 name="ビーンスターク 哺乳瓶"
                 asin="B000FQQ5VG"
-                imageId="41JiVqKpURL"
                 price="¥1,400〜"
               />
               <AmazonProductCard
                 name="チュチュ 広口タイプ"
                 asin="B00BEXNH86"
-                imageId="41mXgLzMURL"
                 price="¥1,200〜"
               />
             </div>

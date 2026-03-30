@@ -360,25 +360,21 @@ export default function StrollerPage() {
               <AmazonProductCard
                 name="コンビ スゴカルα"
                 asin="B0C6HBQP8M"
-                imageId="41xYQdKEURL"
                 price="¥55,000〜"
               />
               <AmazonProductCard
                 name="アップリカ ラクーナクッション"
                 asin="B0C7K8VW6G"
-                imageId="41bVfKzMURL"
                 price="¥50,000〜"
               />
               <AmazonProductCard
                 name="ピジョン ランフィ"
                 asin="B0BZ5BWVQH"
-                imageId="41kXeVzNURL"
                 price="¥52,000〜"
               />
               <AmazonProductCard
                 name="サイベックス メリオ"
                 asin="B0CDQJGGFZ"
-                imageId="41wDqXzMURL"
                 price="¥64,000〜"
               />
             </div>

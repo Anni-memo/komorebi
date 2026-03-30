@@ -388,25 +388,21 @@ export default function BabyMonitorPage() {
               <AmazonProductCard
                 name="パナソニック ベビーモニター"
                 asin="B07B9NBHQF"
-                imageId="41Xy1KZWXKL"
                 price="¥15,000〜"
               />
               <AmazonProductCard
                 name="トリビュート ベビーモニター"
                 asin="B0BW254GT5"
-                imageId="41yq8gUvURL"
                 price="¥12,000〜"
               />
               <AmazonProductCard
                 name="Cubo Ai Plus"
                 asin="B09YDRQKFK"
-                imageId="41Dq1eKRURL"
                 price="¥35,000〜"
               />
               <AmazonProductCard
                 name="Tapo C200"
                 asin="B09N384TJ2"
-                imageId="41FqNzXMURL"
                 price="¥3,500〜"
               />
             </div>

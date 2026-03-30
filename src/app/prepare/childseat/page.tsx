@@ -409,25 +409,21 @@ export default function ChildseatPage() {
               <AmazonProductCard
                 name="コンビ クルムーヴ スマート"
                 asin="B0C6HD29CG"
-                imageId="41eQkNzXURL"
                 price="¥45,000〜"
               />
               <AmazonProductCard
                 name="アップリカ フラディア グロウ"
                 asin="B0BN3SD8YG"
-                imageId="41GqXzNRURL"
                 price="¥48,000〜"
               />
               <AmazonProductCard
                 name="サイベックス シローナ"
                 asin="B0C5KQ3VCM"
-                imageId="41dXeVzKURL"
                 price="¥55,000〜"
               />
               <AmazonProductCard
                 name="ジョイー アーク360"
                 asin="B0BGM8R4H8"
-                imageId="41FqNzXMURL"
                 price="¥28,000〜"
               />
             </div>

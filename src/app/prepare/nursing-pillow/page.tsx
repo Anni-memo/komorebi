@@ -485,19 +485,16 @@ export default function NursingPillowPage() {
               <AmazonProductCard
                 name="エールベベ ギュット4WAY"
                 asin="B0BXNF98WP"
-                imageId="41kXeYzNURL"
                 price="¥5,500〜"
               />
               <AmazonProductCard
                 name="サンデシカ 抱きまくら"
                 asin="B07V31JQJN"
-                imageId="41mXgLzMURL"
                 price="¥4,400〜"
               />
               <AmazonProductCard
                 name="dacco 授乳用クッション"
                 asin="B004OR5GE2"
-                imageId="41JiVqKpURL"
                 price="¥2,800〜"
               />
             </div>

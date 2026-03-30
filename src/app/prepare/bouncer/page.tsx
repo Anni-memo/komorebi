@@ -395,25 +395,21 @@ export default function BouncerPage() {
               <AmazonProductCard
                 name="ベビービョルン Bliss"
                 asin="B07GBYVZ59"
-                imageId="41yq8gUvURL"
                 price="¥25,000〜"
               />
               <AmazonProductCard
                 name="コンビ ネムリラ"
                 asin="B0BXNT75HJ"
-                imageId="41FqYzXNURL"
                 price="¥38,000〜"
               />
               <AmazonProductCard
                 name="アップリカ ユラリズム"
                 asin="B0BN3T8NTF"
-                imageId="41Dq1eKRURL"
                 price="¥35,000〜"
               />
               <AmazonProductCard
                 name="リッチェル バウンシングシート"
                 asin="B0051SSSV2"
-                imageId="41kXeVzNURL"
                 price="¥5,500〜"
               />
             </div>

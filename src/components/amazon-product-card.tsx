@@ -1,10 +1,8 @@
-import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button-variants";
 
 type AmazonProductCardProps = {
   name: string;
   asin: string;
-  imageId: string;
   price?: string;
   storeId?: string;
 };
@@ -12,12 +10,11 @@ type AmazonProductCardProps = {
 export function AmazonProductCard({
   name,
   asin,
-  imageId,
   price,
   storeId = "constellahdli-22",
 }: AmazonProductCardProps) {
   const amazonUrl = `https://www.amazon.co.jp/dp/${asin}?tag=${storeId}`;
-  const imageUrl = `https://m.media-amazon.com/images/I/${imageId}._SL300_.jpg`;
+  const imageUrl = `https://m.media-amazon.com/images/P/${asin}.01._SL200_.jpg`;
 
   return (
     <div className="flex flex-col sm:flex-row items-center gap-4 rounded-xl border border-border/50 bg-card p-4 text-sm">
@@ -26,12 +23,14 @@ export function AmazonProductCard({
         rel="noopener noreferrer nofollow sponsored"
         className="shrink-0"
       >
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={imageUrl}
           alt={name}
           width={120}
           height={120}
-          className="rounded-lg object-contain"
+          className="rounded-lg object-contain bg-white"
+          loading="lazy"
         />
       </a>
       <div className="flex flex-1 flex-col items-center sm:items-start gap-2 text-center sm:text-left">

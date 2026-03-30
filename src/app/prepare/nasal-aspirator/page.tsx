@@ -390,26 +390,22 @@ export default function NasalAspiratorPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <AmazonProductCard
                 name="メルシーポット"
-                asin="B09YDQ79FR"
-                imageId="41Xy1KZWXKL"
+                asin="B08X42FTR9"
                 price="¥9,800〜"
               />
               <AmazonProductCard
                 name="ピジョン 電動鼻吸い器"
                 asin="B089Y12RHN"
-                imageId="41kXeVzKURL"
                 price="¥5,500〜"
               />
               <AmazonProductCard
                 name="ベビースマイル"
                 asin="B08FSBNZWN"
-                imageId="41JiVqKpURL"
                 price="¥3,800〜"
               />
               <AmazonProductCard
                 name="コンビ 電動鼻吸い器"
                 asin="B0BXNQG5Q8"
-                imageId="41FqNzXMURL"
                 price="¥4,500〜"
               />
             </div>

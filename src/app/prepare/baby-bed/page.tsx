@@ -391,19 +391,16 @@ export default function BabyBedPage() {
               <AmazonProductCard
                 name="ネオママイズム ベビーベッド"
                 asin="B09TVFF1PC"
-                imageId="41xYQdKEURL"
                 price="¥15,000〜"
               />
               <AmazonProductCard
                 name="カトージ ミニベビーベッド"
                 asin="B07K319ZXG"
-                imageId="41bVfKzMURL"
                 price="¥18,000〜"
               />
               <AmazonProductCard
                 name="ファルスカ ベッドインベッド"
                 asin="B07YBQC92Z"
-                imageId="41kXeVzNURL"
                 price="¥8,800〜"
               />
             </div>

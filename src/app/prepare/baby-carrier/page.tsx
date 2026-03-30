@@ -364,26 +364,22 @@ export default function BabyCarrierPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <AmazonProductCard
                 name="エルゴベビー OMNI Breeze"
-                asin="B09TVFG5PX"
-                imageId="41Xy1KZWXKL"
+                asin="B093L84C7H"
                 price="¥28,000〜"
               />
               <AmazonProductCard
                 name="ベビービョルン HARMONY"
                 asin="B08GKQFBFG"
-                imageId="41yq8gUvURL"
                 price="¥27,000〜"
               />
               <AmazonProductCard
                 name="アップリカ コアラウルトラメッシュ"
                 asin="B0BN3QXHXV"
-                imageId="41Dq1eKRURL"
                 price="¥22,000〜"
               />
               <AmazonProductCard
                 name="コンビ ジョイン"
                 asin="B0BXNRM8SF"
-                imageId="41FqYzXNURL"
                 price="¥12,000〜"
               />
             </div>
