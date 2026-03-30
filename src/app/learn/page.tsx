@@ -15,6 +15,22 @@ const categories = [
 
 const articles = [
   {
+    title: "RSVワクチン（アブリスボ）判断ガイド",
+    tag: "予防接種",
+    audience: "妊婦向け",
+    readTime: "5分で読める",
+    summary: "2026年4月から定期接種化。リスク・リターン・最新のエビデンスを整理。",
+    href: "/learn/rsv-vaccine",
+  },
+  {
+    title: "予防接種スケジュール＆チェックリスト",
+    tag: "予防接種",
+    audience: "すべての親向け",
+    readTime: "保存版",
+    summary: "月齢別の定期・任意接種スケジュール。接種済みチェック機能付き。",
+    href: "/learn/vaccination-schedule",
+  },
+  {
     title: "新生児の睡眠パターンを知ろう",
     tag: "睡眠",
     audience: "0歳の親向け",
@@ -82,9 +98,9 @@ export default function LearnPage() {
           </div>
 
           <div className="space-y-4">
-            {articles.map((article) => (
+            {articles.map((article) => {
+              const card = (
               <Card
-                key={article.title}
                 className="border-border/50 shadow-none hover:border-primary/30 transition-colors cursor-pointer"
               >
                 <CardContent className="pt-5">
@@ -105,7 +121,13 @@ export default function LearnPage() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+              );
+              return article.href ? (
+                <Link key={article.title} href={article.href} className="block">{card}</Link>
+              ) : (
+                <div key={article.title}>{card}</div>
+              );
+            })}
           </div>
 
           <div className="mt-8 text-center">
