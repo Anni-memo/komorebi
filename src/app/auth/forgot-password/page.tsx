@@ -30,7 +30,7 @@ export default function ForgotPasswordPage() {
       );
 
       if (resetError) {
-        setError("メールの送信に失敗しました。もう一度お試しください。");
+        setError(`メールの送信に失敗しました: ${resetError.message}`);
         return;
       }
 
