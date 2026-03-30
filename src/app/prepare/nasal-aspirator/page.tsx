@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { AmazonProductCard } from "@/components/amazon-product-card";
 
 export const metadata = {
   title: "電動鼻吸い器の選びかた",
@@ -377,6 +378,45 @@ export default function NasalAspiratorPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 購入できる場所 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              購入できる場所
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              ここで紹介した商品はAmazonでも購入できます。
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AmazonProductCard
+                name="メルシーポット"
+                asin="B09YDQ79FR"
+                imageId="41Xy1KZWXKL"
+                price="¥9,800〜"
+              />
+              <AmazonProductCard
+                name="ピジョン 電動鼻吸い器"
+                asin="B089Y12RHN"
+                imageId="41kXeVzKURL"
+                price="¥5,500〜"
+              />
+              <AmazonProductCard
+                name="ベビースマイル"
+                asin="B08FSBNZWN"
+                imageId="41JiVqKpURL"
+                price="¥3,800〜"
+              />
+              <AmazonProductCard
+                name="コンビ 電動鼻吸い器"
+                asin="B0BXNQG5Q8"
+                imageId="41FqNzXMURL"
+                price="¥4,500〜"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              ※ 価格は変動します。最新の価格はAmazonでご確認ください。
+            </p>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

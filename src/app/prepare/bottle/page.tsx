@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { AmazonProductCard } from "@/components/amazon-product-card";
 
 export const metadata = {
   title: "哺乳瓶の選びかた",
@@ -375,6 +376,45 @@ export default function BottlePage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 購入できる場所 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              購入できる場所
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              ここで紹介した商品はAmazonでも購入できます。
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AmazonProductCard
+                name="ピジョン 母乳実感"
+                asin="B0BZ5CKJF6"
+                imageId="41kXeVzKURL"
+                price="¥1,800〜"
+              />
+              <AmazonProductCard
+                name="コンビ テテオ"
+                asin="B07DFQJM5V"
+                imageId="41FqYzXNURL"
+                price="¥1,600〜"
+              />
+              <AmazonProductCard
+                name="ビーンスターク 哺乳瓶"
+                asin="B000FQQ5VG"
+                imageId="41JiVqKpURL"
+                price="¥1,400〜"
+              />
+              <AmazonProductCard
+                name="チュチュ 広口タイプ"
+                asin="B00BEXNH86"
+                imageId="41mXgLzMURL"
+                price="¥1,200〜"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              ※ 価格は変動します。最新の価格はAmazonでご確認ください。
+            </p>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

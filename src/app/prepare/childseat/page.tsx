@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { AmazonProductCard } from "@/components/amazon-product-card";
 
 export const metadata = {
   title: "チャイルドシートの選びかた",
@@ -395,6 +396,45 @@ export default function ChildseatPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 購入できる場所 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              購入できる場所
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              ここで紹介した商品はAmazonでも購入できます。
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AmazonProductCard
+                name="コンビ クルムーヴ スマート"
+                asin="B0C6HD29CG"
+                imageId="41eQkNzXURL"
+                price="¥45,000〜"
+              />
+              <AmazonProductCard
+                name="アップリカ フラディア グロウ"
+                asin="B0BN3SD8YG"
+                imageId="41GqXzNRURL"
+                price="¥48,000〜"
+              />
+              <AmazonProductCard
+                name="サイベックス シローナ"
+                asin="B0C5KQ3VCM"
+                imageId="41dXeVzKURL"
+                price="¥55,000〜"
+              />
+              <AmazonProductCard
+                name="ジョイー アーク360"
+                asin="B0BGM8R4H8"
+                imageId="41FqNzXMURL"
+                price="¥28,000〜"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              ※ 価格は変動します。最新の価格はAmazonでご確認ください。
+            </p>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

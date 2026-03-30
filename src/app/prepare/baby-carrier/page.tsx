@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { AmazonProductCard } from "@/components/amazon-product-card";
 
 export const metadata = {
   title: "抱っこ紐の選びかた",
@@ -351,6 +352,45 @@ export default function BabyCarrierPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 購入できる場所 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              購入できる場所
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              ここで紹介した商品はAmazonでも購入できます。
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AmazonProductCard
+                name="エルゴベビー OMNI Breeze"
+                asin="B09TVFG5PX"
+                imageId="41Xy1KZWXKL"
+                price="¥28,000〜"
+              />
+              <AmazonProductCard
+                name="ベビービョルン HARMONY"
+                asin="B08GKQFBFG"
+                imageId="41yq8gUvURL"
+                price="¥27,000〜"
+              />
+              <AmazonProductCard
+                name="アップリカ コアラウルトラメッシュ"
+                asin="B0BN3QXHXV"
+                imageId="41Dq1eKRURL"
+                price="¥22,000〜"
+              />
+              <AmazonProductCard
+                name="コンビ ジョイン"
+                asin="B0BXNRM8SF"
+                imageId="41FqYzXNURL"
+                price="¥12,000〜"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              ※ 価格は変動します。最新の価格はAmazonでご確認ください。
+            </p>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

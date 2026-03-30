@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { AmazonProductCard } from "@/components/amazon-product-card";
 
 export const metadata = {
   title: "バウンサーの選びかた",
@@ -381,6 +382,45 @@ export default function BouncerPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 購入できる場所 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              購入できる場所
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              ここで紹介した商品はAmazonでも購入できます。
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AmazonProductCard
+                name="ベビービョルン Bliss"
+                asin="B07GBYVZ59"
+                imageId="41yq8gUvURL"
+                price="¥25,000〜"
+              />
+              <AmazonProductCard
+                name="コンビ ネムリラ"
+                asin="B0BXNT75HJ"
+                imageId="41FqYzXNURL"
+                price="¥38,000〜"
+              />
+              <AmazonProductCard
+                name="アップリカ ユラリズム"
+                asin="B0BN3T8NTF"
+                imageId="41Dq1eKRURL"
+                price="¥35,000〜"
+              />
+              <AmazonProductCard
+                name="リッチェル バウンシングシート"
+                asin="B0051SSSV2"
+                imageId="41kXeVzNURL"
+                price="¥5,500〜"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              ※ 価格は変動します。最新の価格はAmazonでご確認ください。
+            </p>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { AmazonProductCard } from "@/components/amazon-product-card";
 
 export const metadata = {
   title: "ベビーカーの選びかた",
@@ -346,6 +347,45 @@ export default function StrollerPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 購入できる場所 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              購入できる場所
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              ここで紹介した商品はAmazonでも購入できます。
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AmazonProductCard
+                name="コンビ スゴカルα"
+                asin="B0C6HBQP8M"
+                imageId="41xYQdKEURL"
+                price="¥55,000〜"
+              />
+              <AmazonProductCard
+                name="アップリカ ラクーナクッション"
+                asin="B0C7K8VW6G"
+                imageId="41bVfKzMURL"
+                price="¥50,000〜"
+              />
+              <AmazonProductCard
+                name="ピジョン ランフィ"
+                asin="B0BZ5BWVQH"
+                imageId="41kXeVzNURL"
+                price="¥52,000〜"
+              />
+              <AmazonProductCard
+                name="サイベックス メリオ"
+                asin="B0CDQJGGFZ"
+                imageId="41wDqXzMURL"
+                price="¥64,000〜"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              ※ 価格は変動します。最新の価格はAmazonでご確認ください。
+            </p>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

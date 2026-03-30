@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { AmazonProductCard } from "@/components/amazon-product-card";
 
 export const metadata = {
   title: "ベビーベッド・寝具の選びかた",
@@ -377,6 +378,39 @@ export default function BabyBedPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 購入できる場所 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              購入できる場所
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              ここで紹介した商品はAmazonでも購入できます。
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AmazonProductCard
+                name="ネオママイズム ベビーベッド"
+                asin="B09TVFF1PC"
+                imageId="41xYQdKEURL"
+                price="¥15,000〜"
+              />
+              <AmazonProductCard
+                name="カトージ ミニベビーベッド"
+                asin="B07K319ZXG"
+                imageId="41bVfKzMURL"
+                price="¥18,000〜"
+              />
+              <AmazonProductCard
+                name="ファルスカ ベッドインベッド"
+                asin="B07YBQC92Z"
+                imageId="41kXeVzNURL"
+                price="¥8,800〜"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              ※ 価格は変動します。最新の価格はAmazonでご確認ください。
+            </p>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

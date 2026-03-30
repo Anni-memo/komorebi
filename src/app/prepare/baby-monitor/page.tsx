@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { AmazonProductCard } from "@/components/amazon-product-card";
 
 export const metadata = {
   title: "ベビーモニターの選びかた",
@@ -374,6 +375,45 @@ export default function BabyMonitorPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 購入できる場所 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              購入できる場所
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              ここで紹介した商品はAmazonでも購入できます。
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AmazonProductCard
+                name="パナソニック ベビーモニター"
+                asin="B07B9NBHQF"
+                imageId="41Xy1KZWXKL"
+                price="¥15,000〜"
+              />
+              <AmazonProductCard
+                name="トリビュート ベビーモニター"
+                asin="B0BW254GT5"
+                imageId="41yq8gUvURL"
+                price="¥12,000〜"
+              />
+              <AmazonProductCard
+                name="Cubo Ai Plus"
+                asin="B09YDRQKFK"
+                imageId="41Dq1eKRURL"
+                price="¥35,000〜"
+              />
+              <AmazonProductCard
+                name="Tapo C200"
+                asin="B09N384TJ2"
+                imageId="41FqNzXMURL"
+                price="¥3,500〜"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              ※ 価格は変動します。最新の価格はAmazonでご確認ください。
+            </p>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

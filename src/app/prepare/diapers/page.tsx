@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { AmazonProductCard } from "@/components/amazon-product-card";
 
 export const metadata = {
   title: "おむつの選びかた",
@@ -382,6 +383,45 @@ export default function DiapersPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 購入できる場所 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              購入できる場所
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              ここで紹介した商品はAmazonでも購入できます。
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AmazonProductCard
+                name="パンパース はじめての肌へのいちばん"
+                asin="B0CQ4K15T3"
+                imageId="41mXGlMZURL"
+                price="¥1,600〜"
+              />
+              <AmazonProductCard
+                name="メリーズ ファーストプレミアム"
+                asin="B0CPXS7HGV"
+                imageId="41m0xS-lEYL"
+                price="¥1,500〜"
+              />
+              <AmazonProductCard
+                name="ムーニー ナチュラル"
+                asin="B0CPXPG5JN"
+                imageId="41kXVOFbMaL"
+                price="¥1,400〜"
+              />
+              <AmazonProductCard
+                name="グーン プラス"
+                asin="B0BGM6BWMX"
+                imageId="41JiVqKpURL"
+                price="¥1,200〜"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              ※ 価格は変動します。最新の価格はAmazonでご確認ください。
+            </p>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { AmazonProductCard } from "@/components/amazon-product-card";
 
 export const metadata = {
   title: "授乳クッションの選びかた",
@@ -471,6 +472,39 @@ export default function NursingPillowPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 購入できる場所 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              購入できる場所
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              ここで紹介した商品はAmazonでも購入できます。
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AmazonProductCard
+                name="エールベベ ギュット4WAY"
+                asin="B0BXNF98WP"
+                imageId="41kXeYzNURL"
+                price="¥5,500〜"
+              />
+              <AmazonProductCard
+                name="サンデシカ 抱きまくら"
+                asin="B07V31JQJN"
+                imageId="41mXgLzMURL"
+                price="¥4,400〜"
+              />
+              <AmazonProductCard
+                name="dacco 授乳用クッション"
+                asin="B004OR5GE2"
+                imageId="41JiVqKpURL"
+                price="¥2,800〜"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              ※ 価格は変動します。最新の価格はAmazonでご確認ください。
+            </p>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
