@@ -158,7 +158,7 @@ export default function MyPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold text-foreground">マイページ</h1>
-            <Link href="/onboarding">
+            <Link href="/mypage/edit">
               <Button variant="outline" size="sm">プロフィールを編集</Button>
             </Link>
           </div>
@@ -270,6 +270,18 @@ export default function MyPage() {
                     </div>
                   )}
                 </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <Link
+                  href="/mypage/bookmarks"
+                  className="flex items-center justify-between text-sm text-foreground hover:text-primary transition-colors"
+                >
+                  <span>保存した記事</span>
+                  <span className="text-muted-foreground">&rarr;</span>
+                </Link>
               </CardContent>
             </Card>
 
