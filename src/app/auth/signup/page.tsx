@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -10,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function SignupPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -35,23 +37,31 @@ export default function SignupPage() {
 
     try {
       const supabase = createClient();
-      const { error: authError } = await supabase.auth.signUp({
+      const { data, error: authError } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
       });
 
       if (authError) {
-        switch (authError.message) {
-          case "User already registered":
-            setError(
-              "このメールアドレスはすでに登録されています。ログインをお試しください。"
-            );
-            break;
-          default:
-            setError(
-              "登録に失敗しました。しばらくしてからもう一度お試しください。"
-            );
+        const msg = authError.message;
+        if (msg.includes("already registered") || msg.includes("already exists")) {
+          setError("このメールアドレスはすでに登録されています。ログインをお試しください。");
+        } else if (msg.includes("valid email")) {
+          setError("有効なメールアドレスを入力してください。");
+        } else if (msg.includes("least 6")) {
+          setError("パスワードは6文字以上で設定してください。");
+        } else {
+          setError(`登録に失敗しました: ${msg}`);
         }
+        return;
+      }
+
+      // Supabaseでメール確認が無効の場合、セッションが即座に返る
+      if (data.session) {
+        router.push("/home");
         return;
       }
 

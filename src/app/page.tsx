@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { SearchBar } from "@/components/search-bar";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
@@ -124,6 +125,9 @@ export default function HomePage() {
               <Link href="#features" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "text-base px-8")}>
                 できることを見る
               </Link>
+            </div>
+            <div className="mt-8">
+              <SearchBar />
             </div>
           </div>
         </section>
