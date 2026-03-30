@@ -36,6 +36,7 @@ const articles = [
     audience: "0歳の親向け",
     readTime: "3分で読める",
     summary: "夜泣きの原因と、親の負担を減らすための基本的な知識を整理。",
+    href: "/learn/newborn-sleep",
   },
   {
     title: "離乳食のはじめかた",
@@ -43,6 +44,7 @@ const articles = [
     audience: "5〜6ヶ月の親向け",
     readTime: "5分で読める",
     summary: "いつから、何から始めるか。進め方の基本と困ったときの対処。",
+    href: "/learn/baby-food",
   },
   {
     title: "出産後に必要な手続き一覧",
@@ -50,6 +52,7 @@ const articles = [
     audience: "出産直後の方向け",
     readTime: "保存版",
     summary: "出生届・健康保険・児童手当など、期限のある手続きをまとめて確認。",
+    href: "/learn/postnatal-procedures",
   },
   {
     title: "保活の基本と始めるタイミング",
@@ -64,6 +67,7 @@ const articles = [
     audience: "すべての親向け",
     readTime: "3分で読める",
     summary: "つらいときは自然なこと。相談先と、自分を責めないための考え方。",
+    href: "/learn/mental-care",
   },
   {
     title: "地域の子育て支援制度の調べかた",
