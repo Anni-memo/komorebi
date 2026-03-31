@@ -8,6 +8,7 @@ import { buttonVariants } from "@/components/ui/button-variants";
 const categories = [
   { label: "月齢別", value: "age" },
   { label: "悩み別", value: "concern" },
+  { label: "身体発達", value: "development" },
   { label: "制度", value: "benefits" },
   { label: "買い物", value: "shopping" },
   { label: "メンタル", value: "mental" },
@@ -127,6 +128,14 @@ const articles = [
     href: "/learn/hospital-bag",
   },
   {
+    title: "妊娠後期にできるマタニティヨガ",
+    tag: "運動・ヨガ",
+    audience: "妊婦向け",
+    readTime: "5分で読める",
+    summary: "腰痛・むくみに悩む妊娠後期のママへ。自宅で安全にできるポーズ5つと注意点を初心者向けに解説。",
+    href: "/learn/maternity-yoga",
+  },
+  {
     title: "産後のメンタルケア",
     tag: "メンタル",
     audience: "すべての親向け",
@@ -141,6 +150,14 @@ const articles = [
     readTime: "5分で読める",
     summary: "まくらは必要？窒息リスクは？人気5商品の比較と、安全に使うためのルールを整理。",
     href: "/learn/baby-pillow",
+  },
+  {
+    title: "身体調和ガイド｜赤ちゃんの発達を月齢で知る",
+    tag: "身体発達",
+    audience: "0〜3歳の親向け",
+    readTime: "保存版",
+    summary: "呼吸・摂食・運動・感覚統合の4領域から、月齢別の発達の連鎖を整理。「なぜ今これが大切か」がわかる。",
+    href: "/learn/body-harmony",
   },
   {
     title: "知育の基本ガイド｜月齢別の発達と遊び",
