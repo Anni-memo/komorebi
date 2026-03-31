@@ -39,6 +39,14 @@ const articles = [
     href: "/learn/newborn-sleep",
   },
   {
+    title: "妊娠中・産後の食事ガイド",
+    tag: "食事",
+    audience: "妊婦・授乳中の方向け",
+    readTime: "5分で読める",
+    summary: "必要な栄養素・避けるべき食品・つわり中の食事のコツをエビデンスに基づいて整理。",
+    href: "/learn/pregnancy-nutrition",
+  },
+  {
     title: "離乳食のはじめかた",
     tag: "食事",
     audience: "5〜6ヶ月の親向け",
@@ -63,12 +71,28 @@ const articles = [
     href: "/learn/hokatsu",
   },
   {
+    title: "妊娠中の体調トラブルと病気ガイド",
+    tag: "健康・病気",
+    audience: "妊婦向け",
+    readTime: "5分で読める",
+    summary: "つわり・妊娠高血圧・妊娠糖尿病など、妊娠中に気をつけたい症状と受診の目安を整理。",
+    href: "/learn/pregnancy-health",
+  },
+  {
     title: "子どもの発熱対応ガイド",
     tag: "健康・病気",
     audience: "すべての親向け",
     readTime: "保存版",
     summary: "月齢別の対応・受診の目安・家でできるケア・救急に行くべきサイン。#8000の使い方も。",
     href: "/learn/fever-guide",
+  },
+  {
+    title: "子どもがかかりやすい病気ガイド",
+    tag: "健康・病気",
+    audience: "すべての親向け",
+    readTime: "保存版",
+    summary: "突発性発疹・手足口病・RSウイルスなど、乳幼児の病気の症状・対応・受診の目安をまとめて確認。",
+    href: "/learn/child-illness",
   },
   {
     title: "ベビー服・肌着の選びかた",
@@ -117,6 +141,14 @@ const articles = [
     readTime: "5分で読める",
     summary: "まくらは必要？窒息リスクは？人気5商品の比較と、安全に使うためのルールを整理。",
     href: "/learn/baby-pillow",
+  },
+  {
+    title: "知育の基本ガイド｜月齢別の発達と遊び",
+    tag: "発達・知育",
+    audience: "すべての親向け",
+    readTime: "5分で読める",
+    summary: "月齢別の発達の特徴と、家庭でできる知育遊びを整理。特別な教材は不要。",
+    href: "/learn/early-education",
   },
   {
     title: "地域の子育て支援制度の調べかた",

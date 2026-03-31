@@ -56,6 +56,7 @@ const frequencyLabels: Record<string, string> = {
 };
 
 interface Profile {
+  nickname: string | null;
   stage: string | null;
   child_birthdate: string | null;
   expected_due_date: string | null;
@@ -67,6 +68,33 @@ interface Profile {
   notification_channels: string[] | null;
   notification_frequency: string | null;
   onboarding_completed: boolean;
+}
+
+// 妊娠週数計算
+function calcPregnancyWeeks(dueDate: string): string {
+  const due = new Date(dueDate);
+  const lmp = new Date(due.getTime() - 280 * 24 * 60 * 60 * 1000);
+  const now = new Date();
+  const diffDays = Math.floor((now.getTime() - lmp.getTime()) / (1000 * 60 * 60 * 24));
+  const weeks = Math.floor(diffDays / 7);
+  const days = diffDays % 7;
+  if (weeks < 0 || weeks > 42) return "";
+  return `${weeks}週${days}日`;
+}
+
+// 生後月齢計算
+function calcMonthsOld(birthdate: string): string {
+  const birth = new Date(birthdate);
+  const now = new Date();
+  const months = (now.getFullYear() - birth.getFullYear()) * 12 + (now.getMonth() - birth.getMonth());
+  const dayDiff = now.getDate() - birth.getDate();
+  const adjustedMonths = dayDiff < 0 ? months - 1 : months;
+  if (adjustedMonths < 0) return "";
+  if (adjustedMonths === 0) {
+    const days = Math.floor((now.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
+    return `生後${days}日`;
+  }
+  return `生後${adjustedMonths}ヶ月`;
 }
 
 export default function MyPage() {
@@ -171,6 +199,10 @@ export default function MyPage() {
               <CardContent>
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
+                    <span className="text-muted-foreground">ニックネーム</span>
+                    <span className="text-foreground">{profile?.nickname || "未設定"}</span>
+                  </div>
+                  <div className="flex justify-between">
                     <span className="text-muted-foreground">メールアドレス</span>
                     <span className="text-foreground">{email}</span>
                   </div>
@@ -188,6 +220,18 @@ export default function MyPage() {
                     <span className="text-muted-foreground">段階</span>
                     <Badge variant="secondary">{stage}</Badge>
                   </div>
+                  {profile?.stage === "pregnant" && profile?.expected_due_date && calcPregnancyWeeks(profile.expected_due_date) && (
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">現在の週数</span>
+                      <span className="text-foreground">{calcPregnancyWeeks(profile.expected_due_date)}</span>
+                    </div>
+                  )}
+                  {profile?.stage !== "pregnant" && profile?.child_birthdate && calcMonthsOld(profile.child_birthdate) && (
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">月齢</span>
+                      <span className="text-foreground">{calcMonthsOld(profile.child_birthdate)}</span>
+                    </div>
+                  )}
                   {profile?.child_birthdate && (
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">生年月日</span>

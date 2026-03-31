@@ -74,6 +74,7 @@ export default function ProfileEditPage() {
   const [userId, setUserId] = useState<string | null>(null);
 
   // Form state (all stored as English keys)
+  const [nickname, setNickname] = useState("");
   const [stage, setStage] = useState("");
   const [childBirthdate, setChildBirthdate] = useState("");
   const [expectedDueDate, setExpectedDueDate] = useState("");
@@ -105,6 +106,7 @@ export default function ProfileEditPage() {
         .single();
 
       if (data) {
+        setNickname(data.nickname || "");
         setStage(data.stage || "");
         setChildBirthdate(data.child_birthdate || "");
         setExpectedDueDate(data.expected_due_date || "");
@@ -148,6 +150,7 @@ export default function ProfileEditPage() {
       const supabase = createClient();
       await supabase.from("profiles").upsert({
         id: userId,
+        nickname: nickname || null,
         stage: stage || null,
         child_birthdate: stage !== "pregnant" ? childBirthdate || null : null,
         expected_due_date: stage === "pregnant" ? expectedDueDate || null : null,
@@ -194,6 +197,22 @@ export default function ProfileEditPage() {
           </h1>
 
           <div className="space-y-6">
+            {/* ニックネーム */}
+            <Card className="border-border/50 shadow-none">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base">ニックネーム</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Input
+                  type="text"
+                  placeholder="例: さくらママ"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                  className="max-w-xs"
+                />
+              </CardContent>
+            </Card>
+
             {/* 段階 */}
             <Card className="border-border/50 shadow-none">
               <CardHeader className="pb-3">

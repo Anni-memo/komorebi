@@ -210,6 +210,17 @@ const items: PrepareItem[] = [
     concernTag: "外出",
   },
 
+  // ── あれば助かる（知育） ──
+  {
+    name: "知育玩具",
+    category: "あれば助かる",
+    scene: "遊びを通じた発達サポート",
+    audience: "すべての家庭",
+    ageTag: "6-12ヶ月",
+    concernTag: "日常のお世話",
+    href: "/prepare/educational-toys",
+  },
+
   // ── まだ急がない ──
   {
     name: "離乳食グッズ",
