@@ -53,6 +53,14 @@ const articles = [
     href: "/learn/rsv-vaccine",
   },
   {
+    title: "妊活前に受けておきたい予防接種ガイド",
+    tag: "予防接種",
+    audience: "妊活・妊娠準備中の方向け",
+    readTime: "保存版",
+    summary: "風疹・麻疹・水痘・おたふくかぜ・B型肝炎。抗体検査から助成制度、スケジュールの組み方まで。",
+    href: "/learn/preconception-vaccines",
+  },
+  {
     title: "予防接種スケジュール＆チェックリスト",
     tag: "予防接種",
     audience: "すべての親向け",
