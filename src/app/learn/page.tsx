@@ -221,9 +221,9 @@ export default function LearnPage() {
             必要な知識を、あなたの状況に合わせて整理しています。
           </p>
 
-          {/* ── カテゴリフィルター（丸みのある温かいタグ） ── */}
-          <div className="mb-8">
-            <div className="flex flex-wrap gap-2">
+          {/* ── カテゴリフィルター（縦書きカード横並び） ── */}
+          <div className="mb-8 -mx-4 px-4">
+            <div className="flex gap-2.5 overflow-x-auto pb-3 scrollbar-hide">
               {categories.map((cat) => {
                 const isActive = activeFilter === cat.value;
                 const articleCount =
@@ -238,19 +238,25 @@ export default function LearnPage() {
                     key={cat.value}
                     onClick={() => setActiveFilter(cat.value)}
                     className={`
-                      inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium
+                      flex flex-col items-center justify-between shrink-0
+                      w-[68px] min-h-[120px] rounded-2xl px-2 py-3
                       transition-all duration-200 cursor-pointer
                       ${isActive
-                        ? `${cat.activeBg} ${cat.activeText} shadow-sm ring-1 ring-inset ring-black/5`
-                        : `${cat.bg} ${cat.text} hover:shadow-sm`
+                        ? `${cat.activeBg} ${cat.activeText} shadow-md ring-1 ring-inset ring-black/5 scale-[1.03]`
+                        : `${cat.bg} ${cat.text} hover:shadow-sm hover:scale-[1.02]`
                       }
                     `}
                   >
-                    <span className="text-sm leading-none" aria-hidden>{cat.icon}</span>
-                    <span>{cat.label}</span>
+                    <span className="text-xl leading-none mb-1.5" aria-hidden>{cat.icon}</span>
+                    <span
+                      className="text-sm font-semibold leading-[1.6] flex-1 flex items-center"
+                      style={{ writingMode: "vertical-rl" }}
+                    >
+                      {cat.label}
+                    </span>
                     <span className={`
-                      inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[10px] font-bold
-                      ${isActive ? "bg-white/30" : "bg-black/5"}
+                      inline-flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold mt-1.5
+                      ${isActive ? "bg-white/40" : "bg-black/5"}
                     `}>
                       {articleCount}
                     </span>
@@ -259,7 +265,7 @@ export default function LearnPage() {
               })}
             </div>
             {activeFilter !== "all" && (
-              <p className="text-xs text-muted-foreground mt-3">
+              <p className="text-xs text-muted-foreground mt-2">
                 {categories.find((c) => c.value === activeFilter)?.label}の記事を表示中（{count}件）
               </p>
             )}
