@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { WebSiteJsonLd } from "@/components/seo/json-ld";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -49,6 +50,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#4a8c6f" />
       </head>
       <body className="min-h-full flex flex-col">
+        <WebSiteJsonLd />
         {children}
         <Analytics />
       </body>

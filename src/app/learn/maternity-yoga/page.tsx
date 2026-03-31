@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 
 export const metadata = {
   title: "妊娠後期にできるマタニティヨガ｜安全なポーズと注意点 | こもれび",
@@ -218,6 +219,14 @@ const faq = [
 export default function MaternityYogaPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="妊娠後期にできるマタニティヨガ｜安全なポーズと注意点"
+        description="妊娠後期（8〜10ヶ月）の妊婦さん向けに、自宅でできるマタニティヨガのポーズ・効果・注意点をわかりやすく解説。"
+        path="/learn/maternity-yoga"
+        datePublished="2026-03-31"
+        tags={["マタニティヨガ", "妊娠後期", "妊婦 運動", "安全", "腰痛", "むくみ"]}
+        faq={faq.map((item) => ({ question: item.q, answer: item.a }))}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
