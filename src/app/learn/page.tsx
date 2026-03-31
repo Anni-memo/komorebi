@@ -1,18 +1,47 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 
+/* ─── カテゴリ定義（こもれびの温かみ・安らぎカラー） ─── */
 const categories = [
-  { label: "月齢別", value: "age" },
-  { label: "悩み別", value: "concern" },
-  { label: "身体発達", value: "development" },
-  { label: "制度", value: "benefits" },
-  { label: "買い物", value: "shopping" },
-  { label: "メンタル", value: "mental" },
+  { label: "すべて", value: "all", icon: "🍃", bg: "bg-primary/10", text: "text-primary", activeBg: "bg-primary", activeText: "text-primary-foreground", dot: "bg-primary" },
+  { label: "健康・病気", value: "健康・病気", icon: "🩺", bg: "bg-rose-50", text: "text-rose-600/80", activeBg: "bg-rose-100", activeText: "text-rose-700", dot: "bg-rose-300" },
+  { label: "予防接種", value: "予防接種", icon: "💉", bg: "bg-sky-50", text: "text-sky-600/80", activeBg: "bg-sky-100", activeText: "text-sky-700", dot: "bg-sky-300" },
+  { label: "食事", value: "食事", icon: "🥄", bg: "bg-amber-50", text: "text-amber-600/80", activeBg: "bg-amber-100", activeText: "text-amber-700", dot: "bg-amber-300" },
+  { label: "身体発達", value: "身体発達", icon: "🌱", bg: "bg-emerald-50", text: "text-emerald-600/80", activeBg: "bg-emerald-100", activeText: "text-emerald-700", dot: "bg-emerald-300" },
+  { label: "発達・知育", value: "発達・知育", icon: "🧩", bg: "bg-violet-50", text: "text-violet-600/80", activeBg: "bg-violet-100", activeText: "text-violet-700", dot: "bg-violet-300" },
+  { label: "睡眠", value: "睡眠", icon: "🌙", bg: "bg-indigo-50", text: "text-indigo-600/80", activeBg: "bg-indigo-100", activeText: "text-indigo-700", dot: "bg-indigo-300" },
+  { label: "出産準備", value: "出産準備", icon: "🎒", bg: "bg-pink-50", text: "text-pink-600/80", activeBg: "bg-pink-100", activeText: "text-pink-700", dot: "bg-pink-300" },
+  { label: "日常ケア", value: "日常ケア", icon: "🛁", bg: "bg-teal-50", text: "text-teal-600/80", activeBg: "bg-teal-100", activeText: "text-teal-700", dot: "bg-teal-300" },
+  { label: "手続き・制度", value: "手続き・制度", icon: "📋", bg: "bg-stone-50", text: "text-stone-600/80", activeBg: "bg-stone-100", activeText: "text-stone-700", dot: "bg-stone-300" },
+  { label: "メンタル", value: "メンタル", icon: "🫧", bg: "bg-purple-50", text: "text-purple-600/80", activeBg: "bg-purple-100", activeText: "text-purple-700", dot: "bg-purple-300" },
+  { label: "運動・ヨガ", value: "運動・ヨガ", icon: "🧘", bg: "bg-lime-50", text: "text-lime-600/80", activeBg: "bg-lime-100", activeText: "text-lime-700", dot: "bg-lime-300" },
+  { label: "行事", value: "行事・イベント", icon: "🎌", bg: "bg-orange-50", text: "text-orange-600/80", activeBg: "bg-orange-100", activeText: "text-orange-700", dot: "bg-orange-300" },
 ];
+
+/* ─── タグ→カラーマッピング ─── */
+function getTagStyle(tag: string) {
+  const cat = categories.find((c) => c.value === tag);
+  if (cat) return { bg: cat.activeBg, text: cat.activeText, dot: cat.dot };
+  if (tag === "手続き" || tag === "保活" || tag === "制度")
+    return { bg: "bg-stone-100", text: "text-stone-700", dot: "bg-stone-300" };
+  return { bg: "bg-gray-100", text: "text-gray-600", dot: "bg-gray-300" };
+}
+
+/* ─── 記事→カテゴリマッチ判定 ─── */
+function matchesCategory(articleTag: string, filterValue: string): boolean {
+  if (filterValue === "all") return true;
+  if (filterValue === articleTag) return true;
+  // 手続き・制度グループ
+  if (filterValue === "手続き・制度" && ["手続き", "保活", "制度"].includes(articleTag)) return true;
+  return false;
+}
 
 const articles = [
   {
@@ -177,6 +206,11 @@ const articles = [
 ];
 
 export default function LearnPage() {
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filtered = articles.filter((a) => matchesCategory(a.tag, activeFilter));
+  const count = filtered.length;
+
   return (
     <>
       <Header />
@@ -187,50 +221,97 @@ export default function LearnPage() {
             必要な知識を、あなたの状況に合わせて整理しています。
           </p>
 
-          <div className="flex flex-wrap gap-2 mb-8">
-            {categories.map((cat) => (
-              <Badge
-                key={cat.value}
-                variant="outline"
-                className="px-4 py-2 text-sm cursor-pointer hover:bg-primary/5 transition-colors"
-              >
-                {cat.label}
-              </Badge>
-            ))}
+          {/* ── カテゴリフィルター（丸みのある温かいタグ） ── */}
+          <div className="mb-8">
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => {
+                const isActive = activeFilter === cat.value;
+                const articleCount =
+                  cat.value === "all"
+                    ? articles.length
+                    : articles.filter((a) => matchesCategory(a.tag, cat.value)).length;
+
+                if (cat.value !== "all" && articleCount === 0) return null;
+
+                return (
+                  <button
+                    key={cat.value}
+                    onClick={() => setActiveFilter(cat.value)}
+                    className={`
+                      inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium
+                      transition-all duration-200 cursor-pointer
+                      ${isActive
+                        ? `${cat.activeBg} ${cat.activeText} shadow-sm ring-1 ring-inset ring-black/5`
+                        : `${cat.bg} ${cat.text} hover:shadow-sm`
+                      }
+                    `}
+                  >
+                    <span className="text-sm leading-none" aria-hidden>{cat.icon}</span>
+                    <span>{cat.label}</span>
+                    <span className={`
+                      inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[10px] font-bold
+                      ${isActive ? "bg-white/30" : "bg-black/5"}
+                    `}>
+                      {articleCount}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {activeFilter !== "all" && (
+              <p className="text-xs text-muted-foreground mt-3">
+                {categories.find((c) => c.value === activeFilter)?.label}の記事を表示中（{count}件）
+              </p>
+            )}
           </div>
 
-          <div className="space-y-4">
-            {articles.map((article) => {
+          {/* ── 記事一覧 ── */}
+          <div className="space-y-3">
+            {filtered.map((article) => {
+              const tagStyle = getTagStyle(article.tag);
               const card = (
-              <Card
-                className="border-border/50 shadow-none hover:border-primary/30 transition-colors cursor-pointer"
-              >
-                <CardContent className="pt-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-foreground mb-1">
-                        {article.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-2">
-                        {article.summary}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        <Badge variant="secondary" className="text-xs">{article.tag}</Badge>
-                        <span className="text-xs text-muted-foreground">{article.audience}</span>
-                        <span className="text-xs text-muted-foreground">{article.readTime}</span>
+                <Card
+                  className="shadow-none hover:shadow-sm hover:border-primary/20 transition-all duration-200 cursor-pointer rounded-xl border-border/40"
+                >
+                  <CardContent className="pt-5 pb-4">
+                    <div className="flex items-start gap-3">
+                      {/* カラードット */}
+                      <span className={`w-2 h-2 rounded-full ${tagStyle.dot} shrink-0 mt-2`} />
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-foreground mb-1 leading-snug">
+                          {article.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-2.5">
+                          {article.summary}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Badge className={`${tagStyle.bg} ${tagStyle.text} border-0 text-[10px] rounded-full px-2.5`}>
+                            {article.tag}
+                          </Badge>
+                          <span className="text-[11px] text-muted-foreground/70">{article.audience}</span>
+                          <span className="text-[11px] text-muted-foreground/70">{article.readTime}</span>
+                        </div>
                       </div>
+                      {article.href && (
+                        <span className="text-muted-foreground/40 text-sm shrink-0 mt-2">→</span>
+                      )}
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
               );
               return article.href ? (
                 <Link key={article.title} href={article.href} className="block">{card}</Link>
               ) : (
-                <div key={article.title}>{card}</div>
+                <div key={article.title} className="opacity-50">{card}</div>
               );
             })}
           </div>
+
+          {filtered.length === 0 && (
+            <div className="text-center py-12 text-muted-foreground">
+              <p>該当する記事がありません。</p>
+            </div>
+          )}
 
           <div className="mt-8 text-center">
             <Link href="/concierge" className={buttonVariants({ variant: "outline" })}>
