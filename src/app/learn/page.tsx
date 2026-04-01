@@ -133,6 +133,14 @@ const articles = [
     href: "/learn/child-illness",
   },
   {
+    title: "母乳バンクの基礎知識と利用ガイド",
+    tag: "健康・病気",
+    audience: "新生児の親・妊婦向け",
+    readTime: "保存版",
+    summary: "早産・低出生体重の赤ちゃんに届く「ドナーミルク」。安全性・費用・利用方法をわかりやすく整理。",
+    href: "/learn/breast-milk-bank",
+  },
+  {
     title: "ベビー服・肌着の選びかた",
     tag: "出産準備",
     audience: "妊婦・すべての親向け",

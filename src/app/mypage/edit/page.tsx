@@ -148,7 +148,7 @@ export default function ProfileEditPage() {
 
     try {
       const supabase = createClient();
-      await supabase.from("profiles").upsert({
+      const { error } = await supabase.from("profiles").upsert({
         id: userId,
         nickname: nickname || null,
         stage: stage || null,
@@ -163,9 +163,13 @@ export default function ProfileEditPage() {
         notification_frequency: notifFrequency || null,
         onboarding_completed: true,
       });
-      setSuccessMessage("プロフィールを更新しました");
+      if (error) {
+        setSuccessMessage(`保存エラー: ${error.message} (code: ${error.code})`);
+        return;
+      }
+      router.push("/mypage");
     } catch {
-      // エラー時は静かに失敗
+      setSuccessMessage("保存に失敗しました。もう一度お試しください。");
     } finally {
       setSaving(false);
     }

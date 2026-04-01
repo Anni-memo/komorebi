@@ -316,6 +316,11 @@ export default function BodyHarmonyPage() {
                 <p className="text-sm text-foreground leading-relaxed mb-3">
                   身体調和（Body Harmonizing Support）とは、
                   <strong>赤ちゃんの身体が本来持っている発達の力を、やさしいタッチで引き出す</strong>アプローチです。
+                  岐阜県
+                  <a href="https://www.city.hida.gifu.jp/site/marugoto/79769.html" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:text-primary/80">
+                    飛騨市
+                  </a>
+                  が「まるごと健康増進」の一環として推進しており、乳幼児期の発達支援として注目されています。
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                   現代の生活環境では、抱っこ紐やバウンサーの長時間使用、うつぶせ時間の不足など、
@@ -561,7 +566,11 @@ export default function BodyHarmonyPage() {
               <strong className="text-foreground">注意:</strong>{" "}
               このページは一般的な発達の目安を整理したものであり、医療的な診断・助言を目的としたものではありません。
               お子さまの発達に不安がある場合は、かかりつけの小児科医・作業療法士・地域の保健センターにご相談ください。
-              身体調和支援（BHS）は飛騨市が推進するアプローチを参考にしています。
+              身体調和支援（BHS）は
+              <a href="https://www.city.hida.gifu.jp/site/marugoto/79769.html" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:text-primary/80">
+                飛騨市が推進するアプローチ
+              </a>
+              を参考にしています。
             </p>
           </div>
 
