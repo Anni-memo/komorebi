@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "RSVワクチン（アブリスボ）判断ガイド",
@@ -349,6 +350,20 @@ export default function RSVVaccinePage() {
               接種の可否・タイミングについては、必ず担当の産婦人科医または医療機関にご相談ください。
               個人の健康状態・妊娠経過・在住地域のRSV流行状況等によって、最適な判断は異なります。
             </p>
+          </div>
+
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="RSVワクチン判断ガイド"
+              catchcopy="赤ちゃんを守る選択肢を1枚に"
+              description="アブリスボとベイフォータスの比較、副反応、接種判断のポイントをA4 1枚にまとめました。"
+              pdfPath="/pdf/rsv-vaccine.pdf"
+              usageTips={[
+                { icon: "print", text: "医師との相談メモに" },
+                { icon: "share", text: "パートナーと一緒に読む" },
+                { icon: "other", text: "妊婦健診に持参" },
+              ]}
+            />
           </div>
 
           {/* 導線 */}

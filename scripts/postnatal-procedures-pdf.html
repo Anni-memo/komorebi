@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>産後の手続きチェックリスト - こもれび</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: #1a1a1a;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    padding: 10mm 10mm 8mm 10mm;
+    height: 297mm;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 12px 0;
+    border-bottom: 2.5px solid #2d6a4f;
+    margin-bottom: 10px;
+  }
+  .header-left h1 {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #2d6a4f;
+    letter-spacing: 0.06em;
+  }
+  .header-left .subtitle {
+    font-size: 9pt;
+    color: #555;
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .header-right .brand {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #2d6a4f;
+    letter-spacing: 0.08em;
+  }
+  .header-right .tagline {
+    font-size: 7.5pt;
+    color: #888;
+    margin-top: 2px;
+  }
+  .header-right .version {
+    font-size: 6.5pt;
+    color: #aaa;
+    margin-top: 1px;
+  }
+
+  /* ── Info Row ── */
+  .info-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: #f6faf7;
+    border-radius: 5px;
+    border: 1px solid #d0e6d8;
+  }
+  .info-row .field {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 8pt;
+  }
+  .info-row .field label {
+    color: #2d6a4f;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .info-row .field .line {
+    display: inline-block;
+    width: 130px;
+    border-bottom: 1.5px dotted #999;
+    height: 1.2em;
+  }
+
+  /* ── Main Table ── */
+  .main-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.5pt;
+    flex: 1;
+  }
+  .main-table thead th {
+    background: #2d6a4f;
+    color: #fff;
+    font-weight: 600;
+    padding: 7px 4px;
+    text-align: center;
+    font-size: 7pt;
+    letter-spacing: 0.03em;
+  }
+  .main-table thead th:first-child {
+    text-align: left;
+    padding-left: 8px;
+  }
+  .main-table thead th.col-check { width: 40px; }
+  .main-table thead th.col-deadline { width: 70px; }
+  .main-table thead th.col-dest { width: 85px; }
+  .main-table thead th.col-name { width: 110px; }
+  .main-table tbody tr { border-bottom: 1px solid #e0e0e0; }
+  .main-table tbody tr:nth-child(even) { background: #f8fbf9; }
+  .main-table tbody tr:last-child { border-bottom: 2px solid #2d6a4f; }
+  .main-table tbody td {
+    padding: 8px 4px;
+    vertical-align: middle;
+    font-size: 7pt;
+    line-height: 1.45;
+  }
+  .main-table tbody td:first-child {
+    padding-left: 8px;
+  }
+  .proc-name {
+    font-weight: 700;
+    font-size: 7.8pt;
+    color: #1a1a1a;
+  }
+  .proc-num {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: #2d6a4f;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+    font-size: 6.5pt;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+
+  /* ── Checkbox ── */
+  .check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid #6bb38a;
+    border-radius: 3px;
+    background: #fff;
+  }
+
+  /* ── Deadline highlight ── */
+  .deadline-urgent {
+    color: #c0392b;
+    font-weight: 700;
+  }
+  .deadline-soon {
+    color: #d4880f;
+    font-weight: 600;
+  }
+  .deadline-normal {
+    color: #555;
+  }
+
+  /* ── Notes Section ── */
+  .notes-section {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+  }
+  .notes-box {
+    flex: 1;
+    border: 1px solid #d0e6d8;
+    border-radius: 5px;
+    padding: 7px 10px;
+    background: #f6faf7;
+  }
+  .notes-box h3 {
+    font-size: 7.5pt;
+    color: #2d6a4f;
+    font-weight: 700;
+    margin-bottom: 4px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #d0e6d8;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .notes-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .notes-box li {
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 2px;
+    font-size: 6.8pt;
+    color: #333;
+    line-height: 1.45;
+  }
+  .notes-box li::before {
+    content: "•";
+    position: absolute;
+    left: 2px;
+    color: #6bb38a;
+    font-weight: bold;
+  }
+
+  /* ── Memo ── */
+  .memo-box {
+    border: 1px solid #d0e6d8;
+    border-radius: 5px;
+    padding: 6px 10px 4px 10px;
+    background: #fff;
+    margin-bottom: 8px;
+  }
+  .memo-box h3 {
+    font-size: 7.5pt;
+    color: #2d6a4f;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .memo-lines {
+    border-bottom: 1px dotted #ccc;
+    height: 16px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 6px;
+    border-top: 1.5px solid #2d6a4f;
+    font-size: 6.5pt;
+    color: #888;
+  }
+  .footer a { color: #2d6a4f; text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <h1>産後の手続きチェックリスト</h1>
+    <div class="subtitle">出産後14日が勝負。漏れゼロへ</div>
+  </div>
+  <div class="header-right">
+    <div class="brand">こもれび</div>
+    <div class="tagline">子育てをもっとやさしく</div>
+    <div class="version">2026年版</div>
+  </div>
+</div>
+
+<!-- Info Row -->
+<div class="info-row">
+  <div class="field"><label>出産日:</label><span class="line"></span></div>
+  <div class="field"><label>届出担当者名:</label><span class="line"></span></div>
+</div>
+
+<!-- Main Table -->
+<table class="main-table">
+  <thead>
+    <tr>
+      <th class="col-name">手続き名</th>
+      <th class="col-check">&#10003;</th>
+      <th class="col-deadline">期限</th>
+      <th class="col-dest">届出先</th>
+      <th>必要書類</th>
+      <th>金額・備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="proc-num">1</span><span class="proc-name">出生届</span></td>
+      <td style="text-align:center;"><div class="check"></div></td>
+      <td style="text-align:center;" class="deadline-urgent">14日以内</td>
+      <td>市区町村役場</td>
+      <td>出生届（病院で記入済み）、母子手帳、届出人の本人確認書類</td>
+      <td>無料。届出時に名前が確定している必要あり</td>
+    </tr>
+    <tr>
+      <td><span class="proc-num">2</span><span class="proc-name">健康保険加入</span></td>
+      <td style="text-align:center;"><div class="check"></div></td>
+      <td style="text-align:center;" class="deadline-soon">すみやかに</td>
+      <td>勤務先 or 市区町村役場</td>
+      <td>被扶養者（異動）届、母子手帳、親の保険証コピー</td>
+      <td>1ヶ月健診までに保険証を取得しておくこと</td>
+    </tr>
+    <tr>
+      <td><span class="proc-num">3</span><span class="proc-name">児童手当</span></td>
+      <td style="text-align:center;"><div class="check"></div></td>
+      <td style="text-align:center;" class="deadline-urgent">15日以内</td>
+      <td>市区町村役場</td>
+      <td>認定請求書、健康保険証の写し、振込口座情報、マイナンバー</td>
+      <td>3歳未満: 月15,000円。遅れると遡及不可</td>
+    </tr>
+    <tr>
+      <td><span class="proc-num">4</span><span class="proc-name">出産育児一時金</span></td>
+      <td style="text-align:center;"><div class="check"></div></td>
+      <td style="text-align:center;" class="deadline-normal">2年以内</td>
+      <td>健保組合 / 協会けんぽ</td>
+      <td>支給申請書、出生証明書、直接支払制度合意文書</td>
+      <td>1児につき50万円。直接支払制度なら退院時精算</td>
+    </tr>
+    <tr>
+      <td><span class="proc-num">5</span><span class="proc-name">乳幼児医療費助成</span></td>
+      <td style="text-align:center;"><div class="check"></div></td>
+      <td style="text-align:center;" class="deadline-soon">すみやかに</td>
+      <td>市区町村役場</td>
+      <td>申請書、子どもの健康保険証、届出人の本人確認書類</td>
+      <td>自治体により対象年齢・助成額が異なる</td>
+    </tr>
+    <tr>
+      <td><span class="proc-num">6</span><span class="proc-name">マイナンバー</span></td>
+      <td style="text-align:center;"><div class="check"></div></td>
+      <td style="text-align:center;" class="deadline-normal">届出後</td>
+      <td>市区町村役場</td>
+      <td>交付申請書（届出後に届く）、顔写真</td>
+      <td>出生届で自動付番。カード発行は別途申請</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Notes -->
+<div class="notes-section">
+  <div class="notes-box">
+    <h3>&#128203; 提出のコツ</h3>
+    <ul>
+      <li>出生届と同日に児童手当・医療費助成もまとめて提出</li>
+      <li>役場窓口で「出産関係の手続き一式」と伝えると案内してもらえる</li>
+      <li>マイナンバーカードがあればオンライン申請可能な自治体も</li>
+      <li>書類はすべてコピーを取ってから提出する</li>
+      <li>印鑑（認印可）を持参しておくと安心</li>
+    </ul>
+  </div>
+  <div class="notes-box">
+    <h3>&#9888;&#65039; 忘れやすいポイント</h3>
+    <ul>
+      <li>児童手当は15日ルール（月末出産→翌月15日まで）</li>
+      <li>健康保険証がないと1ヶ月健診で全額自費になる</li>
+      <li>出生届の「届出人」は原則として父母のどちらか</li>
+      <li>里帰り出産の場合、届出先は出生地 or 本籍地 or 住所地</li>
+      <li>直接支払制度を使わない場合、出産費用は一旦自費立替</li>
+    </ul>
+  </div>
+  <div class="notes-box">
+    <h3>&#128588; パートナーに頼めること</h3>
+    <ul>
+      <li>出生届の提出（代理提出OK）</li>
+      <li>健康保険の手続き（勤務先に連絡）</li>
+      <li>児童手当の申請（窓口 or オンライン）</li>
+      <li>必要書類のコピー・整理</li>
+      <li>市区町村の窓口営業時間を事前確認</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Memo -->
+<div class="memo-box">
+  <h3>&#128221; その他の手続きメモ</h3>
+  <div class="memo-lines"></div>
+  <div class="memo-lines"></div>
+  <div class="memo-lines"></div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div>
+    参考：厚生労働省・各自治体の産後手続きガイド（2026年度版）<br>
+    ※ 金額・期限は自治体により異なる場合があります。詳細はお住まいの市区町村にご確認ください。
+  </div>
+  <div style="text-align:right;">
+    <a href="https://komorebi-app.vercel.app">こもれび</a> — 子育てをもっとやさしく<br>
+    ダウンロード: komorebi-app.vercel.app
+  </div>
+</div>
+
+</body>
+</html>

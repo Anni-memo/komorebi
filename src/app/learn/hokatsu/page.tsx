@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "保活ガイド - 保育園探しの全体像",
@@ -401,6 +402,34 @@ export default function HokatsuPage() {
               必ずお住まいの自治体の保育課にご確認ください。
               掲載情報は2026年3月時点のものです。
             </p>
+          </div>
+
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="保活スケジュール"
+              catchcopy="見学から内定まで、やること全部"
+              description="月別のやることリスト、必要書類、見学チェックポイントを1枚にまとめました。"
+              pdfPath="/pdf/hokatsu.pdf"
+              usageTips={[
+                { icon: "print", text: "手帳に挟んで持ち歩く" },
+                { icon: "share", text: "夫婦で分担を決める" },
+                { icon: "other", text: "見学メモ欄付き" },
+              ]}
+            />
+          </div>
+
+          <div className="mt-4">
+            <PdfDownloadSection
+              title="保育園比較シート"
+              catchcopy="見学メモをこの1枚に"
+              description="3園を並べて比較できる記入式シート。見学時に持参して、その場で記入できます。"
+              pdfPath="/pdf/nursery-comparison.pdf"
+              usageTips={[
+                { icon: "print", text: "見学時に持参して記入" },
+                { icon: "share", text: "夫婦で比較検討" },
+                { icon: "other", text: "○△×で簡単評価" },
+              ]}
+            />
           </div>
 
           {/* 導線 */}

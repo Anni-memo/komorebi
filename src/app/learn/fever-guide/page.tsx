@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "子どもの発熱対応ガイド",
@@ -420,6 +421,20 @@ export default function FeverGuidePage() {
               お子さんの症状に不安がある場合は、必ず医療機関にご相談ください。
               #8000（子ども医療電話相談）は夜間・休日にも利用可能です。
             </p>
+          </div>
+
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="子どもの発熱 対応フローチャート"
+              catchcopy="夜中の「どうしよう」に答える1枚"
+              description="月齢別の受診目安、家でできるケア、救急の判断基準をまとめました。"
+              pdfPath="/pdf/fever-guide.pdf"
+              usageTips={[
+                { icon: "print", text: "冷蔵庫に貼っておく" },
+                { icon: "share", text: "祖父母にも共有" },
+                { icon: "other", text: "体温記録欄付き" },
+              ]}
+            />
           </div>
 
           {/* 導線 */}

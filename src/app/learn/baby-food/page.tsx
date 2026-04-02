@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "離乳食のはじめかた | こもれび",
@@ -219,6 +220,20 @@ export default function BabyFoodPage() {
               本ページは一般的な情報提供を目的としており、医療・栄養指導に代わるものではありません。
               お子さまの発達や体質に合わせた進め方については、かかりつけの小児科医や管理栄養士にご相談ください。
             </p>
+          </div>
+
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="離乳食の進め方ガイド"
+              catchcopy="「今月は何が食べられる？」早見表"
+              description="4段階の進め方、食材リスト、アレルギー注意点をA4 1枚にまとめました。"
+              pdfPath="/pdf/baby-food.pdf"
+              usageTips={[
+                { icon: "print", text: "冷蔵庫に貼って確認" },
+                { icon: "other", text: "買い物時の食材チェックに" },
+                { icon: "share", text: "保育園の先生と共有" },
+              ]}
+            />
           </div>
 
           {/* 導線 */}

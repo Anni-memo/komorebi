@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 const STORAGE_KEY = "komorebi_vaccination_checklist";
 
@@ -426,6 +427,21 @@ export default function VaccinationSchedulePage() {
                 </section>
               );
             })}
+          </div>
+
+          {/* PDFダウンロード */}
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="冷蔵庫に貼れる予防接種カレンダー"
+              catchcopy="「次はいつ？」が一目でわかる月齢別一覧表"
+              description="A4サイズ1枚。印刷してすぐ使えます。チェック欄付きで接種記録もこれ1枚。"
+              pdfPath="/pdf/vaccination-schedule.pdf"
+              usageTips={[
+                { icon: "print", text: "冷蔵庫に貼って家族で共有" },
+                { icon: "other", text: "小児科の受診前にチェック" },
+                { icon: "share", text: "パートナーへLINEで送る" },
+              ]}
+            />
           </div>
 
           {/* 注意事項 */}

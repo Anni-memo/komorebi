@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 type Category = "必需品" | "あれば助かる" | "まだ急がない";
 type AgeTag = "妊娠中" | "0-3ヶ月" | "3-6ヶ月" | "6-12ヶ月" | "1歳以上";
@@ -431,6 +432,20 @@ export default function PreparePage() {
           ) : (
             <ItemList items={filteredItems} />
           )}
+
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="ベビー用品チェックリスト"
+              catchcopy="本当に要るものだけ、まとめました"
+              description="カテゴリ別の必須度・価格目安付き。買い物リストとしてそのまま使えます。"
+              pdfPath="/pdf/baby-items.pdf"
+              usageTips={[
+                { icon: "print", text: "買い物リストとして持参" },
+                { icon: "share", text: "出産祝いのリクエストに" },
+                { icon: "other", text: "必須度★付きで優先順位がわかる" },
+              ]}
+            />
+          </div>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link

@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 const STORAGE_KEY = "komorebi_hospital_bag_checklist";
 
@@ -431,6 +432,20 @@ export default function HospitalBagPage() {
               病院・産院によって必要な持ち物や支給品は異なります。
               必ず通院先の案内をご確認のうえ準備してください。
             </p>
+          </div>
+
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="陣痛・出産 対応ガイド"
+              catchcopy="そのとき何をする？夫婦で読む1枚"
+              description="陣痛の4段階、呼吸法、パートナーの役割、陣痛バッグチェックリストを1枚にまとめました。"
+              pdfPath="/pdf/labor-guide.pdf"
+              usageTips={[
+                { icon: "print", text: "入院バッグに入れておく" },
+                { icon: "share", text: "パートナー必読" },
+                { icon: "other", text: "陣痛バッグチェック付き" },
+              ]}
+            />
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">

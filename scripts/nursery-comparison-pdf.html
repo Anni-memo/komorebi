@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>保育園比較シート - こもれび</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: #1a1a1a;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    padding: 10mm 10mm 8mm 10mm;
+    height: 297mm;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 12px 0;
+    border-bottom: 2.5px solid #2d6a4f;
+    margin-bottom: 10px;
+  }
+  .header-left h1 {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #2d6a4f;
+    letter-spacing: 0.06em;
+  }
+  .header-left .subtitle {
+    font-size: 9pt;
+    color: #555;
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .header-right .brand {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #2d6a4f;
+    letter-spacing: 0.08em;
+  }
+  .header-right .tagline {
+    font-size: 7.5pt;
+    color: #888;
+    margin-top: 2px;
+  }
+  .header-right .version {
+    font-size: 6.5pt;
+    color: #aaa;
+    margin-top: 1px;
+  }
+
+  /* ── Main Table ── */
+  .table-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.5pt;
+    flex: 1;
+  }
+  thead th {
+    background: #2d6a4f;
+    color: #fff;
+    font-weight: 600;
+    padding: 6px 4px;
+    text-align: center;
+    font-size: 7.5pt;
+    letter-spacing: 0.03em;
+  }
+  thead th:first-child {
+    text-align: left;
+    padding-left: 8px;
+    width: 130px;
+  }
+  thead th.col-garden {
+    width: calc((100% - 130px) / 3);
+  }
+  tbody tr { border-bottom: 1px solid #e0e0e0; }
+  tbody tr:nth-child(even) { background: #f8fbf9; }
+  tbody tr:last-child { border-bottom: 2px solid #2d6a4f; }
+  tbody td {
+    padding: 5px 6px;
+    text-align: center;
+    vertical-align: middle;
+    min-height: 20px;
+  }
+  tbody td:first-child {
+    text-align: left;
+    padding-left: 8px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  /* Section header rows */
+  .section-row td {
+    background: #e8f5ed;
+    font-weight: 700;
+    color: #2d6a4f;
+    font-size: 7.5pt;
+    padding: 4px 8px;
+    text-align: left;
+    letter-spacing: 0.05em;
+    border-bottom: 1.5px solid #6bb38a;
+  }
+
+  /* Writable cell placeholder */
+  .write-cell {
+    color: #ccc;
+    font-size: 6.5pt;
+  }
+  .eval-cell {
+    color: #aaa;
+    font-size: 7pt;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── Legend ── */
+  .legend {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 8px;
+    margin-bottom: 6px;
+    font-size: 7pt;
+    color: #555;
+    padding: 5px 10px;
+    background: #f6faf7;
+    border: 1px solid #d0e6d8;
+    border-radius: 5px;
+  }
+  .legend-label {
+    font-weight: 700;
+    color: #2d6a4f;
+  }
+
+  /* ── Memo ── */
+  .memo-section {
+    margin-bottom: 6px;
+  }
+  .memo-section h3 {
+    font-size: 7.5pt;
+    color: #2d6a4f;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .memo-lines {
+    border-bottom: 1px dotted #bbb;
+    height: 16px;
+    margin-bottom: 2px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 6px;
+    border-top: 1.5px solid #2d6a4f;
+    font-size: 6.5pt;
+    color: #888;
+  }
+  .footer a { color: #2d6a4f; text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <h1>保育園比較シート</h1>
+    <div class="subtitle">見学メモをこの1枚に</div>
+  </div>
+  <div class="header-right">
+    <div class="brand">こもれび</div>
+    <div class="tagline">子育てをもっとやさしく</div>
+    <div class="version">2026年版</div>
+  </div>
+</div>
+
+<!-- Main Comparison Table -->
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>チェック項目</th>
+      <th class="col-garden">園 A</th>
+      <th class="col-garden">園 B</th>
+      <th class="col-garden">園 C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 基本情報 -->
+    <tr class="section-row"><td colspan="4">&#x1F4CB; 基本情報</td></tr>
+    <tr><td>園名</td><td class="write-cell">___________</td><td class="write-cell">___________</td><td class="write-cell">___________</td></tr>
+    <tr><td>種類（認可/認可外等）</td><td class="write-cell">___________</td><td class="write-cell">___________</td><td class="write-cell">___________</td></tr>
+    <tr><td>住所・最寄り駅</td><td class="write-cell">___________</td><td class="write-cell">___________</td><td class="write-cell">___________</td></tr>
+    <tr><td>定員・空き状況</td><td class="write-cell">___________</td><td class="write-cell">___________</td><td class="write-cell">___________</td></tr>
+    <tr><td>保育時間</td><td class="write-cell">___________</td><td class="write-cell">___________</td><td class="write-cell">___________</td></tr>
+    <tr><td>延長保育</td><td class="write-cell">___________</td><td class="write-cell">___________</td><td class="write-cell">___________</td></tr>
+    <tr><td>保育料（月額）</td><td class="write-cell">___________</td><td class="write-cell">___________</td><td class="write-cell">___________</td></tr>
+    <!-- 安全・環境 -->
+    <tr class="section-row"><td colspan="4">&#x1F6E1;&#xFE0F; 安全・環境</td></tr>
+    <tr><td>施設の清潔さ</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td></tr>
+    <tr><td>園庭・外遊び</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td></tr>
+    <tr><td>安全対策（柵・ロック）</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td></tr>
+    <tr><td>SIDS対策</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td></tr>
+    <!-- 保育内容 -->
+    <tr class="section-row"><td colspan="4">&#x1F476; 保育内容</td></tr>
+    <tr><td>食事（自園調理?）</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td></tr>
+    <tr><td>アレルギー対応</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td></tr>
+    <tr><td>保育士の雰囲気</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td><td class="eval-cell">○ △ ×</td></tr>
+    <!-- 実務 -->
+    <tr class="section-row"><td colspan="4">&#x1F4BC; 実務</td></tr>
+    <tr><td>持ち物の量</td><td class="eval-cell">多 / 普 / 少</td><td class="eval-cell">多 / 普 / 少</td><td class="eval-cell">多 / 普 / 少</td></tr>
+    <tr><td>保護者行事の頻度</td><td class="eval-cell">多 / 普 / 少</td><td class="eval-cell">多 / 普 / 少</td><td class="eval-cell">多 / 普 / 少</td></tr>
+    <tr><td>病児対応</td><td class="write-cell">___________</td><td class="write-cell">___________</td><td class="write-cell">___________</td></tr>
+    <!-- 総合 -->
+    <tr class="section-row"><td colspan="4">&#x2B50; 総合</td></tr>
+    <tr><td>第一印象</td><td class="write-cell">___________</td><td class="write-cell">___________</td><td class="write-cell">___________</td></tr>
+    <tr><td>希望順位</td><td class="write-cell">___________</td><td class="write-cell">___________</td><td class="write-cell">___________</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <span class="legend-label">凡例:</span>
+  <span>○ = 良い</span>
+  <span>△ = 普通</span>
+  <span>× = 気になる</span>
+  <span style="margin-left:12px; color:#999;">丸で囲んで使ってください</span>
+</div>
+
+<!-- Memo -->
+<div class="memo-section">
+  <h3>&#x1F4DD; 気になったこと（メモ）</h3>
+  <div class="memo-lines"></div>
+  <div class="memo-lines"></div>
+  <div class="memo-lines"></div>
+  <div class="memo-lines"></div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div>
+    <div>※ 見学時にこのシートを持参し、その場でメモすると比較しやすくなります。</div>
+    <div>※ 自治体の保育課で最新の空き状況を確認してください。</div>
+  </div>
+  <div>
+    <a href="https://komorebi-parenting.com">komorebi-parenting.com</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 const STORAGE_KEY = "komorebi_postnatal_checklist";
 
@@ -450,6 +451,34 @@ export default function PostnatalProceduresPage() {
               制度の詳細や必要書類は自治体・加入保険によって異なる場合があります。
               最新の情報は、お住まいの市区町村窓口またはウェブサイトでご確認ください。
             </p>
+          </div>
+
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="産後の手続きチェックリスト"
+              catchcopy="出産後14日が勝負。漏れゼロへ"
+              description="出生届・児童手当・保険加入など、期限付きの手続きをチェックリストにまとめました。"
+              pdfPath="/pdf/postnatal-procedures.pdf"
+              usageTips={[
+                { icon: "print", text: "入院バッグに入れておく" },
+                { icon: "share", text: "届出担当のパートナーに渡す" },
+                { icon: "other", text: "役所の窓口に持参" },
+              ]}
+            />
+          </div>
+
+          <div className="mt-4">
+            <PdfDownloadSection
+              title="児童手当・子育て支援制度 比較表"
+              catchcopy="もらえるお金、全部わかる"
+              description="児童手当・出産一時金・育休給付金など、申請先・金額・期限を一覧にまとめました。"
+              pdfPath="/pdf/childcare-benefits.pdf"
+              usageTips={[
+                { icon: "print", text: "役所の窓口に持参" },
+                { icon: "share", text: "パートナーと制度確認" },
+                { icon: "other", text: "自治体独自制度のメモ欄付き" },
+              ]}
+            />
           </div>
 
           {/* 導線 */}

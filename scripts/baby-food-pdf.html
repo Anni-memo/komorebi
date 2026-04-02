@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>離乳食の進め方ガイド - こもれび</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: #1a1a1a;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    padding: 10mm 10mm 8mm 10mm;
+    height: 297mm;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 12px 0;
+    border-bottom: 2.5px solid #2d6a4f;
+    margin-bottom: 8px;
+  }
+  .header-left h1 {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #2d6a4f;
+    letter-spacing: 0.06em;
+  }
+  .header-left .subtitle {
+    font-size: 9pt;
+    color: #555;
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+  .header-right { text-align: right; }
+  .header-right .brand {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #2d6a4f;
+    letter-spacing: 0.08em;
+  }
+  .header-right .tagline { font-size: 7.5pt; color: #888; margin-top: 2px; }
+  .header-right .version { font-size: 6.5pt; color: #aaa; margin-top: 1px; }
+
+  /* ── Main Table ── */
+  .main-table-wrap { flex: 1; display: flex; flex-direction: column; }
+  table.main-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7pt;
+    flex: 1;
+  }
+  table.main-table thead th {
+    background: #2d6a4f;
+    color: #fff;
+    font-weight: 600;
+    padding: 6px 4px;
+    text-align: center;
+    font-size: 7pt;
+    letter-spacing: 0.03em;
+  }
+  table.main-table thead th:first-child {
+    text-align: left;
+    padding-left: 8px;
+    width: 70px;
+    background: #245a42;
+  }
+  table.main-table thead th .period-name {
+    display: block;
+    font-size: 7.5pt;
+    font-weight: 700;
+  }
+  table.main-table thead th .period-age {
+    display: block;
+    font-size: 6pt;
+    font-weight: 400;
+    color: #c8e6d0;
+    margin-top: 1px;
+  }
+  table.main-table tbody tr { border-bottom: 1px solid #e0e0e0; }
+  table.main-table tbody tr:nth-child(even) { background: #f8fbf9; }
+  table.main-table tbody tr:last-child { border-bottom: 2px solid #2d6a4f; }
+  table.main-table tbody td {
+    padding: 6px 5px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 7pt;
+    line-height: 1.45;
+  }
+  table.main-table tbody td:first-child {
+    text-align: left;
+    padding-left: 8px;
+    font-weight: 700;
+    color: #2d6a4f;
+    background: #f6faf7;
+  }
+
+  /* ── Section title ── */
+  .section-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #2d6a4f;
+    margin: 7px 0 4px 0;
+    padding-left: 4px;
+    border-left: 3px solid #6bb38a;
+  }
+
+  /* ── Signs row ── */
+  .signs-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 7px;
+  }
+  .sign-card {
+    flex: 1;
+    background: #f6faf7;
+    border: 1px solid #d0e6d8;
+    border-radius: 4px;
+    padding: 5px 8px;
+    text-align: center;
+    font-size: 7pt;
+    color: #333;
+  }
+  .sign-card .sign-icon {
+    font-size: 14pt;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .sign-card .sign-text {
+    font-weight: 600;
+    color: #2d6a4f;
+  }
+
+  /* ── Allergy box ── */
+  .allergy-box {
+    border: 2px solid #e07050;
+    border-radius: 5px;
+    padding: 6px 10px;
+    margin-bottom: 7px;
+    background: #fef6f4;
+  }
+  .allergy-box h3 {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #c0392b;
+    margin-bottom: 4px;
+  }
+  .allergy-content {
+    display: flex;
+    gap: 16px;
+    font-size: 6.8pt;
+    color: #333;
+  }
+  .allergy-content div {
+    flex: 1;
+  }
+  .allergy-content strong {
+    color: #c0392b;
+  }
+  .allergy-content ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 2px;
+  }
+  .allergy-content li {
+    padding-left: 10px;
+    position: relative;
+    margin-bottom: 1.5px;
+    line-height: 1.4;
+  }
+  .allergy-content li::before {
+    content: "•";
+    position: absolute;
+    left: 1px;
+    color: #e07050;
+    font-weight: bold;
+  }
+
+  /* ── Notes ── */
+  .notes-section {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .notes-box {
+    flex: 1;
+    border: 1px solid #d0e6d8;
+    border-radius: 5px;
+    padding: 6px 8px;
+    background: #f6faf7;
+  }
+  .notes-box h3 {
+    font-size: 7.5pt;
+    color: #2d6a4f;
+    font-weight: 700;
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #d0e6d8;
+  }
+  .notes-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .notes-box li {
+    padding-left: 10px;
+    position: relative;
+    margin-bottom: 2px;
+    font-size: 6.5pt;
+    color: #333;
+    line-height: 1.4;
+  }
+  .notes-box li::before {
+    content: "•";
+    position: absolute;
+    left: 1px;
+    color: #6bb38a;
+    font-weight: bold;
+  }
+
+  /* ── Food memo table ── */
+  .food-memo {
+    border: 1px solid #d0e6d8;
+    border-radius: 5px;
+    padding: 5px 8px 4px 8px;
+    background: #fff;
+    margin-bottom: 6px;
+  }
+  .food-memo h3 {
+    font-size: 7.5pt;
+    color: #2d6a4f;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  table.memo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 6.8pt;
+  }
+  table.memo-table th {
+    background: #e8f3ec;
+    color: #2d6a4f;
+    font-weight: 600;
+    padding: 3px 4px;
+    text-align: center;
+    border: 1px solid #d0e6d8;
+    font-size: 6.5pt;
+  }
+  table.memo-table td {
+    border: 1px solid #d0e6d8;
+    padding: 3px 4px;
+    height: 15px;
+    text-align: center;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 6px;
+    border-top: 1.5px solid #2d6a4f;
+    font-size: 6.5pt;
+    color: #888;
+  }
+  .footer a { color: #2d6a4f; text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <h1>離乳食の進め方ガイド</h1>
+    <div class="subtitle">「今月は何が食べられる？」早見表</div>
+  </div>
+  <div class="header-right">
+    <div class="brand">こもれび</div>
+    <div class="tagline">子育てをもっとやさしく</div>
+    <div class="version">2026年版</div>
+  </div>
+</div>
+
+<!-- Main 4-stage Table -->
+<div class="main-table-wrap">
+<table class="main-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th><span class="period-name">ゴックン期</span><span class="period-age">5-6ヶ月</span></th>
+      <th><span class="period-name">モグモグ期</span><span class="period-age">7-8ヶ月</span></th>
+      <th><span class="period-name">カミカミ期</span><span class="period-age">9-11ヶ月</span></th>
+      <th><span class="period-name">パクパク期</span><span class="period-age">12-18ヶ月</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>回数</td>
+      <td>1日1回</td>
+      <td>1日2回</td>
+      <td>1日3回</td>
+      <td>3回+おやつ1-2回</td>
+    </tr>
+    <tr>
+      <td>かたさ</td>
+      <td>ペースト<br>（ポタージュ状）</td>
+      <td>舌でつぶせる<br>（豆腐くらい）</td>
+      <td>歯ぐきでつぶせる<br>（バナナくらい）</td>
+      <td>歯ぐきで噛める<br>（肉団子くらい）</td>
+    </tr>
+    <tr>
+      <td>主食</td>
+      <td>10倍がゆ</td>
+      <td>7倍がゆ</td>
+      <td>5倍がゆ〜軟飯</td>
+      <td>軟飯〜ごはん</td>
+    </tr>
+    <tr>
+      <td>たんぱく質</td>
+      <td>豆腐、白身魚</td>
+      <td>鶏ささみ、卵黄<br>ヨーグルト</td>
+      <td>赤身魚・肉<br>全卵</td>
+      <td>大人の取り分け</td>
+    </tr>
+    <tr>
+      <td>野菜</td>
+      <td>にんじん、かぼちゃ<br>ほうれん草ペースト</td>
+      <td>細かく刻んだ野菜</td>
+      <td>スティック野菜<br>（手づかみ）</td>
+      <td>大人と同じ<br>（薄味で）</td>
+    </tr>
+    <tr>
+      <td>ポイント</td>
+      <td>小さじ1杯から開始</td>
+      <td>食材の種類を増やす</td>
+      <td>手づかみ食べスタート</td>
+      <td>栄養の大部分が食事に</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 始めるサイン -->
+<div class="section-title">離乳食を始めるサイン</div>
+<div class="signs-row">
+  <div class="sign-card">
+    <span class="sign-icon">&#129490;</span>
+    <span class="sign-text">首がしっかりすわった</span>
+  </div>
+  <div class="sign-card">
+    <span class="sign-icon">&#129681;</span>
+    <span class="sign-text">支えがあればお座りできる</span>
+  </div>
+  <div class="sign-card">
+    <span class="sign-icon">&#128064;</span>
+    <span class="sign-text">食べ物に興味を示す</span>
+  </div>
+  <div class="sign-card">
+    <span class="sign-icon">&#128068;</span>
+    <span class="sign-text">舌の押し出し反射が減った</span>
+  </div>
+</div>
+
+<!-- アレルギー注意 -->
+<div class="allergy-box">
+  <h3>&#9888;&#65039; アレルギーに注意</h3>
+  <div class="allergy-content">
+    <div>
+      <strong>三大アレルゲン</strong>
+      <ul>
+        <li>卵（特に卵白）</li>
+        <li>牛乳・乳製品</li>
+        <li>小麦</li>
+      </ul>
+    </div>
+    <div>
+      <strong>初めての食材は</strong>
+      <ul>
+        <li>平日の午前中に試す（病院が開いている時間）</li>
+        <li>1日1食材・小さじ1から</li>
+        <li>2-3日あけて次の新食材へ</li>
+      </ul>
+    </div>
+    <div>
+      <strong>こんな症状が出たら受診</strong>
+      <ul>
+        <li>口のまわり・体の発疹</li>
+        <li>嘔吐・下痢</li>
+        <li>呼吸がゼーゼーする</li>
+        <li>顔色が悪い（すぐ119番）</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Notes 3列 -->
+<div class="notes-section">
+  <div class="notes-box">
+    <h3>&#128172; よくある悩み</h3>
+    <ul>
+      <li>食べない日があっても大丈夫</li>
+      <li>母乳/ミルクが主栄養のうちは量にこだわらない</li>
+      <li>好き嫌いは成長とともに変わる</li>
+      <li>他の子と比べなくてOK</li>
+    </ul>
+  </div>
+  <div class="notes-box">
+    <h3>&#128161; 便利なコツ</h3>
+    <ul>
+      <li>まとめて作って製氷皿で冷凍</li>
+      <li>大人の料理から取り分けが時短に</li>
+      <li>ブレンダーがあると初期は楽</li>
+      <li>ベビーフードも上手に活用</li>
+    </ul>
+  </div>
+  <div class="notes-box">
+    <h3>&#9888;&#65039; 注意すること</h3>
+    <ul>
+      <li>はちみつは1歳まで厳禁</li>
+      <li>塩分・砂糖は控えめに</li>
+      <li>丸い食材（ぶどう等）は4分割</li>
+      <li>食事中は目を離さない</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 食材メモ -->
+<div class="food-memo">
+  <h3>&#128221; 試した食材リスト</h3>
+  <table class="memo-table">
+    <thead>
+      <tr>
+        <th style="width:30%;">食材名</th>
+        <th style="width:25%;">日付</th>
+        <th style="width:45%;">反応</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div>
+    参考：厚生労働省「授乳・離乳の支援ガイド（2019年改定版）」<br>
+    ※ お子さまの発達には個人差があります。不安な場合はかかりつけ医にご相談ください。
+  </div>
+  <div style="text-align:right;">
+    <a href="https://komorebi-app.vercel.app">こもれび</a> — 子育てをもっとやさしく<br>
+    ダウンロード: komorebi-app.vercel.app
+  </div>
+</div>
+
+</body>
+</html>

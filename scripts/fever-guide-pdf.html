@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>子どもの発熱 対応フローチャート - こもれび</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: #1a1a1a;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    padding: 10mm 10mm 8mm 10mm;
+    height: 297mm;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 12px 0;
+    border-bottom: 2.5px solid #2d6a4f;
+    margin-bottom: 8px;
+  }
+  .header-left h1 {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #2d6a4f;
+    letter-spacing: 0.06em;
+  }
+  .header-left .subtitle {
+    font-size: 9pt;
+    color: #555;
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .header-right .brand {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #2d6a4f;
+    letter-spacing: 0.08em;
+  }
+  .header-right .tagline {
+    font-size: 7.5pt;
+    color: #888;
+    margin-top: 2px;
+  }
+  .header-right .version {
+    font-size: 6.5pt;
+    color: #aaa;
+    margin-top: 1px;
+  }
+
+  /* ── Section Title ── */
+  .section-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #2d6a4f;
+    margin: 6px 0 4px 0;
+    padding-left: 6px;
+    border-left: 3px solid #6bb38a;
+  }
+
+  /* ── Age Table ── */
+  .age-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.5pt;
+    margin-bottom: 8px;
+  }
+  .age-table thead th {
+    background: #2d6a4f;
+    color: #fff;
+    font-weight: 600;
+    padding: 6px 5px;
+    text-align: center;
+    font-size: 7.2pt;
+    letter-spacing: 0.03em;
+  }
+  .age-table thead th:first-child { text-align: left; padding-left: 8px; }
+  .age-table tbody tr { border-bottom: 1px solid #e0e0e0; }
+  .age-table tbody tr:last-child { border-bottom: 2px solid #2d6a4f; }
+  .age-table tbody td {
+    padding: 7px 5px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 7.5pt;
+  }
+  .age-table tbody td:first-child {
+    text-align: left;
+    padding-left: 8px;
+    font-weight: 600;
+  }
+  .age-table tbody td:nth-child(3) {
+    text-align: left;
+    padding-left: 8px;
+  }
+  .level-red { background: #fde8e8; color: #c0392b; font-weight: 700; font-size: 7.5pt; }
+  .level-orange { background: #fef3e2; color: #d4880f; font-weight: 700; font-size: 7.5pt; }
+  .level-yellow { background: #fefce8; color: #8a6d00; font-weight: 700; font-size: 7.5pt; }
+
+  /* ── Alert Boxes ── */
+  .alert-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex: 1;
+  }
+  .alert-box {
+    flex: 1;
+    border-radius: 5px;
+    padding: 6px 8px;
+  }
+  .alert-box h3 {
+    font-size: 7.5pt;
+    font-weight: 700;
+    margin-bottom: 3px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid;
+  }
+  .alert-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .alert-box li {
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 1.5px;
+    font-size: 6.6pt;
+    line-height: 1.45;
+  }
+
+  /* Emergency */
+  .box-emergency {
+    background: #fff;
+    border: 2.5px solid #c0392b;
+  }
+  .box-emergency h3 {
+    color: #c0392b;
+    border-bottom-color: #e8a0a0;
+  }
+  .box-emergency li::before {
+    content: "🔴";
+    position: absolute;
+    left: 0;
+    font-size: 5pt;
+  }
+
+  /* Urgent */
+  .box-urgent {
+    background: #fde8e8;
+    border: 1.5px solid #e8a0a0;
+  }
+  .box-urgent h3 {
+    color: #c0392b;
+    border-bottom-color: #e8a0a0;
+  }
+  .box-urgent li::before {
+    content: "▸";
+    position: absolute;
+    left: 2px;
+    color: #c0392b;
+    font-weight: bold;
+  }
+
+  /* Wait */
+  .box-wait {
+    background: #fefce8;
+    border: 1.5px solid #e6d9a8;
+  }
+  .box-wait h3 {
+    color: #8a6d00;
+    border-bottom-color: #e6d9a8;
+  }
+  .box-wait li::before {
+    content: "▸";
+    position: absolute;
+    left: 2px;
+    color: #b8860b;
+    font-weight: bold;
+  }
+
+  /* ── Care Table ── */
+  .care-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7pt;
+    margin-bottom: 6px;
+  }
+  .care-table thead th {
+    background: #e8f0ea;
+    color: #2d6a4f;
+    font-weight: 600;
+    padding: 4px 6px;
+    text-align: left;
+    font-size: 6.8pt;
+  }
+  .care-table tbody tr { border-bottom: 1px solid #e8e8e8; }
+  .care-table tbody td {
+    padding: 3px 6px;
+    font-size: 6.8pt;
+    vertical-align: top;
+  }
+  .care-table tbody td:first-child {
+    font-weight: 600;
+    color: #2d6a4f;
+    white-space: nowrap;
+    width: 75px;
+  }
+
+  /* ── Medicine Box ── */
+  .medicine-box {
+    background: #f6faf7;
+    border: 1px solid #d0e6d8;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 6px;
+    font-size: 6.8pt;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .medicine-box .med-title {
+    font-weight: 700;
+    color: #2d6a4f;
+    font-size: 7pt;
+    white-space: nowrap;
+  }
+  .med-ok { color: #2d6a4f; font-weight: 600; }
+  .med-caution { color: #d4880f; font-weight: 600; }
+  .med-ng { color: #c0392b; font-weight: 700; }
+
+  /* ── Contact Box ── */
+  .contact-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .contact-item {
+    flex: 1;
+    background: #2d6a4f;
+    color: #fff;
+    border-radius: 5px;
+    padding: 6px 10px;
+    text-align: center;
+  }
+  .contact-item .contact-num {
+    font-size: 14pt;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+  .contact-item .contact-label {
+    font-size: 6.8pt;
+    opacity: 0.9;
+    margin-top: 1px;
+  }
+  .contact-item.contact-sub {
+    background: #6bb38a;
+  }
+
+  /* ── Temp Record ── */
+  .temp-record {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7pt;
+    margin-bottom: 6px;
+  }
+  .temp-record thead th {
+    background: #e8f0ea;
+    color: #2d6a4f;
+    font-weight: 600;
+    padding: 4px 6px;
+    text-align: center;
+    font-size: 6.8pt;
+    border: 1px solid #d0e6d8;
+  }
+  .temp-record tbody td {
+    border: 1px solid #d0e6d8;
+    padding: 10px 6px;
+    text-align: center;
+    height: 20px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 6px;
+    border-top: 1.5px solid #2d6a4f;
+    font-size: 6.5pt;
+    color: #888;
+    margin-top: auto;
+  }
+  .footer a { color: #2d6a4f; text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <h1>子どもの発熱 対応フローチャート</h1>
+    <div class="subtitle">夜中の「どうしよう」に答える1枚</div>
+  </div>
+  <div class="header-right">
+    <div class="brand">こもれび</div>
+    <div class="tagline">子育てをもっとやさしく</div>
+    <div class="version">2026年版</div>
+  </div>
+</div>
+
+<!-- Age-based Table -->
+<div class="section-title">月齢別の対応目安</div>
+<table class="age-table">
+  <thead>
+    <tr>
+      <th style="width:100px;">月齢</th>
+      <th style="width:90px;">体温</th>
+      <th>対応</th>
+      <th style="width:90px;">判断レベル</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3ヶ月未満</td>
+      <td>38.0℃以上</td>
+      <td>すぐに受診。重症感染症の可能性があるため、夜間でも救急へ</td>
+      <td class="level-red">&#128308; 即受診</td>
+    </tr>
+    <tr>
+      <td>3〜6ヶ月</td>
+      <td>38.0℃以上</td>
+      <td>早めに受診。機嫌・哺乳状態を観察し、ぐったりなら急いで</td>
+      <td class="level-orange">&#128992; 早めに</td>
+    </tr>
+    <tr>
+      <td>6ヶ月〜1歳</td>
+      <td>38.5℃以上</td>
+      <td>様子見→数時間で改善しなければ受診。水分補給と安静</td>
+      <td class="level-yellow">&#128993; 状況判断</td>
+    </tr>
+    <tr>
+      <td>1歳以上</td>
+      <td>38.5℃以上</td>
+      <td>全身状態（食欲・機嫌・活動性）で判断。元気なら翌日受診でOK</td>
+      <td class="level-yellow">&#128993; 状況判断</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Alert Boxes -->
+<div class="alert-row">
+  <div class="alert-box box-urgent">
+    <h3>&#9888;&#65039; すぐ受診すべきサイン</h3>
+    <ul>
+      <li>ぐったりして反応が鈍い</li>
+      <li>水分を全く受け付けない（半日以上）</li>
+      <li>3ヶ月未満で38℃以上の発熱</li>
+      <li>発疹が急に広がっている</li>
+      <li>強い頭痛・首の痛みを訴える</li>
+      <li>おしっこが半日以上出ていない</li>
+      <li>呼吸が速い・肩で息をしている</li>
+    </ul>
+  </div>
+  <div class="alert-box box-wait">
+    <h3>&#128993; 翌日受診でOK</h3>
+    <ul>
+      <li>熱はあるが食欲・機嫌がよい</li>
+      <li>水分が摂れている</li>
+      <li>遊んだり笑ったりする</li>
+      <li>解熱後に元気が戻る</li>
+    </ul>
+  </div>
+  <div class="alert-box box-emergency">
+    <h3>&#128680; 救急車を呼ぶべきサイン</h3>
+    <ul>
+      <li>けいれんが5分以上続く</li>
+      <li>意識がない・呼びかけに反応しない</li>
+      <li>唇や爪が紫色（チアノーゼ）</li>
+      <li>呼吸困難（胸がペコペコへこむ）</li>
+      <li>大量の嘔吐が止まらない</li>
+      <li>ぐったりして起き上がれない</li>
+      <li>初めてのけいれん（発熱の有無問わず）</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Home Care -->
+<div class="section-title">家でできるケア</div>
+<table class="care-table">
+  <thead>
+    <tr><th>ケア</th><th>ポイント</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>&#128167; 水分補給</td><td>母乳・ミルク・OS-1・麦茶など。少量ずつこまめに。嫌がる場合はスプーンで。脱水サインはおしっこの回数と唇の乾燥で確認</td></tr>
+    <tr><td>&#127777;&#65039; 室温調整</td><td>室温22〜25℃、湿度50〜60%が目安。寒がるときは1枚足し、汗をかいたらこまめに着替え</td></tr>
+    <tr><td>&#129482; クーリング</td><td>わきの下・首・太もものつけ根を冷やす。嫌がるなら無理しない。おでこの冷却シートは気休め程度</td></tr>
+    <tr><td>&#128164; 安静</td><td>無理に寝かせなくてOK。本人が楽な姿勢で過ごさせる。遊びたがるなら静かな遊びを</td></tr>
+    <tr><td>&#128221; 体温記録</td><td>朝・昼・夜の3回測定。受診時に医師へ見せると診断の助けに。下の記録欄を活用してください</td></tr>
+  </tbody>
+</table>
+
+<!-- Medicine -->
+<div class="medicine-box">
+  <span class="med-title">&#128138; 解熱剤について:</span>
+  <span><span class="med-ok">&#9898; アセトアミノフェン（カロナール等）→ OK</span></span>
+  <span><span class="med-caution">&#9898; イブプロフェン → 医師の指示時のみ</span></span>
+  <span><span class="med-ng">&#10060; アスピリン → 禁止（ライ症候群のリスク）</span></span>
+  <span>投与間隔: 4〜6時間以上あける</span>
+</div>
+
+<!-- Contact -->
+<div class="contact-box">
+  <div class="contact-item">
+    <div class="contact-num">#8000</div>
+    <div class="contact-label">子ども医療電話相談<br>（夜間・休日）</div>
+  </div>
+  <div class="contact-item contact-sub">
+    <div class="contact-num">#7119</div>
+    <div class="contact-label">救急安心センター<br>（24時間対応地域あり）</div>
+  </div>
+  <div class="contact-item contact-sub">
+    <div class="contact-num" style="font-size:10pt;">かかりつけ医</div>
+    <div class="contact-label">診療時間内はまず電話<br>相談してから受診</div>
+  </div>
+</div>
+
+<!-- Temp Record -->
+<div class="section-title">&#128321;&#65039; 体温記録欄</div>
+<table class="temp-record">
+  <thead>
+    <tr>
+      <th style="width:80px;">日付</th>
+      <th style="width:70px;">朝</th>
+      <th style="width:70px;">昼</th>
+      <th style="width:70px;">夜</th>
+      <th>メモ（食欲・機嫌・薬など）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td></td><td>　　℃</td><td>　　℃</td><td>　　℃</td><td></td></tr>
+    <tr><td></td><td>　　℃</td><td>　　℃</td><td>　　℃</td><td></td></tr>
+    <tr><td></td><td>　　℃</td><td>　　℃</td><td>　　℃</td><td></td></tr>
+    <tr><td></td><td>　　℃</td><td>　　℃</td><td>　　℃</td><td></td></tr>
+  </tbody>
+</table>
+
+<!-- Footer -->
+<div class="footer">
+  <div>
+    参考：日本小児科学会「こどもの救急」/ 厚生労働省 小児救急ガイドライン<br>
+    ※ この資料は一般的な目安です。判断に迷う場合は必ず医療機関にご相談ください。
+  </div>
+  <div style="text-align:right;">
+    <a href="https://komorebi-app.vercel.app">こもれび</a> — 子育てをもっとやさしく<br>
+    ダウンロード: komorebi-app.vercel.app
+  </div>
+</div>
+
+</body>
+</html>
