@@ -1,17 +1,28 @@
+"use client";
+
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button-variants";
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
 
-export const metadata = {
-  title: "出産後に必要な手続き一覧 | こもれび",
-  description:
-    "出生届・健康保険・児童手当・出産育児一時金・乳幼児医療費助成・マイナンバーなど、出産後に必要な手続きの期限・必要書類・届出先をまとめました。",
-};
+const STORAGE_KEY = "komorebi_postnatal_checklist";
 
-const procedures = [
+interface Procedure {
+  title: string;
+  deadline: string;
+  where: string;
+  documents: string[];
+  notes: string;
+  priority: string;
+  priorityColor: string;
+  amounts?: { category: string; amount: string }[];
+}
+
+const procedures: Procedure[] = [
   {
     title: "出生届",
     deadline: "出生日を含めて14日以内",
@@ -111,6 +122,94 @@ const timelineSteps = [
 ];
 
 export default function PostnatalProceduresPage() {
+  const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const [toast, setToast] = useState<string | null>(null);
+  const [showResetDialog, setShowResetDialog] = useState(false);
+  const userIdRef = useRef<string | null>(null);
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showToast = useCallback((message: string) => {
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    setToast(message);
+    toastTimerRef.current = setTimeout(() => setToast(null), 2000);
+  }, []);
+
+  const saveToLocal = useCallback((data: Record<string, boolean>) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch { /* ignore */ }
+  }, []);
+
+  const saveToSupabase = useCallback(async (data: Record<string, boolean>) => {
+    if (!userIdRef.current) return;
+    try {
+      const supabase = createClient();
+      await supabase
+        .from("profiles")
+        .update({ postnatal_checklist: data })
+        .eq("id", userIdRef.current);
+    } catch { /* ignore */ }
+  }, []);
+
+  useEffect(() => {
+    async function loadData() {
+      let localData: Record<string, boolean> | null = null;
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) localData = JSON.parse(raw);
+      } catch { /* ignore */ }
+
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          userIdRef.current = user.id;
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("postnatal_checklist")
+            .eq("id", user.id)
+            .single();
+
+          if (profile?.postnatal_checklist && typeof profile.postnatal_checklist === "object") {
+            const supabaseData = profile.postnatal_checklist as Record<string, boolean>;
+            if (Object.keys(supabaseData).length > 0) {
+              setChecked(supabaseData);
+              saveToLocal(supabaseData);
+              showToast("前回の記録を復元しました");
+              return;
+            }
+          }
+        }
+      } catch { /* ignore */ }
+
+      if (localData && Object.keys(localData).length > 0) {
+        setChecked(localData);
+      }
+    }
+    loadData();
+  }, [saveToLocal, showToast]);
+
+  function toggleCheck(key: string) {
+    setChecked((prev) => {
+      const next = { ...prev, [key]: !prev[key] };
+      saveToLocal(next);
+      saveToSupabase(next);
+      showToast("保存しました");
+      return next;
+    });
+  }
+
+  function handleReset() {
+    setChecked({});
+    saveToLocal({});
+    saveToSupabase({});
+    setShowResetDialog(false);
+    showToast("リセットしました");
+  }
+
+  const totalItems = procedures.length;
+  const checkedCount = Object.values(checked).filter(Boolean).length;
+
   return (
     <>
       <Header />
@@ -130,9 +229,70 @@ export default function PostnatalProceduresPage() {
             </h1>
             <p className="text-muted-foreground leading-relaxed">
               出産後は体の回復と赤ちゃんのお世話で大変な時期ですが、
-              期限のある手続きがいくつかあります。優先順位をつけて、一つずつ進めていきましょう。
+              期限のある手続きがいくつかあります。完了したものにチェックを入れて進捗を管理できます。
             </p>
           </div>
+
+          {/* 進捗バー */}
+          <Card className="border-border/50 shadow-none mb-8">
+            <CardContent className="pt-5">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-foreground">手続き進捗</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-muted-foreground">
+                    {checkedCount} / {totalItems} 件
+                  </span>
+                  {checkedCount > 0 && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground"
+                      onClick={() => setShowResetDialog(true)}
+                    >
+                      リセット
+                    </Button>
+                  )}
+                </div>
+              </div>
+              <div className="h-2 bg-muted rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-primary rounded-full transition-all duration-500"
+                  style={{ width: `${totalItems > 0 ? (checkedCount / totalItems) * 100 : 0}%` }}
+                />
+              </div>
+              {toast && (
+                <div className="mt-3 text-xs text-primary bg-primary/10 rounded-md px-3 py-1.5 text-center transition-opacity">
+                  {toast}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* リセット確認ダイアログ */}
+          {showResetDialog && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+              <Card className="w-80 shadow-lg">
+                <CardContent className="pt-6">
+                  <p className="text-sm text-foreground mb-4">
+                    すべてのチェックをリセットしますか？この操作は元に戻せません。
+                  </p>
+                  <div className="flex justify-end gap-2">
+                    <Button variant="ghost" size="sm" onClick={() => setShowResetDialog(false)}>
+                      キャンセル
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-destructive hover:text-destructive"
+                      onClick={handleReset}
+                    >
+                      リセット
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
 
           {/* タイムライン概要 */}
           <section className="mb-8">
@@ -156,65 +316,90 @@ export default function PostnatalProceduresPage() {
             </Card>
           </section>
 
-          {/* 各手続きの詳細 */}
+          {/* 各手続きの詳細（チェックリスト付き） */}
           <section className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📝</span>
               各手続きの詳細
             </h2>
             <div className="space-y-4">
-              {procedures.map((proc, i) => (
-                <Card key={proc.title} className="border-border/50 shadow-none">
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold shrink-0">
-                        {i + 1}
-                      </span>
-                      <CardTitle className="text-base">{proc.title}</CardTitle>
-                      <Badge className={proc.priorityColor}>{proc.priority}</Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3 text-sm">
-                      <div>
-                        <strong className="text-foreground">期限:</strong>{" "}
-                        <span className="text-muted-foreground">{proc.deadline}</span>
-                      </div>
-                      <div>
-                        <strong className="text-foreground">届出先:</strong>{" "}
-                        <span className="text-muted-foreground">{proc.where}</span>
-                      </div>
-                      <div>
-                        <strong className="text-foreground">必要書類:</strong>
-                        <ul className="mt-1 space-y-1">
-                          {proc.documents.map((doc) => (
-                            <li key={doc} className="flex items-start gap-2 text-muted-foreground">
-                              <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
-                              {doc}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      {proc.amounts && (
-                        <div>
-                          <strong className="text-foreground">支給額:</strong>
-                          <div className="mt-1 space-y-1">
-                            {proc.amounts.map((a) => (
-                              <div key={a.category} className="flex items-center gap-2 text-muted-foreground">
-                                <span className="text-xs">{a.category}:</span>
-                                <span className="font-semibold text-foreground text-xs">{a.amount}</span>
-                              </div>
-                            ))}
-                          </div>
+              {procedures.map((proc, i) => {
+                const checkKey = proc.title;
+                const isChecked = checked[checkKey] || false;
+
+                return (
+                  <Card
+                    key={proc.title}
+                    className={`border-border/50 shadow-none transition-all ${
+                      isChecked ? "bg-primary/5 border-primary/20" : ""
+                    }`}
+                  >
+                    <CardHeader className="pb-2">
+                      <div
+                        className="flex items-center gap-3 cursor-pointer"
+                        onClick={() => toggleCheck(checkKey)}
+                      >
+                        <div
+                          className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${
+                            isChecked
+                              ? "bg-primary border-primary text-primary-foreground"
+                              : "border-border"
+                          }`}
+                        >
+                          {isChecked && (
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                              <path d="M10 3L4.5 8.5 2 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+                            </svg>
+                          )}
                         </div>
-                      )}
-                      <div className="text-xs bg-muted/30 rounded p-2 text-muted-foreground leading-relaxed">
-                        {proc.notes}
+                        <CardTitle className={`text-base ${isChecked ? "text-muted-foreground line-through" : ""}`}>
+                          {proc.title}
+                        </CardTitle>
+                        <Badge className={proc.priorityColor}>{proc.priority}</Badge>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3 text-sm ml-8">
+                        <div>
+                          <strong className="text-foreground">期限:</strong>{" "}
+                          <span className="text-muted-foreground">{proc.deadline}</span>
+                        </div>
+                        <div>
+                          <strong className="text-foreground">届出先:</strong>{" "}
+                          <span className="text-muted-foreground">{proc.where}</span>
+                        </div>
+                        <div>
+                          <strong className="text-foreground">必要書類:</strong>
+                          <ul className="mt-1 space-y-1">
+                            {proc.documents.map((doc) => (
+                              <li key={doc} className="flex items-start gap-2 text-muted-foreground">
+                                <span className="text-primary mt-0.5 shrink-0">&#10003;</span>
+                                {doc}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        {proc.amounts && (
+                          <div>
+                            <strong className="text-foreground">支給額:</strong>
+                            <div className="mt-1 space-y-1">
+                              {proc.amounts.map((a) => (
+                                <div key={a.category} className="flex items-center gap-2 text-muted-foreground">
+                                  <span className="text-xs">{a.category}:</span>
+                                  <span className="font-semibold text-foreground text-xs">{a.amount}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        <div className="text-xs bg-muted/30 rounded p-2 text-muted-foreground leading-relaxed">
+                          {proc.notes}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </section>
 
@@ -269,10 +454,16 @@ export default function PostnatalProceduresPage() {
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="/learn/mental-care" className={buttonVariants({ variant: "outline" })}>
+            <Link
+              href="/learn/mental-care"
+              className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-4 h-8 text-sm font-medium hover:bg-muted transition-colors"
+            >
               産後のメンタルケアを読む
             </Link>
-            <Link href="/learn" className={buttonVariants({ variant: "ghost" })}>
+            <Link
+              href="/learn"
+              className="inline-flex items-center justify-center rounded-lg px-4 h-8 text-sm font-medium hover:bg-muted transition-colors"
+            >
               学ぶトップに戻る
             </Link>
           </div>
