@@ -46,7 +46,9 @@ export function AmazonProductCard({
   officialUrl,
   officialName,
 }: AmazonProductCardProps) {
-  const amazonUrl = `https://www.amazon.co.jp/dp/${asin}?tag=${storeId}`;
+  // ASIN直リンクではなく検索URLを使用（ASIN無効時の404を回避）
+  const amazonSearchUrl = `https://www.amazon.co.jp/s?k=${encodeURIComponent(name)}&tag=${storeId}`;
+  const amazonUrl = amazonSearchUrl;
   const imageUrl = `https://m.media-amazon.com/images/P/${asin}.01._SL200_.jpg`;
   const finalRakutenUrl = rakutenUrl || buildRakutenSearchUrl(name);
   const finalYahooUrl = yahooUrl || buildYahooSearchUrl(name);
