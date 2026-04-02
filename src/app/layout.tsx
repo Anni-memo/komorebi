@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { WebSiteJsonLd } from "@/components/seo/json-ld";
+import { FloatingSearch } from "@/components/floating-search";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -52,6 +53,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <WebSiteJsonLd />
         {children}
+        <FloatingSearch />
         <Analytics />
       </body>
     </html>
