@@ -1,59 +1,99 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
 
-const stageLabels: Record<string, string> = {
-  pregnant: "妊娠中",
-  newborn: "出産直後",
-  "0": "0歳",
-  "1": "1歳",
-  "2": "2歳",
-  "3+": "3歳以上",
-};
+// --- Constants ---
 
-const familyLabels: Record<string, string> = {
-  first: "第一子",
-  "second+": "第二子以降",
-  "dual-income": "共働き",
-  nursery: "保育園検討中",
-  single: "ひとり親",
-  "family-support": "実家サポートあり",
-  "no-family-support": "実家サポートなし",
-};
+const PROFILE_STORAGE_KEY = "komorebi_profile";
 
-const interestLabels: Record<string, string> = {
-  procedures: "手続き・制度",
-  sleep: "睡眠",
-  food: "食事",
-  health: "体調",
-  development: "発達",
-  "nursery-search": "保活",
-  shopping: "買い物",
-  mental: "メンタル",
-  consult: "相談",
-};
+const stageOptions = [
+  { label: "妊娠中", key: "pregnant" },
+  { label: "出産直後", key: "newborn" },
+  { label: "0歳", key: "0" },
+  { label: "1歳", key: "1" },
+  { label: "2歳", key: "2" },
+  { label: "3歳以上", key: "3+" },
+];
 
-const channelLabels: Record<string, string> = {
-  site: "サイト内",
-  line: "LINE",
-  email: "メール",
-  "line-email": "LINEとメール",
-  later: "未設定",
-};
+const familyOptions = [
+  { label: "第一子", key: "first" },
+  { label: "第二子以降", key: "second+" },
+  { label: "共働き", key: "dual-income" },
+  { label: "保育園検討中", key: "nursery" },
+  { label: "ひとり親", key: "single" },
+  { label: "実家サポートあり", key: "family-support" },
+  { label: "実家サポートなし", key: "no-family-support" },
+];
 
-const frequencyLabels: Record<string, string> = {
-  "important-only": "重要なものだけ",
-  weekly: "週1回まとめ",
-  "as-needed": "必要なときに都度",
-  custom: "自分で調整",
-};
+const interestOptions = [
+  { label: "手続き・制度", key: "procedures" },
+  { label: "睡眠", key: "sleep" },
+  { label: "食事", key: "food" },
+  { label: "体調", key: "health" },
+  { label: "発達", key: "development" },
+  { label: "保活", key: "nursery-search" },
+  { label: "買い物", key: "shopping" },
+  { label: "メンタル", key: "mental" },
+  { label: "相談", key: "consult" },
+];
+
+const notifCategoryOptions = [
+  { label: "今日やること", key: "today-tasks" },
+  { label: "今週中に確認したいこと", key: "weekly-tasks" },
+  { label: "手続き・制度", key: "procedures" },
+  { label: "健診や予防接種の目安", key: "checkup-vaccination" },
+  { label: "保活", key: "hokatsu" },
+  { label: "準備物", key: "preparation" },
+  { label: "おすすめ記事", key: "articles" },
+  { label: "同じ悩みの相談", key: "qa" },
+  { label: "通知は最小限にしたい", key: "minimal" },
+];
+
+const channelOptions = [
+  { label: "サイト内だけ", key: "site" },
+  { label: "LINE", key: "line" },
+  { label: "メール", key: "email" },
+  { label: "LINEとメール", key: "line-email" },
+  { label: "あとで決める", key: "later" },
+];
+
+const frequencyOptions = [
+  { label: "重要なものだけ", key: "important-only" },
+  { label: "週1回まとめ", key: "weekly" },
+  { label: "必要なときに都度", key: "as-needed" },
+  { label: "自分で調整したい", key: "custom" },
+];
+
+// --- Label maps ---
+
+const stageLabels: Record<string, string> = Object.fromEntries(
+  stageOptions.map((o) => [o.key, o.label])
+);
+const familyLabels: Record<string, string> = Object.fromEntries(
+  familyOptions.map((o) => [o.key, o.label])
+);
+const interestLabels: Record<string, string> = Object.fromEntries(
+  interestOptions.map((o) => [o.key, o.label])
+);
+const channelLabels: Record<string, string> = Object.fromEntries(
+  channelOptions.map((o) => [o.key, o.label])
+);
+const frequencyLabels: Record<string, string> = Object.fromEntries(
+  frequencyOptions.map((o) => [o.key, o.label])
+);
+const notifCategoryLabels: Record<string, string> = Object.fromEntries(
+  notifCategoryOptions.map((o) => [o.key, o.label])
+);
+
+// --- Types ---
 
 interface Profile {
   nickname: string | null;
@@ -70,70 +110,292 @@ interface Profile {
   onboarding_completed: boolean;
 }
 
-// 妊娠週数計算
+type EditableField =
+  | "nickname"
+  | "stage"
+  | "date"
+  | "municipality"
+  | "family_situation"
+  | "interests"
+  | "notification_categories"
+  | "notification_channels"
+  | "notification_frequency"
+  | null;
+
+// --- Helpers ---
+
 function calcPregnancyWeeks(dueDate: string): string {
   const due = new Date(dueDate);
   const lmp = new Date(due.getTime() - 280 * 24 * 60 * 60 * 1000);
   const now = new Date();
-  const diffDays = Math.floor((now.getTime() - lmp.getTime()) / (1000 * 60 * 60 * 24));
+  const diffDays = Math.floor(
+    (now.getTime() - lmp.getTime()) / (1000 * 60 * 60 * 24)
+  );
   const weeks = Math.floor(diffDays / 7);
   const days = diffDays % 7;
   if (weeks < 0 || weeks > 42) return "";
   return `${weeks}週${days}日`;
 }
 
-// 生後月齢計算
 function calcMonthsOld(birthdate: string): string {
   const birth = new Date(birthdate);
   const now = new Date();
-  const months = (now.getFullYear() - birth.getFullYear()) * 12 + (now.getMonth() - birth.getMonth());
+  const months =
+    (now.getFullYear() - birth.getFullYear()) * 12 +
+    (now.getMonth() - birth.getMonth());
   const dayDiff = now.getDate() - birth.getDate();
   const adjustedMonths = dayDiff < 0 ? months - 1 : months;
   if (adjustedMonths < 0) return "";
   if (adjustedMonths === 0) {
-    const days = Math.floor((now.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
+    const days = Math.floor(
+      (now.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24)
+    );
     return `生後${days}日`;
   }
   return `生後${adjustedMonths}ヶ月`;
 }
 
+function loadLocalProfile(): Profile | null {
+  try {
+    const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveLocalProfile(profile: Profile) {
+  try {
+    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile));
+  } catch {
+    // ignore
+  }
+}
+
+// --- Inline editable field components ---
+
+function PillSelector({
+  options,
+  selected,
+  onSelect,
+  multiple = false,
+}: {
+  options: { label: string; key: string }[];
+  selected: string | string[];
+  onSelect: (key: string) => void;
+  multiple?: boolean;
+}) {
+  const isSelected = (key: string) =>
+    multiple
+      ? Array.isArray(selected) && selected.includes(key)
+      : selected === key;
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      {options.map((opt) => (
+        <button
+          key={opt.key}
+          onClick={() => onSelect(opt.key)}
+          className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${
+            isSelected(opt.key)
+              ? "bg-primary text-primary-foreground border-primary"
+              : "bg-background text-foreground border-border hover:border-primary/50 hover:bg-muted/50"
+          }`}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// --- Main component ---
+
 export default function MyPage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [editingField, setEditingField] = useState<EditableField>(null);
+  const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
+
+  // Draft values for editing
+  const [draftNickname, setDraftNickname] = useState("");
+  const [draftStage, setDraftStage] = useState("");
+  const [draftDate, setDraftDate] = useState("");
+  const [draftMunicipality, setDraftMunicipality] = useState("");
+  const [draftFamily, setDraftFamily] = useState<string[]>([]);
+  const [draftInterests, setDraftInterests] = useState<string[]>([]);
+  const [draftNotifCats, setDraftNotifCats] = useState<string[]>([]);
+  const [draftChannel, setDraftChannel] = useState("");
+  const [draftFrequency, setDraftFrequency] = useState("");
 
   useEffect(() => {
     async function load() {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
+      try {
+        const supabase = createClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
 
-      if (!user) {
-        setLoading(false);
-        return;
+        if (user) {
+          setEmail(user.email ?? null);
+          setUserId(user.id);
+
+          const { data } = await supabase
+            .from("profiles")
+            .select("*")
+            .eq("id", user.id)
+            .single();
+
+          if (data) {
+            const p = data as Profile;
+            setProfile(p);
+            saveLocalProfile(p);
+            setLoading(false);
+            return;
+          }
+        }
+      } catch {
+        // Supabase unavailable
       }
 
-      setEmail(user.email ?? null);
-
-      const { data } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .single();
-
-      if (data) {
-        setProfile(data as Profile);
+      // Fallback: localStorage
+      const local = loadLocalProfile();
+      if (local) {
+        setProfile(local);
       }
       setLoading(false);
     }
     load();
   }, []);
 
+  const startEditing = useCallback(
+    (field: EditableField) => {
+      if (!profile) return;
+      // Populate draft values from current profile
+      setDraftNickname(profile.nickname || "");
+      setDraftStage(profile.stage || "");
+      setDraftDate(
+        profile.stage === "pregnant"
+          ? profile.expected_due_date || ""
+          : profile.child_birthdate || ""
+      );
+      setDraftMunicipality(profile.municipality || "");
+      setDraftFamily(
+        (profile.family_situation || []).filter((s) => s !== "skip")
+      );
+      setDraftInterests(profile.interests || []);
+      setDraftNotifCats(profile.notification_categories || []);
+      setDraftChannel(
+        Array.isArray(profile.notification_channels)
+          ? profile.notification_channels[0] || ""
+          : ""
+      );
+      setDraftFrequency(profile.notification_frequency || "");
+      setEditingField(field);
+    },
+    [profile]
+  );
+
+  const cancelEditing = () => {
+    setEditingField(null);
+  };
+
+  const saveField = async () => {
+    if (!profile) return;
+    setSaving(true);
+    setSaveMessage("");
+
+    const stageForSave = editingField === "stage" ? draftStage : profile.stage;
+    const isPregnant = stageForSave === "pregnant";
+
+    const updated: Profile = {
+      ...profile,
+      nickname: editingField === "nickname" ? draftNickname || null : profile.nickname,
+      stage: editingField === "stage" ? draftStage || null : profile.stage,
+      child_birthdate:
+        editingField === "date" && !isPregnant
+          ? draftDate || null
+          : editingField === "stage" && isPregnant
+          ? null
+          : profile.child_birthdate,
+      expected_due_date:
+        editingField === "date" && isPregnant
+          ? draftDate || null
+          : editingField === "stage" && !isPregnant
+          ? null
+          : profile.expected_due_date,
+      municipality:
+        editingField === "municipality"
+          ? draftMunicipality || null
+          : profile.municipality,
+      family_situation:
+        editingField === "family_situation" ? draftFamily : profile.family_situation,
+      is_first_child:
+        editingField === "family_situation"
+          ? draftFamily.includes("first")
+          : profile.is_first_child,
+      interests:
+        editingField === "interests" ? draftInterests : profile.interests,
+      notification_categories:
+        editingField === "notification_categories"
+          ? draftNotifCats
+          : profile.notification_categories,
+      notification_channels:
+        editingField === "notification_channels"
+          ? draftChannel
+            ? [draftChannel]
+            : []
+          : profile.notification_channels,
+      notification_frequency:
+        editingField === "notification_frequency"
+          ? draftFrequency || null
+          : profile.notification_frequency,
+      onboarding_completed: true,
+    };
+
+    // Always save to localStorage
+    saveLocalProfile(updated);
+
+    // Try Supabase
+    if (userId) {
+      try {
+        const supabase = createClient();
+        const { error } = await supabase.from("profiles").upsert({
+          id: userId,
+          ...updated,
+        });
+        if (error) {
+          setSaveMessage("ローカルに保存しました（サーバー同期は次回ログイン時）");
+        }
+      } catch {
+        setSaveMessage("ローカルに保存しました");
+      }
+    }
+
+    setProfile(updated);
+    setEditingField(null);
+    setSaving(false);
+
+    if (!saveMessage) {
+      setSaveMessage("保存しました");
+      setTimeout(() => setSaveMessage(""), 2000);
+    }
+  };
+
   async function handleLogout() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+    } catch {
+      // ignore
+    }
     window.location.href = "/";
   }
 
+  // --- Loading ---
   if (loading) {
     return (
       <>
@@ -148,7 +410,8 @@ export default function MyPage() {
     );
   }
 
-  if (!email) {
+  // --- No profile at all ---
+  if (!profile && !email) {
     return (
       <>
         <Header />
@@ -165,158 +428,378 @@ export default function MyPage() {
     );
   }
 
-  const stage = profile?.stage ? stageLabels[profile.stage] || profile.stage : "未設定";
-  const familyTags = (profile?.family_situation || [])
-    .filter((s) => s !== "skip")
-    .map((s) => familyLabels[s] || s);
-  const interestTags = (profile?.interests || [])
-    .map((s) => interestLabels[s] || s);
-  const notifCategories = (profile?.notification_categories || []);
-  const notifChannel = profile?.notification_channels?.[0]
-    ? channelLabels[profile.notification_channels[0]] || profile.notification_channels[0]
-    : "未設定";
-  const notifFreq = profile?.notification_frequency
-    ? frequencyLabels[profile.notification_frequency] || profile.notification_frequency
-    : "未設定";
+  // Initialize empty profile for new users
+  const p: Profile = profile || {
+    nickname: null,
+    stage: null,
+    child_birthdate: null,
+    expected_due_date: null,
+    municipality: null,
+    is_first_child: null,
+    family_situation: [],
+    interests: [],
+    notification_categories: [],
+    notification_channels: [],
+    notification_frequency: null,
+    onboarding_completed: false,
+  };
+
+  const isPregnant = p.stage === "pregnant";
+
+  // --- Display helpers ---
+  function displayValue(val: string | null | undefined, fallback = "未設定") {
+    return val || fallback;
+  }
+
+  function displayTags(
+    keys: string[] | null,
+    labelMap: Record<string, string>
+  ) {
+    const filtered = (keys || []).filter((s) => s !== "skip");
+    if (filtered.length === 0) return <span className="text-sm text-muted-foreground">未設定</span>;
+    return (
+      <div className="flex flex-wrap gap-1">
+        {filtered.map((k) => (
+          <Badge key={k} variant="outline" className="text-xs">
+            {labelMap[k] || k}
+          </Badge>
+        ))}
+      </div>
+    );
+  }
+
+  // --- Editable row component ---
+  function EditableRow({
+    label,
+    field,
+    children,
+    editContent,
+  }: {
+    label: string;
+    field: EditableField;
+    children: React.ReactNode;
+    editContent: React.ReactNode;
+  }) {
+    const isEditing = editingField === field;
+    return (
+      <div className="py-3">
+        <div className="flex items-start justify-between gap-2 mb-1">
+          <span className="text-sm text-muted-foreground shrink-0">{label}</span>
+          {!isEditing && (
+            <button
+              onClick={() => startEditing(field)}
+              className="text-xs text-primary hover:text-primary/80 transition-colors shrink-0"
+            >
+              変更
+            </button>
+          )}
+        </div>
+        {isEditing ? (
+          <div className="mt-2 space-y-3">
+            {editContent}
+            <div className="flex gap-2">
+              <Button size="sm" onClick={saveField} disabled={saving}>
+                {saving ? "保存中..." : "保存"}
+              </Button>
+              <Button size="sm" variant="ghost" onClick={cancelEditing}>
+                キャンセル
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div
+            className="cursor-pointer rounded-md px-1 -mx-1 hover:bg-muted/40 transition-colors"
+            onClick={() => startEditing(field)}
+          >
+            {children}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  function toggleDraftArray(
+    arr: string[],
+    value: string,
+    setter: (v: string[]) => void
+  ) {
+    if (arr.includes(value)) {
+      setter(arr.filter((v) => v !== value));
+    } else {
+      setter([...arr, value]);
+    }
+  }
 
   return (
     <>
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold text-foreground">マイページ</h1>
-            <Link href="/mypage/edit">
-              <Button variant="outline" size="sm">プロフィールを編集</Button>
-            </Link>
-          </div>
+          <h1 className="text-2xl font-bold text-foreground mb-6">マイページ</h1>
 
-          <div className="space-y-6">
+          {/* Save message toast */}
+          {saveMessage && (
+            <div className="mb-4 p-3 bg-primary/10 text-primary rounded-lg text-sm text-center">
+              {saveMessage}
+            </div>
+          )}
+
+          <div className="space-y-4">
+            {/* 基本情報 */}
             <Card className="border-border/50 shadow-none">
-              <CardHeader className="pb-3">
+              <CardHeader className="pb-1">
                 <CardTitle className="text-base">基本情報</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">ニックネーム</span>
-                    <span className="text-foreground">{profile?.nickname || "未設定"}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">メールアドレス</span>
-                    <span className="text-foreground">{email}</span>
-                  </div>
+                <div className="divide-y divide-border/30">
+                  <EditableRow
+                    label="ニックネーム"
+                    field="nickname"
+                    editContent={
+                      <Input
+                        type="text"
+                        placeholder="例: さくらママ"
+                        value={draftNickname}
+                        onChange={(e) => setDraftNickname(e.target.value)}
+                        className="max-w-xs"
+                        autoFocus
+                      />
+                    }
+                  >
+                    <span className="text-sm text-foreground">
+                      {displayValue(p.nickname)}
+                    </span>
+                  </EditableRow>
+
+                  {email && (
+                    <div className="py-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <span className="text-sm text-muted-foreground">メールアドレス</span>
+                      </div>
+                      <span className="text-sm text-foreground">{email}</span>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
 
+            {/* お子さまの情報 */}
             <Card className="border-border/50 shadow-none">
-              <CardHeader className="pb-3">
+              <CardHeader className="pb-1">
                 <CardTitle className="text-base">お子さまの情報</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">段階</span>
-                    <Badge variant="secondary">{stage}</Badge>
-                  </div>
-                  {profile?.stage === "pregnant" && profile?.expected_due_date && calcPregnancyWeeks(profile.expected_due_date) && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">現在の週数</span>
-                      <span className="text-foreground">{calcPregnancyWeeks(profile.expected_due_date)}</span>
-                    </div>
+                <div className="divide-y divide-border/30">
+                  <EditableRow
+                    label="段階"
+                    field="stage"
+                    editContent={
+                      <PillSelector
+                        options={stageOptions}
+                        selected={draftStage}
+                        onSelect={setDraftStage}
+                      />
+                    }
+                  >
+                    <Badge variant="secondary">
+                      {stageLabels[p.stage || ""] || "未設定"}
+                    </Badge>
+                  </EditableRow>
+
+                  {p.stage && (
+                    <>
+                      {isPregnant &&
+                        p.expected_due_date &&
+                        calcPregnancyWeeks(p.expected_due_date) && (
+                          <div className="py-3">
+                            <span className="text-sm text-muted-foreground block mb-1">
+                              現在の週数
+                            </span>
+                            <span className="text-sm text-foreground">
+                              {calcPregnancyWeeks(p.expected_due_date)}
+                            </span>
+                          </div>
+                        )}
+                      {!isPregnant &&
+                        p.child_birthdate &&
+                        calcMonthsOld(p.child_birthdate) && (
+                          <div className="py-3">
+                            <span className="text-sm text-muted-foreground block mb-1">
+                              月齢
+                            </span>
+                            <span className="text-sm text-foreground">
+                              {calcMonthsOld(p.child_birthdate)}
+                            </span>
+                          </div>
+                        )}
+
+                      <EditableRow
+                        label={isPregnant ? "出産予定日" : "生年月日"}
+                        field="date"
+                        editContent={
+                          <Input
+                            type="date"
+                            value={draftDate}
+                            onChange={(e) => setDraftDate(e.target.value)}
+                            className="max-w-xs"
+                          />
+                        }
+                      >
+                        <span className="text-sm text-foreground">
+                          {displayValue(
+                            isPregnant
+                              ? p.expected_due_date
+                              : p.child_birthdate
+                          )}
+                        </span>
+                      </EditableRow>
+                    </>
                   )}
-                  {profile?.stage !== "pregnant" && profile?.child_birthdate && calcMonthsOld(profile.child_birthdate) && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">月齢</span>
-                      <span className="text-foreground">{calcMonthsOld(profile.child_birthdate)}</span>
-                    </div>
-                  )}
-                  {profile?.child_birthdate && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">生年月日</span>
-                      <span className="text-foreground">{profile.child_birthdate}</span>
-                    </div>
-                  )}
-                  {profile?.expected_due_date && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">出産予定日</span>
-                      <span className="text-foreground">{profile.expected_due_date}</span>
-                    </div>
-                  )}
-                  {familyTags.length > 0 && (
-                    <div className="flex justify-between items-start">
-                      <span className="text-muted-foreground">家族の状況</span>
-                      <div className="flex flex-wrap gap-1 justify-end">
-                        {familyTags.map((tag) => (
-                          <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+
+                  <EditableRow
+                    label="家族の状況"
+                    field="family_situation"
+                    editContent={
+                      <PillSelector
+                        options={familyOptions}
+                        selected={draftFamily}
+                        onSelect={(key) =>
+                          toggleDraftArray(draftFamily, key, setDraftFamily)
+                        }
+                        multiple
+                      />
+                    }
+                  >
+                    {displayTags(p.family_situation, familyLabels)}
+                  </EditableRow>
                 </div>
               </CardContent>
             </Card>
 
+            {/* 地域情報 */}
             <Card className="border-border/50 shadow-none">
-              <CardHeader className="pb-3">
+              <CardHeader className="pb-1">
                 <CardTitle className="text-base">地域情報</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">お住まいの地域</span>
-                    <span className="text-foreground">{profile?.municipality || "未設定"}</span>
-                  </div>
-                </div>
+                <EditableRow
+                  label="お住まいの地域"
+                  field="municipality"
+                  editContent={
+                    <Input
+                      type="text"
+                      placeholder="例: 164-0001 または 中野区"
+                      value={draftMunicipality}
+                      onChange={(e) => setDraftMunicipality(e.target.value)}
+                      className="max-w-xs"
+                      autoFocus
+                    />
+                  }
+                >
+                  <span className="text-sm text-foreground">
+                    {displayValue(p.municipality)}
+                  </span>
+                </EditableRow>
               </CardContent>
             </Card>
 
+            {/* 気になるテーマ */}
             <Card className="border-border/50 shadow-none">
-              <CardHeader className="pb-3">
+              <CardHeader className="pb-1">
                 <CardTitle className="text-base">気になるテーマ</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {interestTags.length > 0 ? (
-                    interestTags.map((tag) => (
-                      <Badge key={tag} variant="secondary">{tag}</Badge>
-                    ))
-                  ) : (
-                    <span className="text-sm text-muted-foreground">未設定</span>
-                  )}
-                </div>
+                <EditableRow
+                  label=""
+                  field="interests"
+                  editContent={
+                    <PillSelector
+                      options={interestOptions}
+                      selected={draftInterests}
+                      onSelect={(key) =>
+                        toggleDraftArray(draftInterests, key, setDraftInterests)
+                      }
+                      multiple
+                    />
+                  }
+                >
+                  {displayTags(p.interests, interestLabels)}
+                </EditableRow>
               </CardContent>
             </Card>
 
+            {/* 通知設定 */}
             <Card className="border-border/50 shadow-none">
-              <CardHeader className="pb-3">
+              <CardHeader className="pb-1">
                 <CardTitle className="text-base">通知設定</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">受け取り方法</span>
-                    <span className="text-foreground">{notifChannel}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">頻度</span>
-                    <span className="text-foreground">{notifFreq}</span>
-                  </div>
-                  {notifCategories.length > 0 && (
-                    <div className="flex justify-between items-start">
-                      <span className="text-muted-foreground">カテゴリ</span>
-                      <div className="flex flex-wrap gap-1 justify-end">
-                        {notifCategories.map((cat) => (
-                          <Badge key={cat} variant="outline" className="text-xs">{cat}</Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                <div className="divide-y divide-border/30">
+                  <EditableRow
+                    label="受け取りたい案内"
+                    field="notification_categories"
+                    editContent={
+                      <PillSelector
+                        options={notifCategoryOptions}
+                        selected={draftNotifCats}
+                        onSelect={(key) =>
+                          toggleDraftArray(
+                            draftNotifCats,
+                            key,
+                            setDraftNotifCats
+                          )
+                        }
+                        multiple
+                      />
+                    }
+                  >
+                    {displayTags(
+                      p.notification_categories,
+                      notifCategoryLabels
+                    )}
+                  </EditableRow>
+
+                  <EditableRow
+                    label="受け取り方法"
+                    field="notification_channels"
+                    editContent={
+                      <PillSelector
+                        options={channelOptions}
+                        selected={draftChannel}
+                        onSelect={setDraftChannel}
+                      />
+                    }
+                  >
+                    <span className="text-sm text-foreground">
+                      {channelLabels[
+                        Array.isArray(p.notification_channels)
+                          ? p.notification_channels[0] || ""
+                          : ""
+                      ] || "未設定"}
+                    </span>
+                  </EditableRow>
+
+                  <EditableRow
+                    label="頻度"
+                    field="notification_frequency"
+                    editContent={
+                      <PillSelector
+                        options={frequencyOptions}
+                        selected={draftFrequency}
+                        onSelect={setDraftFrequency}
+                      />
+                    }
+                  >
+                    <span className="text-sm text-foreground">
+                      {frequencyLabels[p.notification_frequency || ""] ||
+                        "未設定"}
+                    </span>
+                  </EditableRow>
                 </div>
               </CardContent>
             </Card>
 
+            {/* 保存した記事 */}
             <Card className="border-border/50 shadow-none">
               <CardContent className="pt-5">
                 <Link
@@ -333,7 +816,11 @@ export default function MyPage() {
               <p className="text-xs text-muted-foreground text-center">
                 情報が勝手に広がることはありません。いつでも変更・削除できます。
               </p>
-              <Button variant="ghost" className="text-destructive hover:text-destructive" onClick={handleLogout}>
+              <Button
+                variant="ghost"
+                className="text-destructive hover:text-destructive"
+                onClick={handleLogout}
+              >
                 ログアウト
               </Button>
             </div>

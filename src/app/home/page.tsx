@@ -108,6 +108,84 @@ function getGreeting(): string {
   return "おつかれさまです";
 }
 
+function generateStaticCards(profile: Profile): NotificationItem[] {
+  const cards: NotificationItem[] = [];
+
+  if (profile.stage === "pregnant" && profile.expected_due_date) {
+    const daysUntil = getDaysUntilDue(profile.expected_due_date);
+    if (daysUntil <= 28) {
+      cards.push({
+        title: "出産前の準備を確認する",
+        reason: "出産予定日まであと約" + daysUntil + "日です。入院準備や届出の全体像を先に見ておくと安心です。",
+        action_url: "/prepare",
+        category: "準備",
+        priority: "high",
+      });
+    }
+    cards.push({
+      title: "出産後に必要な手続き一覧を確認する",
+      reason: "出産後は忙しくなるため、先に全体像を確認しておくと安心です。",
+      action_url: "/learn/postnatal-procedures",
+      category: "手続き",
+      priority: "medium",
+    });
+  }
+
+  if (profile.stage === "0" || profile.stage === "newborn") {
+    if (profile.child_birthdate) {
+      const months = getChildMonths(profile.child_birthdate);
+      if (months <= 0) {
+        cards.push({
+          title: "出生届・児童手当の申請を確認する",
+          reason: "出生届は14日以内、児童手当は15日以内の手続きが必要です。",
+          action_url: "/benefits",
+          category: "手続き",
+          priority: "high",
+        });
+      }
+      if (months >= 1 && months <= 2) {
+        cards.push({
+          title: "予防接種の時期を確認する",
+          reason: "生後2ヶ月から接種が始まります。スケジュールを先に確認しておくと安心です。",
+          action_url: "/learn/vaccination-schedule",
+          category: "予防接種",
+          priority: "medium",
+        });
+      }
+    }
+    cards.push({
+      title: "おしりふきの選びかたを見る",
+      reason: "種類が多くて迷いやすいアイテムを、比較軸で整理しています。",
+      action_url: "/prepare/wipes",
+      category: "準備",
+      priority: "low",
+    });
+  }
+
+  if (profile.stage === "1") {
+    cards.push({
+      title: "保活の流れを確認する",
+      reason: "申請時期は自治体によって異なります。早めに全体像を把握しておくと安心です。",
+      action_url: "/learn/hokatsu",
+      category: "保活",
+      priority: "medium",
+    });
+  }
+
+  // Default card for all stages
+  if (cards.length === 0) {
+    cards.push({
+      title: "使える制度を確認する",
+      reason: "あなたの地域と時期から、確認価値の高い制度をまとめています。",
+      action_url: "/benefits",
+      category: "制度",
+      priority: "medium",
+    });
+  }
+
+  return cards.slice(0, 5);
+}
+
 function getFamilyLabel(s: string): string {
   const labels: Record<string, string> = {
     first: "第一子", "second+": "第二子以降", "dual-income": "共働き",
@@ -326,12 +404,12 @@ export default function PersonalHomePage() {
       if (profileData) {
         setProfile(profileData as Profile);
 
-        const { data: rules } = await supabase
+        const { data: rules, error: rulesError } = await supabase
           .from("notification_rules")
           .select("*")
           .eq("active", true);
 
-        if (rules) {
+        if (rules && !rulesError) {
           const matched = (rules as NotificationRule[])
             .filter((rule) => matchRule(rule, profileData as Profile))
             .map((rule) => ({
@@ -341,7 +419,14 @@ export default function PersonalHomePage() {
               category: rule.category,
               priority: rule.priority,
             }));
-          setNotifications(matched);
+          if (matched.length > 0) {
+            setNotifications(matched);
+          } else {
+            setNotifications(generateStaticCards(profileData as Profile));
+          }
+        } else {
+          // Supabase未接続 or テーブルなし → 静的フォールバック
+          setNotifications(generateStaticCards(profileData as Profile));
         }
       }
 

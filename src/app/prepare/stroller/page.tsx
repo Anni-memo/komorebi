@@ -9,129 +9,129 @@ import { AmazonProductCard } from "@/components/amazon-product-card";
 export const metadata = {
   title: "ベビーカーの選びかた",
   description:
-    "ベビーカー、どれを選べばいい？コンビ・アップリカ・ピジョン・サイベックスの4製品を比較。重さ、走行性、折りたたみやすさを整理しました。このページを見たら、もう探し回らなくて大丈夫です。",
+    "種類が多くて迷いやすいベビーカーを、使い方に合わせて整理しました。Combi・Aprica・Cybex・Pigeonの4製品を比較。",
 };
 
 const whyConfusing = [
-  "A型・B型・AB型の違いがそもそもわかりにくい",
-  "軽さと走行性がトレードオフで、何を優先すべきか迷う",
-  "実際に押してみないと走行感がわからない",
-  "価格帯が2万円〜8万円と広く、どこに落としどころを置くか悩む",
+  "A型・B型・AB型・三輪…種類が多すぎる",
+  "実際に使う場面をイメージしにくい",
+  "「高ければよい」とも限らない",
 ];
 
 const axes = [
+  {
+    name: "対象月齢（いつから使えるか）",
+    why: "A型は生後1ヶ月から、B型は6〜7ヶ月から。使い始めの時期で選択肢が変わる",
+  },
   {
     name: "重さ（片手で持てるか）",
     why: "電車移動や階段が多いなら5kg以下が理想。車移動中心なら7kg台でも問題なし",
   },
   {
-    name: "走行性（段差・坂道）",
-    why: "タイヤの大きさとサスペンションの有無で決まる。歩道の段差が多い地域では重要",
-  },
-  {
-    name: "折りたたみやすさ",
+    name: "折りたたみ（電車・車での収納）",
     why: "片手でワンタッチで畳めるか。電車・バス利用時や玄関収納で効いてくる",
   },
   {
-    name: "シートの快適性",
-    why: "赤ちゃんが嫌がると乗ってくれない。クッション性・通気性・リクライニング角度がポイント",
+    name: "リクライニング角度（新生児対応）",
+    why: "新生児期はほぼフラットまで倒せることが必須。月齢が上がれば起こして使う",
   },
   {
-    name: "対面/背面切替",
-    why: "低月齢は対面（親の顔が見える）が安心。成長したら背面（景色が見える）が楽しい",
-  },
-  {
-    name: "価格帯",
-    why: "使用期間は約3年。月あたりのコストで考えると、高めのモデルも選択肢に入りやすい",
+    name: "走行性（段差・砂利への強さ）",
+    why: "タイヤの大きさとサスペンションの有無で決まる。歩道の段差が多い地域では重要",
   },
 ];
 
 const products = [
   {
-    name: "コンビ スゴカルα エッグショック",
-    brand: "コンビ",
-    type: "超軽量" as const,
-    asin: "B0C6HBQP8M",
+    name: "Combi スゴカルSwitch エッグショック",
+    brand: "Combi",
+    type: "A型" as const,
+    asin: "B0DGHP7XK5",
     officialUrl: "https://www.combi.co.jp/",
     features: [
-      "重さ約5.0kgで片手で持ち上げられる軽さ",
+      "両対面式で対面・背面をワンタッチ切替",
+      "軽量5.0kgで片手で持ち上げられる",
       "エッグショック（卵を落としても割れない衝撃吸収素材）搭載",
-      "ワンタッチ開閉＆持ちカルグリップで電車移動が楽",
-      "オート4キャスで対面・背面どちらでも小回りが利く",
+      "ハンドル切替で小回りが利く",
     ],
-    bestFor: "電車移動が多い方、階段を使う場面がある方、軽さ最優先の方",
-    notFor: "走行性を最優先にしたい方（軽さとのトレードオフ）",
-    priceRange: "約55,000〜65,000円",
-    scene: "電車でのお出かけ、駅のエレベーターが混雑しているとき階段を使える安心感",
+    bestFor: "新生児から使いたい方、電車移動が多い方",
+    notFor: "荒れた路面を頻繁に走る方",
+    priceRange: "¥50,000〜65,000",
+    scene: "駅のエレベーターで片手で畳みたい。改札で焦りたくない",
   },
   {
-    name: "アップリカ ラクーナクッション AF",
-    brand: "アップリカ",
-    type: "バランス型" as const,
-    asin: "B0C7K8VW6G",
+    name: "Aprica ラクーナクッション Free",
+    brand: "Aprica",
+    type: "A型" as const,
+    asin: "B0DGHKXJ3R",
     officialUrl: "https://www.aprica.jp/",
     features: [
-      "重さ約5.4kgで軽量と走行性を両立",
-      "しっかりフレームとゆれぐらガード機構で安定走行",
+      "オート4キャスで対面・背面どちらでも小回りが利く",
+      "ゆれぐらガードで振動を軽減",
+      "大容量バスケットで買い物帰りも安心",
       "ダブル台形シートで赤ちゃんの姿勢が安定",
-      "大容量バスケット（座面下27L）で荷物が入る",
     ],
-    bestFor: "軽さと走行性のバランスを求める方、荷物が多い方",
-    notFor: "4kg台の超軽量にこだわる方",
-    priceRange: "約50,000〜60,000円",
-    scene: "近所のスーパーへの買い物から、週末の公園まで。荷物が多くても足元に入る",
+    bestFor: "振動が気になる方、買い物で荷物が多い方",
+    notFor: "狭いエレベーターが多い環境、とにかく軽さ重視の方",
+    priceRange: "¥55,000〜68,000",
+    scene: "スーパーの帰りに荷物をカゴにどっさり載せたい",
   },
   {
-    name: "ピジョン ランフィ RB2",
-    brand: "ピジョン",
-    type: "走行性バランス" as const,
-    asin: "B0BZ5BWVQH",
-    officialUrl: "https://products.pigeon.co.jp/",
-    features: [
-      "シングルタイヤ採用で段差をスムーズに乗り越える",
-      "重さ約5.6kgでバランスの良い重量",
-      "ソファのような乗り心地のクッション設計",
-      "ワンタッチ開閉対応。折りたたみ時も自立する",
-    ],
-    bestFor: "段差の多い地域にお住まいの方、走行性と軽さの両立を求める方",
-    notFor: "最軽量を求める方（5kg以下ではない）",
-    priceRange: "約52,000〜62,000円",
-    scene: "歩道の段差や踏切を越えるとき、シングルタイヤの乗り越えやすさを実感する",
-  },
-  {
-    name: "サイベックス メリオ カーボン",
-    brand: "サイベックス",
-    type: "走行性特化" as const,
-    asin: "B0CDQJGGFZ",
+    name: "Cybex LIBELLE",
+    brand: "Cybex",
+    type: "B型" as const,
+    asin: "B0B5T9HZSJ",
     officialUrl: "https://cybex-online.com/ja-jp",
     features: [
-      "カーボンフレームで約5.9kgながら剛性が高い",
-      "大径タイヤ＋4輪サスペンションで走行性はトップクラス",
-      "片手でコンパクトに折りたため、自立する",
-      "ハイシートで地面の熱やほこりから赤ちゃんを遠ざける",
+      "超コンパクト折りたたみで機内持ち込み可能",
+      "折りたたむと自転車カゴに入るサイズ",
+      "6ヶ月から使えるセカンドカー向き",
+      "軽量で持ち運びやすい",
     ],
-    bestFor: "走行性を最重視する方、段差や坂道が多い地域の方、デザインにもこだわりたい方",
-    notFor: "予算を5万円以下に抑えたい方",
-    priceRange: "約64,000〜73,000円",
-    scene: "石畳や坂道が多い街での散歩。押し心地の良さでお出かけが億劫にならない",
+    bestFor: "旅行・帰省が多い方、セカンドカーとして",
+    notFor: "新生児期から使いたい方、荷物をたくさん載せたい方",
+    priceRange: "¥28,000〜35,000",
+    scene: "帰省の新幹線で座席の足元に収まる",
+  },
+  {
+    name: "Pigeon Runfee RB2",
+    brand: "Pigeon",
+    type: "A型" as const,
+    asin: "B0DGHL9YLQ",
+    officialUrl: "https://products.pigeon.co.jp/",
+    features: [
+      "シングルタイヤで段差をスムーズに乗り越える",
+      "座面が広めで赤ちゃんがゆったり座れる",
+      "押しやすさに特化した設計",
+      "ワンタッチ開閉対応、折りたたみ時も自立する",
+    ],
+    bestFor: "歩道の段差が多い地域にお住まいの方、長時間の散歩が多い方",
+    notFor: "とにかくコンパクトさ重視の方",
+    priceRange: "¥45,000〜60,000",
+    scene: "近所の歩道の段差をガタガタせずスムーズに越えたい",
   },
 ];
 
 const typeGuide = [
   {
-    condition: "軽さ最優先（電車移動が多い）",
-    recommendation: "コンビ スゴカルα",
-    reason: "約5.0kgで片手で持てる。ワンタッチ開閉で電車の乗り降りもスムーズ",
+    condition: "電車移動が多い",
+    recommendation: "Combi スゴカルSwitch",
+    reason: "5.0kgで片手で持てる。ワンタッチ開閉で電車の乗り降りもスムーズ",
   },
   {
-    condition: "走行性重視（段差・坂道が多い地域）",
-    recommendation: "サイベックス メリオ カーボン",
-    reason: "大径タイヤ＋4輪サスペンション。石畳や段差でもストレスなく走行できる",
+    condition: "買い物メイン",
+    recommendation: "Aprica ラクーナクッション Free",
+    reason: "大容量バスケットで荷物がたっぷり入る。振動も抑えて赤ちゃんが寝ていても安心",
   },
   {
-    condition: "バランス型（軽さも走行性もほしい）",
-    recommendation: "アップリカ ラクーナ または ピジョン ランフィ",
-    reason: "5kg台で走行性も確保。日常使いで大きな不満が出にくいオールラウンダー",
+    condition: "旅行・セカンドカー",
+    recommendation: "Cybex LIBELLE",
+    reason: "超コンパクト折りたたみで機内持ち込み可能。帰省時にも場所を取らない",
+  },
+  {
+    condition: "散歩・段差の多い地域",
+    recommendation: "Pigeon Runfee RB2",
+    reason: "シングルタイヤで段差をスムーズに乗り越える。押し心地が良く長時間でも疲れにくい",
   },
 ];
 
@@ -144,17 +144,14 @@ export default function StrollerPage() {
           {/* ヘッダー */}
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-3">
-              <Badge variant="secondary">準備する</Badge>
-              <Badge variant="secondary">ベビーカー</Badge>
-              <Badge variant="secondary">比較ガイド</Badge>
+              <Badge variant="secondary">比較</Badge>
+              <Badge variant="secondary">外出</Badge>
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               ベビーカーの選びかた
             </h1>
             <p className="text-muted-foreground leading-relaxed">
-              このページを見たら、もう探し回らなくて大丈夫です。
-              <br />
-              人気4製品に絞って、重さ・走行性・価格を整理しました。
+              種類が多くて迷いやすいベビーカーを、使い方に合わせて整理しました。
             </p>
           </div>
 
@@ -174,7 +171,7 @@ export default function StrollerPage() {
                   ))}
                 </ul>
                 <p className="text-sm text-foreground mt-4 leading-relaxed">
-                  結論から言うと、<strong>今回紹介する4製品はどれもA型（生後1ヶ月から使えるタイプ）の定番</strong>です。
+                  結論から言うと、<strong>日本で手に入る主要ベビーカーはどれも安全基準を満たしています</strong>。
                   大きな失敗はありません。
                   「自分の生活動線に合うかどうか」で選ぶと、迷いが減ります。
                 </p>
@@ -185,7 +182,7 @@ export default function StrollerPage() {
           {/* 2. 比較軸 */}
           <section className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
-              選ぶときに見るべき6つの軸
+              選ぶときに見るべき5つの軸
             </h2>
             <div className="space-y-3">
               {axes.map((axis, i) => (
@@ -206,7 +203,7 @@ export default function StrollerPage() {
             </div>
           </section>
 
-          {/* 3. 使用感まとめ */}
+          {/* 3. 商品別の使用感 */}
           <section className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               まずはこの4つを見れば十分です
@@ -301,50 +298,45 @@ export default function StrollerPage() {
                 <thead>
                   <tr className="border-b border-border">
                     <th className="text-left py-2 pr-4 text-xs text-muted-foreground font-medium">商品</th>
+                    <th className="text-left py-2 px-2 text-xs text-muted-foreground font-medium">対象月齢</th>
                     <th className="text-left py-2 px-2 text-xs text-muted-foreground font-medium">重さ</th>
-                    <th className="text-left py-2 px-2 text-xs text-muted-foreground font-medium">走行性</th>
                     <th className="text-left py-2 px-2 text-xs text-muted-foreground font-medium">折りたたみ</th>
-                    <th className="text-left py-2 px-2 text-xs text-muted-foreground font-medium">シート快適性</th>
-                    <th className="text-left py-2 px-2 text-xs text-muted-foreground font-medium">対面/背面</th>
-                    <th className="text-left py-2 px-2 text-xs text-muted-foreground font-medium">価格</th>
+                    <th className="text-left py-2 px-2 text-xs text-muted-foreground font-medium">リクライニング</th>
+                    <th className="text-left py-2 px-2 text-xs text-muted-foreground font-medium">走行性</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-border/50">
-                    <td className="py-2 pr-4 text-foreground font-medium">コンビ スゴカルα</td>
+                    <td className="py-2 pr-4 text-foreground font-medium">Combi スゴカルSwitch</td>
+                    <td className="py-2 px-2 text-foreground">1ヶ月〜</td>
                     <td className="py-2 px-2 text-foreground">◎ 5.0kg</td>
-                    <td className="py-2 px-2 text-foreground">○</td>
                     <td className="py-2 px-2 text-foreground">◎</td>
                     <td className="py-2 px-2 text-foreground">◎</td>
-                    <td className="py-2 px-2 text-foreground">○</td>
                     <td className="py-2 px-2 text-foreground">○</td>
                   </tr>
                   <tr className="border-b border-border/50">
-                    <td className="py-2 pr-4 text-foreground font-medium">アップリカ ラクーナ</td>
-                    <td className="py-2 px-2 text-foreground">○ 5.4kg</td>
-                    <td className="py-2 px-2 text-foreground">○</td>
+                    <td className="py-2 pr-4 text-foreground font-medium">Aprica ラクーナ Free</td>
+                    <td className="py-2 px-2 text-foreground">1ヶ月〜</td>
+                    <td className="py-2 px-2 text-foreground">○ 5.5kg</td>
                     <td className="py-2 px-2 text-foreground">○</td>
                     <td className="py-2 px-2 text-foreground">◎</td>
-                    <td className="py-2 px-2 text-foreground">○</td>
                     <td className="py-2 px-2 text-foreground">○</td>
                   </tr>
                   <tr className="border-b border-border/50">
-                    <td className="py-2 pr-4 text-foreground font-medium">ピジョン ランフィ</td>
-                    <td className="py-2 px-2 text-foreground">○ 5.6kg</td>
+                    <td className="py-2 pr-4 text-foreground font-medium">Cybex LIBELLE</td>
+                    <td className="py-2 px-2 text-foreground">6ヶ月〜</td>
+                    <td className="py-2 px-2 text-foreground">◎ 6.2kg</td>
                     <td className="py-2 px-2 text-foreground">◎</td>
-                    <td className="py-2 px-2 text-foreground">○</td>
-                    <td className="py-2 px-2 text-foreground">◎</td>
-                    <td className="py-2 px-2 text-foreground">○</td>
+                    <td className="py-2 px-2 text-foreground">△</td>
                     <td className="py-2 px-2 text-foreground">○</td>
                   </tr>
                   <tr>
-                    <td className="py-2 pr-4 text-foreground font-medium">サイベックス メリオ</td>
-                    <td className="py-2 px-2 text-foreground">○ 5.9kg</td>
+                    <td className="py-2 pr-4 text-foreground font-medium">Pigeon Runfee RB2</td>
+                    <td className="py-2 px-2 text-foreground">1ヶ月〜</td>
+                    <td className="py-2 px-2 text-foreground">○ 5.6kg</td>
+                    <td className="py-2 px-2 text-foreground">○</td>
                     <td className="py-2 px-2 text-foreground">◎</td>
                     <td className="py-2 px-2 text-foreground">◎</td>
-                    <td className="py-2 px-2 text-foreground">○</td>
-                    <td className="py-2 px-2 text-foreground">○</td>
-                    <td className="py-2 px-2 text-foreground">△</td>
                   </tr>
                 </tbody>
               </table>
@@ -355,13 +347,11 @@ export default function StrollerPage() {
           <Card className="bg-komorebi-light/20 border-primary/20 shadow-none mb-8">
             <CardContent className="pt-5 text-center">
               <p className="text-sm text-foreground leading-relaxed">
-                <strong>どれを選んでも、赤ちゃんとの毎日は快適になります。</strong>
+                <strong>どのベビーカーも、基本的な安全基準を満たしています。</strong>
                 <br />
-                今回紹介した4製品はすべてA型の定番モデルで、大きな失敗はありません。
+                迷ったらまず試乗してみると、押し心地の違いが体感できます。
                 <br />
-                お住まいの地域と移動手段に合うものを選べば、それが正解です。
-                <br />
-                迷ったら、ベビー用品店で実際に押し比べてみてください。
+                合わなければ買い替えたり、レンタルで試すこともできます。
               </p>
             </CardContent>
           </Card>
@@ -376,28 +366,28 @@ export default function StrollerPage() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <AmazonProductCard
-                name="コンビ スゴカルα"
-                asin="B0C6HBQP8M"
-                price="¥55,000〜"
+                name="Combi スゴカルSwitch エッグショック"
+                asin="B0DGHP7XK5"
+                price="¥50,000〜"
                 officialUrl="https://www.combi.co.jp/"
               />
               <AmazonProductCard
-                name="アップリカ ラクーナクッション"
-                asin="B0C7K8VW6G"
-                price="¥50,000〜"
+                name="Aprica ラクーナクッション Free"
+                asin="B0DGHKXJ3R"
+                price="¥55,000〜"
                 officialUrl="https://www.aprica.jp/"
               />
               <AmazonProductCard
-                name="ピジョン ランフィ"
-                asin="B0BZ5BWVQH"
-                price="¥52,000〜"
-                officialUrl="https://products.pigeon.co.jp/"
+                name="Cybex LIBELLE"
+                asin="B0B5T9HZSJ"
+                price="¥28,000〜"
+                officialUrl="https://cybex-online.com/ja-jp"
               />
               <AmazonProductCard
-                name="サイベックス メリオ"
-                asin="B0CDQJGGFZ"
-                price="¥64,000〜"
-                officialUrl="https://cybex-online.com/ja-jp"
+                name="Pigeon Runfee RB2"
+                asin="B0DGHL9YLQ"
+                price="¥45,000〜"
+                officialUrl="https://products.pigeon.co.jp/"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-3">
@@ -409,10 +399,9 @@ export default function StrollerPage() {
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">
               <strong className="text-foreground">注意:</strong>{" "}
-              価格・仕様は2026年3月時点の情報です。実際の価格は販売店により異なります。
+              価格・仕様は2026年4月時点の情報です。実際の価格は販売店により異なります。
               ベビーカーは赤ちゃんの体格や生活環境によって最適なものが変わるため、
               可能であれば店頭で実際に押してみることをおすすめします。
-              参考: 各メーカー公式サイト、マイベスト、たまひよ、ベビーカレンダー
             </p>
           </div>
 

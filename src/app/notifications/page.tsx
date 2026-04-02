@@ -15,6 +15,7 @@ interface Notification {
   urgent: boolean;
   read: boolean;
   created_at: string;
+  reason?: string;
 }
 
 const mockNotifications: Notification[] = [
@@ -27,6 +28,7 @@ const mockNotifications: Notification[] = [
     urgent: true,
     read: false,
     created_at: new Date().toISOString(),
+    reason: "出生日を基準に、申請期限が近い可能性があるためお知らせしています。",
   },
   {
     id: "2",
@@ -36,6 +38,7 @@ const mockNotifications: Notification[] = [
     urgent: false,
     read: false,
     created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    reason: "お子さまの月齢から、この時期に健診を受けることが多いためお知らせしています。",
   },
   {
     id: "3",
@@ -45,6 +48,7 @@ const mockNotifications: Notification[] = [
     urgent: false,
     read: false,
     created_at: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    reason: "お子さまの月齢に合わせて、参考になりやすい記事をお届けしています。",
   },
   {
     id: "4",
@@ -54,6 +58,7 @@ const mockNotifications: Notification[] = [
     urgent: false,
     read: true,
     created_at: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
+    reason: "保育園検討に関心をお持ちのため、申請時期の目安をお知らせしています。",
   },
   {
     id: "5",
@@ -64,6 +69,7 @@ const mockNotifications: Notification[] = [
     urgent: false,
     read: true,
     created_at: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
+    reason: "出生日を基準に、届出期限が近い可能性があるためお知らせしています。",
   },
 ];
 
@@ -285,6 +291,11 @@ export default function NotificationsPage() {
                             <p className="text-sm text-muted-foreground leading-relaxed mb-2 ml-4">
                               {n.description}
                             </p>
+                            {n.reason && (
+                              <p className="text-xs text-muted-foreground/70 leading-relaxed ml-4 mt-1">
+                                💡 {n.reason}
+                              </p>
+                            )}
                             <div className="flex items-center justify-between ml-4">
                               <Badge variant="outline" className="text-xs">
                                 {n.category}

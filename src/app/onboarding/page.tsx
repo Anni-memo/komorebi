@@ -90,12 +90,15 @@ const questions: QuestionDef[] = [
     reason: "必要な情報だけをお届けするために伺っています。複数選択できます。",
     type: "multiple",
     options: [
-      "手続き期限のリマインド",
-      "健診・予防接種の案内",
-      "月齢に合った発達情報",
-      "地域のイベント・支援",
-      "お金・制度の新着情報",
-      "こもれびの新機能",
+      "今日やること",
+      "今週中に確認したいこと",
+      "手続き・制度",
+      "健診や予防接種の目安",
+      "保活",
+      "準備物",
+      "おすすめ記事",
+      "同じ悩みの相談",
+      "通知は最小限にしたい",
     ],
   },
   {
@@ -201,12 +204,13 @@ export default function OnboardingPage() {
 
   const handleMultipleToggle = (value: string) => {
     const current = (answers[question.id] as string[]) || [];
-    // 「今は答えない」を選んだら他をクリア、逆も同様
-    if (value === "今は答えない") {
-      setAnswers({ ...answers, [question.id]: ["今は答えない"] });
+    // 排他選択肢: 選んだら他をクリア、逆も同様
+    const exclusiveOptions = ["今は答えない", "通知は最小限にしたい"];
+    if (exclusiveOptions.includes(value)) {
+      setAnswers({ ...answers, [question.id]: [value] });
       return;
     }
-    const filtered = current.filter((v) => v !== "今は答えない");
+    const filtered = current.filter((v) => !exclusiveOptions.includes(v));
     if (filtered.includes(value)) {
       setAnswers({
         ...answers,
@@ -321,7 +325,7 @@ export default function OnboardingPage() {
                 準備ができました
               </h1>
               <p className="text-muted-foreground leading-relaxed">
-                ありがとうございます。あなたに合わせた情報をお届けする準備が整いました。
+                ありがとうございます。登録内容をもとに、今の状況に合わせたホームを準備しました。最初に見ておくと安心なことを、3つだけ整理しています。
               </p>
             </div>
 

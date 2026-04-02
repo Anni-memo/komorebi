@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
+
+const STORAGE_KEY = "komorebi_vaccination_checklist";
 
 interface Vaccine {
   name: string;
@@ -155,9 +158,103 @@ const monthLabels = [
 
 export default function VaccinationSchedulePage() {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const [toast, setToast] = useState<string | null>(null);
+  const [showResetDialog, setShowResetDialog] = useState(false);
+  const userIdRef = useRef<string | null>(null);
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showToast = useCallback((message: string) => {
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    setToast(message);
+    toastTimerRef.current = setTimeout(() => setToast(null), 2000);
+  }, []);
+
+  // localStorage に保存
+  const saveToLocal = useCallback((data: Record<string, boolean>) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  // Supabase に非同期保存（エラー握りつぶし）
+  const saveToSupabase = useCallback(async (data: Record<string, boolean>) => {
+    if (!userIdRef.current) return;
+    try {
+      const supabase = createClient();
+      await supabase
+        .from("profiles")
+        .update({ vaccination_checklist: data })
+        .eq("id", userIdRef.current);
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  // 初期読み込み
+  useEffect(() => {
+    async function loadData() {
+      // 1. localStorage から読み込み
+      let localData: Record<string, boolean> | null = null;
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) localData = JSON.parse(raw);
+      } catch {
+        // ignore
+      }
+
+      // 2. Supabase から読み込み（ログインユーザーのみ）
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          userIdRef.current = user.id;
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("vaccination_checklist")
+            .eq("id", user.id)
+            .single();
+
+          if (profile?.vaccination_checklist && typeof profile.vaccination_checklist === "object") {
+            const supabaseData = profile.vaccination_checklist as Record<string, boolean>;
+            if (Object.keys(supabaseData).length > 0) {
+              setChecked(supabaseData);
+              saveToLocal(supabaseData);
+              showToast("前回の記録を復元しました");
+              return;
+            }
+          }
+        }
+      } catch {
+        // テーブル/カラムがなくても動く
+      }
+
+      // 3. Supabaseデータがなければ localStorage フォールバック
+      if (localData && Object.keys(localData).length > 0) {
+        setChecked(localData);
+      }
+    }
+
+    loadData();
+  }, [saveToLocal, showToast]);
 
   function toggleCheck(key: string) {
-    setChecked((prev) => ({ ...prev, [key]: !prev[key] }));
+    setChecked((prev) => {
+      const next = { ...prev, [key]: !prev[key] };
+      saveToLocal(next);
+      saveToSupabase(next);
+      showToast("保存しました");
+      return next;
+    });
+  }
+
+  function handleReset() {
+    setChecked({});
+    saveToLocal({});
+    saveToSupabase({});
+    setShowResetDialog(false);
+    showToast("リセットしました");
   }
 
   const totalDoses = vaccines.reduce((sum, v) => sum + v.doses, 0);
@@ -188,9 +285,21 @@ export default function VaccinationSchedulePage() {
             <CardContent className="pt-5">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-foreground">接種進捗</span>
-                <span className="text-sm text-muted-foreground">
-                  {checkedCount} / {totalDoses} 回
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-muted-foreground">
+                    {checkedCount} / {totalDoses} 回
+                  </span>
+                  {checkedCount > 0 && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground"
+                      onClick={() => setShowResetDialog(true)}
+                    >
+                      リセット
+                    </Button>
+                  )}
+                </div>
               </div>
               <div className="h-2 bg-muted rounded-full overflow-hidden">
                 <div
@@ -198,8 +307,45 @@ export default function VaccinationSchedulePage() {
                   style={{ width: `${totalDoses > 0 ? (checkedCount / totalDoses) * 100 : 0}%` }}
                 />
               </div>
+
+              {/* トースト */}
+              {toast && (
+                <div className="mt-3 text-xs text-primary bg-primary/10 rounded-md px-3 py-1.5 text-center transition-opacity">
+                  {toast}
+                </div>
+              )}
             </CardContent>
           </Card>
+
+          {/* リセット確認ダイアログ */}
+          {showResetDialog && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+              <Card className="w-80 shadow-lg">
+                <CardContent className="pt-6">
+                  <p className="text-sm text-foreground mb-4">
+                    すべてのチェックをリセットしますか？この操作は元に戻せません。
+                  </p>
+                  <div className="flex justify-end gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setShowResetDialog(false)}
+                    >
+                      キャンセル
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-destructive hover:text-destructive"
+                      onClick={handleReset}
+                    >
+                      リセット
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
 
           {/* タイムライン */}
           <div className="space-y-6">

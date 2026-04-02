@@ -8,7 +8,7 @@ import { buttonVariants } from "@/components/ui/button-variants";
 export const metadata = {
   title: "RSVワクチン（アブリスボ）判断ガイド",
   description:
-    "妊婦向けRSVワクチン（Abrysvo）のリスク・リターン・最新情報を整理。2026年4月から定期接種化。判断に必要な情報をまとめました。",
+    "妊婦向けRSVワクチン（Abrysvo）のリスク・リターン・最新情報を整理。2026年4月から定期接種開始。判断に必要な情報をまとめました。",
 };
 
 const efficacyData = [
@@ -99,7 +99,7 @@ export default function RSVVaccinePage() {
               <Badge variant="secondary">妊婦向け</Badge>
               <Badge variant="secondary">予防接種</Badge>
               <Badge className="bg-komorebi-warm/20 text-foreground border-komorebi-warm/40">
-                2026年4月〜 定期接種化
+                2026年4月〜 定期接種開始
               </Badge>
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
@@ -118,10 +118,10 @@ export default function RSVVaccinePage() {
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2 flex items-center gap-2">
                 <span aria-hidden>📢</span>
-                2026年4月から定期接種（原則無料）になります
+                2026年4月から定期接種が始まりました（原則無料）
               </h2>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                これまで全額自己負担（約3万円）だったアブリスボが、2026年4月から公費で受けられる定期接種になります。
+                これまで全額自己負担（約3万円）だったアブリスボが、2026年4月から公費で受けられるようになりました。
                 対象は<strong className="text-foreground">妊娠28週0日〜36週6日の妊婦</strong>で、1回の筋肉注射です。
                 過去の妊娠時に接種した方も対象になります。
               </p>
@@ -162,6 +162,52 @@ export default function RSVVaccinePage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* アブリスボとベイフォータスの違い */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <span aria-hidden>🔬</span>
+              アブリスボとベイフォータスの違い
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border/50">
+                        <th className="text-left py-2 pr-4 font-semibold text-foreground w-1/2">アブリスボ（ファイザー）</th>
+                        <th className="text-left py-2 font-semibold text-foreground w-1/2">ベイフォータス（サノフィ/AstraZeneca）</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-muted-foreground">
+                      <tr className="border-b border-border/30">
+                        <td className="py-2 pr-4">妊婦に接種する母子免疫ワクチン。胎盤経由で抗体を赤ちゃんに移行</td>
+                        <td className="py-2">乳児に直接投与するモノクローナル抗体製剤（ニルセビマブ）</td>
+                      </tr>
+                      <tr className="border-b border-border/30">
+                        <td className="py-2 pr-4">2026年4月から定期接種（無料）</td>
+                        <td className="py-2">2024年3月承認。任意接種（自費、数万円）</td>
+                      </tr>
+                      <tr className="border-b border-border/30">
+                        <td className="py-2 pr-4">1回の筋肉注射</td>
+                        <td className="py-2">1回の筋肉注射。RSVシーズン前に投与</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="mt-4 space-y-2">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">併用ではなく選択肢:</strong>{" "}
+                    原則どちらか一方を選びます。アブリスボを接種した妊婦から生まれた赤ちゃんは、ベイフォータスは不要とされています。
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">従来のシナジス（パリビズマブ）との違い:</strong>{" "}
+                    シナジスはハイリスク児に毎月投与が必要でしたが、ベイフォータスは1回で済みます。
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
 
           {/* 打つリスク */}
           <section className="mb-8">
@@ -282,6 +328,13 @@ export default function RSVVaccinePage() {
                   </li>
                   <li>
                     <strong className="text-foreground">[6]</strong> WHO. RSVワクチン事前認証（Prequalification）. 2025年3月.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[7]</strong> 厚生労働省. RSウイルスワクチン定期接種開始について. 2026年4月.{" "}
+                    <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/kenkou/kekkaku-kansenshou/yobou-sesshu/vaccine/rs/index.html" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">厚生労働省</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[8]</strong> 国立成育医療研究センター. RSV母子免疫ワクチンの接種率調査. 2026年1月.
                   </li>
                 </ul>
               </CardContent>
