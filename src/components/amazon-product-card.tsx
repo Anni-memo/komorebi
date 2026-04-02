@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { buttonVariants } from "@/components/ui/button-variants";
 
 // アフィリエイトID設定（取得後にここを更新）
@@ -52,6 +55,7 @@ export function AmazonProductCard({
   const imageUrl = `https://m.media-amazon.com/images/P/${asin}.01._SL200_.jpg`;
   const finalRakutenUrl = rakutenUrl || buildRakutenSearchUrl(name);
   const finalYahooUrl = yahooUrl || buildYahooSearchUrl(name);
+  const [imgError, setImgError] = useState(false);
 
   return (
     <div className="flex flex-col sm:flex-row items-center gap-4 rounded-xl border border-border/50 bg-card p-4 text-sm">
@@ -60,15 +64,23 @@ export function AmazonProductCard({
         rel="noopener noreferrer nofollow sponsored"
         className="shrink-0"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={imageUrl}
-          alt={name}
-          width={120}
-          height={120}
-          className="rounded-lg object-contain bg-white"
-          loading="lazy"
-        />
+        {imgError ? (
+          <div className="flex items-center justify-center w-[120px] h-[120px] rounded-lg bg-muted text-muted-foreground text-xs">
+            {name.slice(0, 20)}
+          </div>
+        ) : (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={imageUrl}
+            alt={name}
+            width={120}
+            height={120}
+            className="rounded-lg object-contain bg-white"
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            onError={() => setImgError(true)}
+          />
+        )}
       </a>
       <div className="flex flex-1 flex-col items-center sm:items-start gap-2 text-center sm:text-left">
         <p className="font-medium text-foreground leading-snug">{name}</p>

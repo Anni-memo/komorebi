@@ -222,7 +222,7 @@ const staticArticles: Record<string, { label: string; tag: string; href: string;
 
 const monthlyItems: Record<string, { label: string; tag: string; href: string }[]> = {
   pregnant: [
-    { label: "出産入院バッグの準備", tag: "準備", href: "/prepare" },
+    { label: "出産入院バッグの準備", tag: "準備", href: "/learn/hospital-bag" },
     { label: "出産育児一時金の申請準備", tag: "制度", href: "/benefits" },
     { label: "赤ちゃんの寝る場所の確保", tag: "準備", href: "/prepare" },
   ],
