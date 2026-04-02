@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "STAGE 06｜19〜36ヶ月 走る・噛む・話す｜身体調和ガイド",
@@ -274,6 +275,21 @@ export default function Stage6Page() {
               </p>
             </CardContent>
           </Card>
+
+          {/* PDFダウンロード */}
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="STAGE 06 走る・噛む・話す"
+              catchcopy="19〜36ヶ月 身体の調和が花ひらく"
+              description="運動・食事・言葉の総合チェック、0-36ヶ月のふりかえりをまとめました。"
+              pdfPath="/pdf/body-harmony-stage6.pdf"
+              usageTips={[
+                { icon: "print", text: "3歳児健診の準備に" },
+                { icon: "share", text: "幼稚園・保育園と共有" },
+                { icon: "other", text: "全ステージふりかえり付き" },
+              ]}
+            />
+          </div>
 
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">

@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "STAGE 03｜7〜9ヶ月 おすわりと離乳食中期｜身体調和ガイド",
@@ -287,6 +288,21 @@ export default function Stage3Page() {
               </CardContent>
             </Card>
           </section>
+
+          {/* PDFダウンロード */}
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="STAGE 03 おすわりと離乳食中期"
+              catchcopy="7〜9ヶ月 手と口の連携が加速する"
+              description="おすわりチェック、離乳食中期のポイント、タッチ技法をまとめました。"
+              pdfPath="/pdf/body-harmony-stage3.pdf"
+              usageTips={[
+                { icon: "print", text: "離乳食の参考に" },
+                { icon: "share", text: "祖父母にも共有" },
+                { icon: "other", text: "発達チェック欄付き" },
+              ]}
+            />
+          </div>
 
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">

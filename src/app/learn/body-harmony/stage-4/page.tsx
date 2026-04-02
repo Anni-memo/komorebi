@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "STAGE 04｜10〜12ヶ月 はいはいとつかまり立ち｜身体調和ガイド",
@@ -273,6 +274,21 @@ export default function Stage4Page() {
               </CardContent>
             </Card>
           </section>
+
+          {/* PDFダウンロード */}
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="STAGE 04 はいはいとつかまり立ち"
+              catchcopy="10〜12ヶ月 空間を自分で切りひらく"
+              description="はいはい〜つかまり立ちのチェック、手づかみ食べ、タッチ技法をまとめました。"
+              pdfPath="/pdf/body-harmony-stage4.pdf"
+              usageTips={[
+                { icon: "print", text: "安全対策の確認に" },
+                { icon: "share", text: "保育園と情報共有" },
+                { icon: "other", text: "手づかみ食べガイド付き" },
+              ]}
+            />
+          </div>
 
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">

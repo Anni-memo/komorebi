@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "STAGE 02｜4〜6ヶ月 首すわりと寝返りの時期｜身体調和ガイド",
@@ -299,6 +300,21 @@ export default function Stage2Page() {
               </CardContent>
             </Card>
           </section>
+
+          {/* PDFダウンロード */}
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="STAGE 02 首すわりと寝返り"
+              catchcopy="4〜6ヶ月 重力との対話がはじまる"
+              description="発達チェック、寝返り誘導、離乳食開始サインをA4 1枚にまとめました。"
+              pdfPath="/pdf/body-harmony-stage2.pdf"
+              usageTips={[
+                { icon: "print", text: "うつぶせ練習の参考に" },
+                { icon: "share", text: "保育士さんと共有" },
+                { icon: "other", text: "離乳食開始の判断に" },
+              ]}
+            />
+          </div>
 
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">

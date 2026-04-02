@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "STAGE 05｜13〜18ヶ月 歩行の確立と食べる力｜身体調和ガイド",
@@ -293,6 +294,21 @@ export default function Stage5Page() {
               </CardContent>
             </Card>
           </section>
+
+          {/* PDFダウンロード */}
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="STAGE 05 歩行の確立と食べる力"
+              catchcopy="13〜18ヶ月 自立への最初の飛躍"
+              description="歩行チェック、口呼吸の注意サイン、スプーン練習のコツをまとめました。"
+              pdfPath="/pdf/body-harmony-stage5.pdf"
+              usageTips={[
+                { icon: "print", text: "歩行チェックに" },
+                { icon: "share", text: "歯科検診に持参" },
+                { icon: "other", text: "口呼吸チェック付き" },
+              ]}
+            />
+          </div>
 
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">

@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "STAGE 01｜0〜3ヶ月 呼吸と哺乳の基盤づくり｜身体調和ガイド",
@@ -320,6 +321,21 @@ export default function Stage1Page() {
               </CardContent>
             </Card>
           </section>
+
+          {/* PDFダウンロード */}
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="STAGE 01 呼吸と哺乳の基盤づくり"
+              catchcopy="0〜3ヶ月 生きる力の最初の一歩"
+              description="マイルストーンチェック、タッチ技法、授乳ポイントをA4 1枚にまとめました。"
+              pdfPath="/pdf/body-harmony-stage1.pdf"
+              usageTips={[
+                { icon: "print", text: "冷蔵庫に貼ってチェック" },
+                { icon: "share", text: "パートナーと共有" },
+                { icon: "other", text: "健診時に持参" },
+              ]}
+            />
+          </div>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

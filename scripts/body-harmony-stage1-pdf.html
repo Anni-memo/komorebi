@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>STAGE 01｜呼吸と哺乳の基盤づくり - こもれび</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: #1a1a1a;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    padding: 10mm 10mm 8mm 10mm;
+    height: 297mm;
+    background: #f6faf7;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0 10px 0;
+    border-bottom: 2.5px solid #2d6a4f;
+    margin-bottom: 7px;
+  }
+  .header-left { display: flex; align-items: center; gap: 12px; }
+  .stage-badge {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #2d6a4f; color: #fff; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 11pt; font-weight: 800; flex-shrink: 0;
+  }
+  .header-left h1 {
+    font-size: 18pt; font-weight: 800; color: #2d6a4f;
+    letter-spacing: 0.04em;
+  }
+  .header-left .subtitle {
+    font-size: 8.5pt; color: #555; margin-top: 2px;
+  }
+  .header-right { text-align: right; }
+  .header-right .brand {
+    font-size: 12pt; font-weight: 700; color: #2d6a4f;
+  }
+  .header-right .tagline { font-size: 7pt; color: #888; margin-top: 1px; }
+
+  /* ── Content ── */
+  .content { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+
+  /* Icons row */
+  .icons-row {
+    display: flex; gap: 6px; justify-content: center;
+    background: #fff; border-radius: 6px; padding: 5px 0;
+    border: 1px solid #d4e8db;
+  }
+  .icon-item {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 8pt; font-weight: 600; color: #2d6a4f;
+    padding: 2px 10px;
+  }
+  .icon-item span.emoji { font-size: 14pt; }
+
+  /* Section title */
+  .section-title {
+    font-size: 8.5pt; font-weight: 700; color: #fff;
+    background: #2d6a4f; padding: 3px 8px; border-radius: 3px;
+    margin-top: 2px;
+  }
+  .section-title-accent {
+    font-size: 8.5pt; font-weight: 700; color: #fff;
+    background: #6bb38a; padding: 3px 8px; border-radius: 3px;
+  }
+  .section-title-warn {
+    font-size: 8.5pt; font-weight: 700; color: #fff;
+    background: #c0392b; padding: 3px 8px; border-radius: 3px;
+  }
+
+  /* Milestone table */
+  table.milestone {
+    width: 100%; border-collapse: collapse; font-size: 7pt;
+    background: #fff;
+  }
+  table.milestone th {
+    background: #2d6a4f; color: #fff; padding: 3px 6px;
+    font-size: 7pt; text-align: left; font-weight: 600;
+    width: 70px;
+  }
+  table.milestone td {
+    padding: 3px 6px; border-bottom: 0.5px solid #d4e8db;
+    line-height: 1.5;
+  }
+  table.milestone tr:last-child td { border-bottom: none; }
+
+  /* Touch technique table */
+  table.touch {
+    width: 100%; border-collapse: collapse; font-size: 7pt;
+    background: #fff;
+  }
+  table.touch thead th {
+    background: #6bb38a; color: #fff; padding: 3px 6px;
+    font-size: 7pt; font-weight: 600; text-align: left;
+  }
+  table.touch td {
+    padding: 2.5px 6px; border-bottom: 0.5px solid #d4e8db;
+  }
+  table.touch tr:last-child td { border-bottom: none; }
+
+  /* Compact boxes */
+  .compact-row {
+    display: flex; gap: 5px;
+  }
+  .compact-box {
+    flex: 1; background: #fff; border-radius: 4px;
+    padding: 4px 6px; font-size: 6.5pt;
+    border: 1px solid #d4e8db;
+  }
+  .compact-box .box-title {
+    font-weight: 700; color: #2d6a4f; font-size: 7pt;
+    margin-bottom: 2px;
+  }
+
+  /* Warn box */
+  .warn-box {
+    background: #fdf0ef; border: 1px solid #e8a9a3;
+    border-radius: 4px; padding: 4px 8px; font-size: 6.5pt;
+  }
+  .warn-box ul { padding-left: 14px; }
+  .warn-box li { margin-bottom: 1px; }
+
+  /* Next stage */
+  .next-box {
+    background: #e8f5ee; border-radius: 4px;
+    padding: 4px 8px; font-size: 6.5pt;
+    border: 1px solid #b5dbc4;
+  }
+  .next-box .arrow-item {
+    display: flex; align-items: center; gap: 4px;
+    margin-bottom: 1px;
+  }
+  .next-box .arrow { color: #2d6a4f; font-weight: 700; }
+
+  /* Memo */
+  .memo-area {
+    background: #fff; border: 1px solid #d4e8db;
+    border-radius: 4px; padding: 4px 8px;
+  }
+  .memo-area .memo-title {
+    font-size: 7pt; font-weight: 700; color: #2d6a4f;
+    margin-bottom: 2px;
+  }
+  .memo-line {
+    border-bottom: 1px dotted #aaa; height: 14px;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1.5px solid #2d6a4f;
+    padding-top: 4px; margin-top: 4px;
+    font-size: 5.5pt; color: #888;
+    display: flex; justify-content: space-between;
+  }
+  .footer-left { max-width: 75%; }
+  .footer-right { text-align: right; font-weight: 600; color: #2d6a4f; }
+
+  /* Nursing points */
+  .nursing-row {
+    display: flex; gap: 4px;
+  }
+  .nursing-item {
+    flex: 1; background: #fff; border-radius: 4px;
+    padding: 3px 5px; font-size: 6.5pt;
+    border: 1px solid #d4e8db; text-align: center;
+  }
+  .nursing-item .ni-title {
+    font-weight: 700; color: #2d6a4f; font-size: 7pt;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="stage-badge">01</div>
+    <div>
+      <h1>呼吸と哺乳の基盤づくり</h1>
+      <div class="subtitle">0〜3ヶ月　生きる力の最初の一歩</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="brand">こもれび</div>
+    <div class="tagline">子育てをもっとやさしく</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- 4領域アイコン -->
+  <div class="icons-row">
+    <div class="icon-item"><span class="emoji">🌬️</span>呼吸</div>
+    <div class="icon-item"><span class="emoji">🍼</span>摂食</div>
+    <div class="icon-item"><span class="emoji">🤸</span>運動</div>
+    <div class="icon-item"><span class="emoji">🫧</span>感覚統合</div>
+  </div>
+
+  <!-- マイルストーンチェック表 -->
+  <div class="section-title">マイルストーンチェック表</div>
+  <table class="milestone">
+    <tr><th>🌬️ 呼吸</th><td>□ 鼻呼吸が安定　　□ 呼吸リズムが整う　　□ 泣き声が力強い</td></tr>
+    <tr><th>🍼 摂食</th><td>□ 唇をしっかり閉じて哺乳　　□ 舌の前後運動で吸啜　　□ 吸啜・嚥下・呼吸の協調</td></tr>
+    <tr><th>🤸 運動</th><td>□ 手を口に持っていく　　□ うつぶせで一瞬頭を上げる　　□ 手足をバタバタ　　□ 原始反射あり</td></tr>
+    <tr><th>🫧 感覚統合</th><td>□ あやすと目を合わせる　　□ 触れられると落ち着く　　□ 音や光に反応</td></tr>
+  </table>
+
+  <!-- やさしいタッチ技法 -->
+  <div class="section-title-accent">やさしいタッチ技法</div>
+  <table class="touch">
+    <thead><tr><th style="width:24%">名前</th><th style="width:40%">やり方</th><th style="width:16%">時間</th><th style="width:20%">タイミング</th></tr></thead>
+    <tbody>
+      <tr><td>おなかの時計回りマッサージ</td><td>おへそ周りを時計回りにやさしくなでる</td><td>1〜2分</td><td>お風呂あがり</td></tr>
+      <tr><td>足裏のやさしい刺激</td><td>親指で足裏を軽く押す・なでる</td><td>30秒〜1分</td><td>着替え時</td></tr>
+      <tr><td>口まわりのトントン</td><td>唇の周囲を指先でやさしくタッピング</td><td>30秒</td><td>授乳5分前</td></tr>
+      <tr><td>手のひら開きの促し</td><td>赤ちゃんの握った手をやさしく開く</td><td>数回</td><td>起きているとき</td></tr>
+      <tr><td>背中のストローク</td><td>背骨に沿って上から下へやさしくなでる</td><td>1〜2分</td><td>うつぶせ後</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 授乳ポイント -->
+  <div class="section-title">授乳ポイント</div>
+  <div class="nursing-row">
+    <div class="nursing-item"><div class="ni-title">ラッチオン</div>乳輪まで深く咥えさせ<br>下唇を外に巻く</div>
+    <div class="nursing-item"><div class="ni-title">抱き方バリエーション</div>横抱き・縦抱き<br>フットボール抱き</div>
+    <div class="nursing-item"><div class="ni-title">哺乳瓶</div>広口乳首・ペース<br>コントロール哺乳</div>
+    <div class="nursing-item"><div class="ni-title">げっぷ</div>肩にもたれ/膝上で<br>背中を下から上へ</div>
+  </div>
+
+  <!-- 相談のめやす -->
+  <div class="section-title-warn">⚠ 相談のめやす</div>
+  <div class="warn-box">
+    <ul>
+      <li>授乳に30分以上かかる／体重が増えない</li>
+      <li>哺乳時にむせる・ゼロゼロが続く</li>
+      <li>常に口が開いている（口呼吸の兆候）</li>
+      <li>手足の動きが極端に少ない／左右差が大きい</li>
+      <li>目が合わない・音に反応しない</li>
+    </ul>
+  </div>
+
+  <!-- 次のステージへのつながり -->
+  <div class="section-title">次のステージへのつながり</div>
+  <div class="next-box">
+    <div class="arrow-item"><span class="arrow">▶</span> 鼻呼吸の安定 → 声を出して笑う力へ</div>
+    <div class="arrow-item"><span class="arrow">▶</span> 吸啜の協調 → 離乳食準備の口の動きへ</div>
+    <div class="arrow-item"><span class="arrow">▶</span> 手を口に運ぶ → おもちゃを掴む力へ</div>
+    <div class="arrow-item"><span class="arrow">▶</span> うつぶせの頭上げ → 首すわりへ</div>
+  </div>
+
+  <!-- メモ欄 -->
+  <div class="memo-area">
+    <div class="memo-title">📝 気づいたこと</div>
+    <div class="memo-line"></div>
+    <div class="memo-line"></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-left">出典：飛騨市「まるごと健康増進」身体調和支援プログラム｜※このシートは情報提供を目的としたものであり、医療行為の指示ではありません。気になることは専門家にご相談ください。</div>
+  <div class="footer-right">https://komorebi-parenting.com</div>
+</div>
+
+</body>
+</html>

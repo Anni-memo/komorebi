@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { PdfDownloadSection } from "@/components/pdf-download-section";
 
 export const metadata = {
   title: "身体調和ガイド｜赤ちゃんの発達を月齢で知る",
@@ -559,6 +560,21 @@ export default function BodyHarmonyPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* ── PDFダウンロード ── */}
+          <div className="mt-8">
+            <PdfDownloadSection
+              title="身体調和ガイド PDF一覧"
+              catchcopy="各ステージの発達チェックシートを印刷できます"
+              description="各ステージページからA4 1枚のPDFをダウンロードできます。健診や保育園との情報共有にお使いください。"
+              pdfPath="/pdf/body-harmony-stage1.pdf"
+              usageTips={[
+                { icon: "print", text: "月齢に合わせて印刷" },
+                { icon: "share", text: "支援者・保育士と共有" },
+                { icon: "other", text: "全6ステージ対応" },
+              ]}
+            />
+          </div>
 
           {/* ── 免責事項 ── */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
