@@ -65,11 +65,8 @@ AIは以下のことを行いません：
   {
     id: "operator",
     title: "運営者情報",
-    content: `運営：コンステラHD株式会社
-ウェブサイト：https://constella-hd.co.jp
-お問い合わせ：contact@constella-hd.co.jp
-
-ご質問・ご要望・コンテンツの監修に関するご連絡は、上記メールアドレスまでお気軽にお問い合わせください。`,
+    content: "",
+    customContent: true,
   },
   {
     id: "terms",
@@ -104,9 +101,35 @@ export default function AboutPage() {
                   <CardTitle className="text-base">{section.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
-                    {section.content}
-                  </p>
+                  {section.customContent ? (
+                    <div className="text-sm text-muted-foreground leading-relaxed space-y-2">
+                      <p>
+                        運営：
+                        <a href="https://constella-hd.co.jp" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                          コンステラHD株式会社
+                        </a>
+                      </p>
+                      <p>
+                        ウェブサイト：
+                        <a href="https://constella-hd.co.jp" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                          https://constella-hd.co.jp
+                        </a>
+                      </p>
+                      <p>
+                        お問い合わせ：
+                        <a href="mailto:contact@constella-hd.co.jp" className="text-primary hover:underline">
+                          contact@constella-hd.co.jp
+                        </a>
+                      </p>
+                      <p className="mt-2">
+                        ご質問・ご要望・コンテンツの監修に関するご連絡は、上記メールアドレスまでお気軽にお問い合わせください。
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
+                      {section.content}
+                    </p>
+                  )}
                 </CardContent>
               </Card>
             ))}
