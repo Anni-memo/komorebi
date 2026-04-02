@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 const suggestions = [
@@ -39,6 +39,7 @@ export function FloatingSearch() {
   const router = useRouter();
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
+  const composingRef = useRef(false);
 
   // トップページでは非表示（既に検索窓がある）
   if (pathname === "/") return null;
@@ -76,7 +77,7 @@ export function FloatingSearch() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:bg-primary/90 active:scale-95 transition-all"
+          className="fixed bottom-20 right-4 md:bottom-6 md:right-6 z-40 w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:bg-primary/90 active:scale-95 transition-all"
           aria-label="検索"
         >
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -118,6 +119,11 @@ export function FloatingSearch() {
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
+                  onCompositionStart={() => { composingRef.current = true; }}
+                  onCompositionEnd={(e) => {
+                    composingRef.current = false;
+                    setQuery((e.target as HTMLInputElement).value);
+                  }}
                   placeholder="気になることを検索"
                   className="w-full rounded-xl border border-border bg-background pl-10 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all"
                 />

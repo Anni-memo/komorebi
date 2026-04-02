@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 const suggestions = [
@@ -17,6 +17,7 @@ const suggestions = [
 export function SearchBar() {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
+  const composingRef = useRef(false);
   const router = useRouter();
 
   const filtered = query
@@ -80,7 +81,14 @@ export function SearchBar() {
           <input
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+            }}
+            onCompositionStart={() => { composingRef.current = true; }}
+            onCompositionEnd={(e) => {
+              composingRef.current = false;
+              setQuery((e.target as HTMLInputElement).value);
+            }}
             onFocus={() => setFocused(true)}
             onBlur={() => setTimeout(() => setFocused(false), 200)}
             placeholder="気になることを検索（例：夜泣き、離乳食、予防接種）"

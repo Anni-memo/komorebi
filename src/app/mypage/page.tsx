@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ImeInput } from "@/components/ui/ime-input";
 import { createClient } from "@/lib/supabase/client";
 
 // --- Constants ---
@@ -556,7 +557,7 @@ export default function MyPage() {
                     label="ニックネーム"
                     field="nickname"
                     editContent={
-                      <Input
+                      <ImeInput
                         type="text"
                         placeholder="例: さくらママ"
                         value={draftNickname}
@@ -686,7 +687,7 @@ export default function MyPage() {
                   label="お住まいの地域"
                   field="municipality"
                   editContent={
-                    <Input
+                    <ImeInput
                       type="text"
                       placeholder="例: 164-0001 または 中野区"
                       value={draftMunicipality}
