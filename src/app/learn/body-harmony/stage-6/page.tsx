@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "STAGE 06｜19〜36ヶ月 走る・噛む・話す｜身体調和ガイド",
@@ -151,6 +152,7 @@ export default function Stage6Page() {
                 </h1>
               </div>
             </div>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               身体調和の集大成。0〜18ヶ月で積み上げた4領域すべてが花開く時期です。
               走る・跳ぶ・登るといった全身運動、大人に近い咀嚼、言葉の爆発——。

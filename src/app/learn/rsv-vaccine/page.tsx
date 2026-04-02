@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "RSVワクチン（アブリスボ）判断ガイド",
@@ -108,6 +109,7 @@ export default function RSVVaccinePage() {
               <br />
               リスク・リターン判断ガイド
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               赤ちゃんをRSウイルスから守るための、接種前に知っておくべき情報を整理しました。
               このページは判断を強制するものではなく、必要な情報を提供するためのものです。

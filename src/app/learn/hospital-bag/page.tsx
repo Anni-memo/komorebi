@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 const STORAGE_KEY = "komorebi_hospital_bag_checklist";
 
@@ -213,6 +214,7 @@ export default function HospitalBagPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               入院バッグ準備リスト
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               出産はいつ始まるかわかりません。チェックを入れながら準備を進めましょう。
             </p>
@@ -424,6 +426,31 @@ export default function HospitalBagPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 出典・参考文献 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 日本助産師会.
+                    &quot;お産の準備と入院の持ち物.&quot;
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 日本産科婦人科学会.
+                    &quot;分娩の経過と呼吸法.&quot;
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 厚生労働省.
+                    &quot;出産に関する情報提供.&quot;
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
 
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">

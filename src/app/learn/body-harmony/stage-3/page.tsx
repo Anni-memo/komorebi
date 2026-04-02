@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "STAGE 03｜7〜9ヶ月 おすわりと離乳食中期｜身体調和ガイド",
@@ -156,6 +157,7 @@ export default function Stage3Page() {
                 </h1>
               </div>
             </div>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               安定したおすわりが両手の自由を生み、探索活動が爆発します。
               舌は上下にも動くようになり、食べ物を「押しつぶす」力が育つ時期。

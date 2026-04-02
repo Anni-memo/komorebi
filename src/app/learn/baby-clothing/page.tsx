@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "ベビー服・肌着の選びかた｜種類・枚数・季節別ガイド",
@@ -175,6 +176,7 @@ export default function BabyClothingPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               ベビー服・肌着の選びかた
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               種類が多くて迷いやすいベビー服。
               <br />

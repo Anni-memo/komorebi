@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "妊活前に受けておきたい予防接種ガイド｜風疹・麻疹・水痘 | こもれび",
@@ -203,6 +204,7 @@ export default function PreconceptionVaccinesPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               妊活前に受けておきたい予防接種ガイド
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               「妊活を始めたいけど、何か準備が必要？」
               実は、妊娠前にしか打てないワクチンがあります。
@@ -604,6 +606,39 @@ export default function PreconceptionVaccinesPage() {
                     <strong className="text-foreground">[5]</strong>{" "}
                     政府広報オンライン.
                     &quot;昭和37〜54年度生まれの男性の皆さんへ 風しんの予防接種にご協力ください.&quot;
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* 出典・参考文献 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 日本産科婦人科学会.
+                    &quot;妊娠前のワクチン接種について.&quot;
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 国立感染症研究所.
+                    &quot;風疹・麻疹の予防接種.&quot;{" "}
+                    <a
+                      href="https://www.niid.go.jp/niid/ja/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-foreground"
+                    >
+                      https://www.niid.go.jp/niid/ja/
+                    </a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 厚生労働省.
+                    &quot;風しんの追加的対策について.&quot;
                   </li>
                 </ul>
               </CardContent>

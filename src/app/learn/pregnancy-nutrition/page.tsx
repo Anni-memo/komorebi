@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "妊娠中・産後の食事ガイド｜必要な栄養素と注意点",
@@ -159,6 +160,7 @@ export default function PregnancyNutritionPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               妊娠中・産後の食事ガイド
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               必要な栄養素・避けるべき食品・つわり中の食事のコツを、
               厚生労働省の基準とエビデンスに基づいて整理しました。
@@ -359,6 +361,31 @@ export default function PregnancyNutritionPage() {
                   </li>
                   <li>
                     <strong className="text-foreground">[5]</strong> 日本産科婦人科学会. &quot;産婦人科診療ガイドライン 産科編 2023.&quot;
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* 出典・参考文献 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 厚生労働省.
+                    &quot;妊産婦のための食生活指針.&quot;
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 日本産科婦人科学会.
+                    &quot;妊娠中の栄養管理.&quot;
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 日本栄養士会.
+                    &quot;妊娠期の食事摂取基準.&quot;
                   </li>
                 </ul>
               </CardContent>

@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "妊娠中の体調トラブルと病気ガイド",
@@ -157,6 +158,7 @@ export default function PregnancyHealthPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               妊娠中の体調トラブルと病気ガイド
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               妊娠中は体にさまざまな変化が起こります。
               「これは普通？」「受診すべき？」と迷う場面も多いですよね。

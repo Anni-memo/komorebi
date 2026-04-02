@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 const STORAGE_KEY = "komorebi_postnatal_checklist";
 
@@ -228,6 +229,7 @@ export default function PostnatalProceduresPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               出産後に必要な手続き一覧
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               出産後は体の回復と赤ちゃんのお世話で大変な時期ですが、
               期限のある手続きがいくつかあります。完了したものにチェックを入れて進捗を管理できます。
@@ -437,6 +439,39 @@ export default function PostnatalProceduresPage() {
                   </li>
                   <li>
                     <strong className="text-foreground">[4]</strong> デジタル庁. &quot;マイナンバーカードの申請について.&quot;
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* 出典・参考文献 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 厚生労働省.
+                    &quot;児童手当制度のご案内.&quot;{" "}
+                    <a
+                      href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kodomo/kodomo_kosodate/jidouteate/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-foreground"
+                    >
+                      https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kodomo/kodomo_kosodate/jidouteate/
+                    </a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 日本年金機構.
+                    &quot;出産育児一時金について.&quot;
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 各市区町村.
+                    &quot;出生届の届出方法.&quot;
                   </li>
                 </ul>
               </CardContent>

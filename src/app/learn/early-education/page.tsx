@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "知育の基本ガイド｜月齢別の発達と遊び",
@@ -116,6 +117,7 @@ export default function EarlyEducationPage() {
               <br />
               月齢別の発達と遊び
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               月齢・年齢別の発達の特徴と、家庭でできる知育遊びを整理しました。
               特別な教材や教室は必要ありません。日常の関わりが、子どもの力を育てます。

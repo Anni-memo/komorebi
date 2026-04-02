@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "STAGE 01｜0〜3ヶ月 呼吸と哺乳の基盤づくり｜身体調和ガイド",
@@ -167,6 +168,7 @@ export default function Stage1Page() {
                 </h1>
               </div>
             </div>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               すべてはここから始まります。鼻で息をする、おっぱいを飲む、手足を動かす——。
               まだ「見えにくい」発達ですが、この3ヶ月で築かれる土台が、

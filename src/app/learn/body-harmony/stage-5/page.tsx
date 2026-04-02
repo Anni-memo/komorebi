@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "STAGE 05｜13〜18ヶ月 歩行の確立と食べる力｜身体調和ガイド",
@@ -163,6 +164,7 @@ export default function Stage5Page() {
                 </h1>
               </div>
             </div>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               自立への最初の飛躍。二本の足で世界を歩き、スプーンを握り、言葉で気持ちを伝え始める。
               0〜12ヶ月で積み上げた土台が「できること」に変わり始める時期です。

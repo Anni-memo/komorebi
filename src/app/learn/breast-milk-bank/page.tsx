@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "母乳バンクの基礎知識と利用ガイド",
@@ -126,6 +127,7 @@ export default function BreastMilkBankPage() {
               <br />
               利用ガイド
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               早産や低出生体重で生まれた赤ちゃんにとって、母乳は命を守る大切な栄養です。
               お母さんの母乳が出ない・足りないとき、「母乳バンク」という選択肢があることを知ってください。

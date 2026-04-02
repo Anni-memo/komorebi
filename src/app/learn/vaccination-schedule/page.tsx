@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 const STORAGE_KEY = "komorebi_vaccination_checklist";
 
@@ -275,6 +276,7 @@ export default function VaccinationSchedulePage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
               予防接種スケジュール
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               お子さまの月齢に合わせた予防接種スケジュールです。
               接種済みのものにチェックを入れて、残りを確認できます。
@@ -443,6 +445,47 @@ export default function VaccinationSchedulePage() {
               ]}
             />
           </div>
+
+          {/* 出典・参考文献 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 日本小児科学会.
+                    &quot;推奨予防接種スケジュール（2025年12月版）.&quot;{" "}
+                    <a
+                      href="https://www.jpeds.or.jp/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-foreground"
+                    >
+                      https://www.jpeds.or.jp/
+                    </a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 国立感染症研究所.
+                    &quot;予防接種情報.&quot;{" "}
+                    <a
+                      href="https://www.niid.go.jp/niid/ja/vaccine-j.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-foreground"
+                    >
+                      https://www.niid.go.jp/niid/ja/vaccine-j.html
+                    </a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 厚生労働省.
+                    &quot;予防接種法に基づく定期接種.&quot;
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
 
           {/* 注意事項 */}
           <div className="mt-8 p-4 bg-muted/30 rounded-lg">

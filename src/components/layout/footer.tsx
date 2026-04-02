@@ -17,6 +17,7 @@ const footerLinks = [
       { href: "/about", label: "このサービスについて" },
       { href: "/about#ai", label: "AI利用について" },
       { href: "/about#privacy", label: "個人情報の扱い" },
+      { href: "/privacy", label: "プライバシーポリシー" },
       { href: "/about#terms", label: "利用規約" },
     ],
   },

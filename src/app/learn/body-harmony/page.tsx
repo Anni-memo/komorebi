@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "身体調和ガイド｜赤ちゃんの発達を月齢で知る",
@@ -295,6 +296,7 @@ export default function BodyHarmonyPage() {
                 赤ちゃんの「できる」が連鎖でつながる
               </span>
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               首がすわる、寝返りする、離乳食を食べる、歩く、話す——。
               赤ちゃんの発達は、一つひとつがバラバラではなく、<strong className="text-foreground">連鎖</strong>しています。

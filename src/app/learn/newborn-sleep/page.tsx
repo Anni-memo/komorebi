@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "新生児の睡眠パターンを知ろう | こもれび",
@@ -60,6 +61,7 @@ export default function NewbornSleepPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               新生児の睡眠パターンを知ろう
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               赤ちゃんの眠りには大人とは違うリズムがあります。
               夜泣きや細切れ睡眠に悩む方へ、月齢別の目安と安全な睡眠環境について整理しました。
@@ -199,6 +201,40 @@ export default function NewbornSleepPage() {
                   </li>
                   <li>
                     <strong className="text-foreground">[4]</strong> 国立成育医療研究センター. &quot;赤ちゃんの睡眠 Q&amp;A.&quot;
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* 出典・参考文献 */}
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 日本小児科学会.
+                    &quot;乳幼児の睡眠と生活リズム.&quot;
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 厚生労働省.
+                    &quot;乳幼児突然死症候群（SIDS）対策.&quot;{" "}
+                    <a
+                      href="https://www.mhlw.go.jp/bunya/kodomo/sids.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-foreground"
+                    >
+                      https://www.mhlw.go.jp/bunya/kodomo/sids.html
+                    </a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> American
+                    Academy of Pediatrics. &quot;Safe Sleep Recommendations&quot;
+                    (2022)
                   </li>
                 </ul>
               </CardContent>

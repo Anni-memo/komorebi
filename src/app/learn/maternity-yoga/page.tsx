@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "妊娠後期にできるマタニティヨガ｜安全なポーズと注意点 | こもれび",
@@ -240,6 +241,7 @@ export default function MaternityYogaPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               妊娠後期にできるマタニティヨガ
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               「お腹が大きくなって、運動できない...」「腰痛やむくみがつらい...」
               そんな妊娠後期のお悩みに、自宅で安全にできるマタニティヨガをご紹介します。

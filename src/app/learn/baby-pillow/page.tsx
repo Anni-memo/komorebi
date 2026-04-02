@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "新生児のまくら｜必要性・窒息リスク・商品比較ガイド | こもれび",
@@ -187,6 +188,7 @@ export default function BabyPillowPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               新生児のまくら｜必要性・窒息リスク・商品比較
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               まくらは必要？安全なの？どれを選べばいい？
               <br />

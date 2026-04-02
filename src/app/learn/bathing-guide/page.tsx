@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "沐浴・お風呂ガイド｜新生児の沐浴手順と温度・時間帯の目安",
@@ -126,6 +127,7 @@ export default function BathingGuidePage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               沐浴・お風呂ガイド
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               はじめての沐浴は緊張するもの。手順がわかれば、きっと大丈夫です。
               赤ちゃんとの大切なスキンシップの時間を楽しんでください。

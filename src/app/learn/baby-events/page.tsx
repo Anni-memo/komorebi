@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "赤ちゃんの行事カレンダー｜お七夜・お宮参り・お食い初めなど",
@@ -112,6 +113,7 @@ export default function BabyEventsPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               赤ちゃんの行事カレンダー
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               生まれてからの1年間には、さまざまなお祝い行事があります。
               全部やらなくても大丈夫。家族のペースで、できる範囲で楽しみましょう。

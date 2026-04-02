@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,6 +51,7 @@ AIは以下のことを行いません：
 ・第三者への提供は行いません
 ・いつでも情報の削除を請求できます
 ・匿名での利用も可能です`,
+    privacyLink: true,
   },
   {
     id: "medical",
@@ -126,9 +128,20 @@ export default function AboutPage() {
                       </p>
                     </div>
                   ) : (
-                    <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
-                      {section.content}
-                    </p>
+                    <div className="text-sm text-muted-foreground leading-relaxed">
+                      <p className="whitespace-pre-line">
+                        {section.content}
+                      </p>
+                      {section.privacyLink && (
+                        <p className="mt-3">
+                          詳しくは
+                          <Link href="/privacy" className="text-primary hover:underline">
+                            プライバシーポリシー
+                          </Link>
+                          をご覧ください。
+                        </p>
+                      )}
+                    </div>
                   )}
                 </CardContent>
               </Card>

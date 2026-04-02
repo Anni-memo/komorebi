@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "STAGE 04｜10〜12ヶ月 はいはいとつかまり立ち｜身体調和ガイド",
@@ -155,6 +156,7 @@ export default function Stage4Page() {
                 </h1>
               </div>
             </div>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               自分の力で空間を移動し、立ち上がる。「自分でやりたい」の意欲が身体の発達を加速させます。
               手づかみ食べが本格化し、前歯で噛みとる力が育つ時期です。

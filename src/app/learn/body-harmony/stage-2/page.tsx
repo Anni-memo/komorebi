@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "STAGE 02｜4〜6ヶ月 首すわりと寝返りの時期｜身体調和ガイド",
@@ -156,6 +157,7 @@ export default function Stage2Page() {
                 </h1>
               </div>
             </div>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               重力との対話が本格的に始まります。首がすわり、世界が「縦」に広がる。
               寝返りという全身運動を習得し、自分の身体を「動かせる」ことを発見する時期です。

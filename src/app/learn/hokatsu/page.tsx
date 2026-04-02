@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "保活ガイド - 保育園探しの全体像",
@@ -158,6 +159,7 @@ export default function HokatsuPage() {
               <br />
               保育園探しの全体像をつかもう
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               「保活って何から始めればいいの？」という不安に応えるために、
               スケジュール・保育園の種類・見学のポイント・書類・点数制度まで、

@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
   title: "子どもがかかりやすい病気ガイド",
@@ -186,6 +187,7 @@ export default function ChildIllnessPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               子どもがかかりやすい病気ガイド
             </h1>
+            <ArticleMeta updatedAt="2026-04-03" />
             <p className="text-muted-foreground leading-relaxed">
               乳幼児はさまざまな感染症にかかりながら免疫を獲得していきます。
               「この症状は何？」「病院に行くべき？」と迷ったときのために、
