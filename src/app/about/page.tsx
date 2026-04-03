@@ -111,6 +111,8 @@ export default function AboutPage() {
                           コンステラHD株式会社
                         </a>
                       </p>
+                      <p>代表者：田中 峰雄</p>
+                      <p>所在地：〒354-0011 埼玉県富士見市水子2551番地2</p>
                       <p>
                         ウェブサイト：
                         <a href="https://constella-hd.co.jp" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
