@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const navItems = [
   { href: "/learn", label: "学ぶ" },
+  { href: "/timeline", label: "月齢別" },
   { href: "/qa", label: "相談する" },
   { href: "/benefits", label: "制度を調べる" },
   { href: "/prepare", label: "準備する" },

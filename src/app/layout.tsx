@@ -3,6 +3,8 @@ import { Noto_Sans_JP } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { WebSiteJsonLd } from "@/components/seo/json-ld";
 import { FloatingSearch } from "@/components/floating-search";
+import { CookieBanner } from "@/components/cookie-banner";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -61,6 +63,8 @@ export default function RootLayout({
         <WebSiteJsonLd />
         {children}
         <FloatingSearch />
+        <ScrollToTop />
+        <CookieBanner />
         <Analytics />
       </body>
     </html>

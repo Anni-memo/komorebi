@@ -108,3 +108,42 @@
     scroll-behavior: smooth;
   }
 }
+
+/* 印刷用スタイル */
+@media print {
+  header,
+  footer,
+  nav,
+  .fixed,
+  button,
+  [role="search"] {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+  body {
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+  }
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #555;
+  }
+  a[href^="/"]::after {
+    content: " (komorebi.constella-hd.co.jp" attr(href) ")";
+  }
+  a[href^="#"]::after {
+    content: "";
+  }
+  .no-print {
+    display: none !important;
+  }
+}
