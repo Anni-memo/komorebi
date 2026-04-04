@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -163,6 +164,14 @@ const materials = [
 export default function BabyClothingPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="ベビー服・肌着の選びかた｜種類・枚数・季節別ガイド"
+        description="短肌着、コンビ肌着、ボディ肌着、ツーウェイオール...種類が多くて迷いやすいベビー服。季節別の組み合わせと必要枚数を、わかりやすく整理しました。"
+        path="/learn/baby-clothing"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["ベビー服", "肌着", "出産準備"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

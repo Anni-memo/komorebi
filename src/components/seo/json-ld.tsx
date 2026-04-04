@@ -2,6 +2,11 @@ const SITE_URL = "https://komorebi.constella-hd.co.jp";
 const SITE_NAME = "こもれび";
 const AUTHOR_NAME = "こもれび編集部";
 
+type BreadcrumbItem = {
+  name: string;
+  href?: string;
+};
+
 type ArticleJsonLdProps = {
   title: string;
   description: string;
@@ -10,6 +15,7 @@ type ArticleJsonLdProps = {
   dateModified?: string;
   tags?: string[];
   faq?: { question: string; answer: string }[];
+  breadcrumbs?: BreadcrumbItem[];
 };
 
 export function ArticleJsonLd({
@@ -20,8 +26,17 @@ export function ArticleJsonLd({
   dateModified,
   tags,
   faq,
+  breadcrumbs,
 }: ArticleJsonLdProps) {
   const url = `${SITE_URL}${path}`;
+
+  const defaultBreadcrumbs: BreadcrumbItem[] = [
+    { name: "トップ", href: "/" },
+    { name: "学ぶ", href: "/learn" },
+    { name: title },
+  ];
+
+  const crumbs = breadcrumbs ?? defaultBreadcrumbs;
 
   const graph: Record<string, unknown>[] = [
     {
@@ -42,25 +57,12 @@ export function ArticleJsonLd({
     },
     {
       "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "トップ",
-          item: SITE_URL,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "学ぶ",
-          item: `${SITE_URL}/learn`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: title,
-        },
-      ],
+      itemListElement: crumbs.map((crumb, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: crumb.name,
+        ...(crumb.href && { item: `${SITE_URL}${crumb.href}` }),
+      })),
     },
   ];
 

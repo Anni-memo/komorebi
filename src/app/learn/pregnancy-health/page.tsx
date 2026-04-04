@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -145,6 +146,14 @@ const emergencySigns = [
 export default function PregnancyHealthPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="妊娠中の体調トラブルと病気ガイド"
+        description="妊娠中に気をつけたい症状・病気と受診の目安。妊娠高血圧症候群、妊娠糖尿病、切迫早産などを整理。"
+        path="/learn/pregnancy-health"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["妊娠 体調", "妊娠高血圧", "切迫早産"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

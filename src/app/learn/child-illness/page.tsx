@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -174,6 +175,14 @@ const consultInfo = {
 export default function ChildIllnessPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="子どもがかかりやすい病気ガイド"
+        description="乳幼児がかかりやすい病気の症状・対応・受診の目安。突発性発疹、手足口病、RSウイルスなどを解説。"
+        path="/learn/child-illness"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["子ども 病気", "突発性発疹", "手足口病"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

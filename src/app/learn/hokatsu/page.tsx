@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -144,6 +145,14 @@ const rejectionOptions = [
 export default function HokatsuPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="保活ガイド - 保育園探しの全体像"
+        description="保活のスケジュール・保育園の種類・見学ポイント・必要書類・点数制度をわかりやすく解説。初めての保活でも安心して進められます。"
+        path="/learn/hokatsu"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["保活", "保育園", "入園申請"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

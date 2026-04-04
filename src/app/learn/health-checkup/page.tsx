@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -115,6 +116,14 @@ const generalTips = [
 export default function HealthCheckupPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="乳幼児健診ガイド｜月齢別にわかる健診の流れと準備"
+        description="3-4ヶ月・6-7ヶ月・1歳半・3歳の乳幼児健診を月齢別に解説。当日の流れ、チェック項目、持ち物、よくある質問をまとめました。"
+        path="/learn/health-checkup"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["乳幼児健診", "健診 準備", "月齢別"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

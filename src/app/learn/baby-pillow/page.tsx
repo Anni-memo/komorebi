@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -175,6 +176,14 @@ const references = [
 export default function BabyPillowPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="新生児のまくら｜必要性・窒息リスク・商品比較ガイド"
+        description="新生児にまくらは必要？医学的な見解・窒息リスク・人気5商品の比較を整理。安全に使うためのポイントもまとめました。"
+        path="/learn/baby-pillow"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["ベビー枕", "新生児 まくら", "向き癖"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

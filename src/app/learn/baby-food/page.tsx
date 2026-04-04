@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -78,6 +79,14 @@ const commonWorries = [
 export default function BabyFoodPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="離乳食のはじめかた"
+        description="離乳食の開始時期、段階別の進め方（初期・中期・後期・完了期）、食物アレルギーの注意点、よくある悩みと対処法をわかりやすく解説します。"
+        path="/learn/baby-food"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["離乳食", "赤ちゃん 食事", "食物アレルギー"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -171,6 +172,14 @@ const consultationContacts = [
 export default function FeverGuidePage() {
   return (
     <>
+      <ArticleJsonLd
+        title="子どもの発熱対応ガイド"
+        description="子どもが熱を出したときの月齢別対応・受診の目安・家でできるケア・救急に行くべきサインをわかりやすく解説。#8000の使い方も。"
+        path="/learn/fever-guide"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["子ども 発熱", "受診の目安", "#8000"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

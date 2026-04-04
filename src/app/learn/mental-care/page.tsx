@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -111,6 +112,14 @@ const partnerInfo = [
 export default function MentalCarePage() {
   return (
     <>
+      <ArticleJsonLd
+        title="産後のメンタルケア"
+        description="産後うつの兆候、マタニティブルーズとの違い、セルフケアの方法、相談先一覧、パートナーへの情報をまとめました。つらいときは自然なこと。一人で抱え込まないでください。"
+        path="/learn/mental-care"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["産後うつ", "メンタルケア", "産後ケア"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

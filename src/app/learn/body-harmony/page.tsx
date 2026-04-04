@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -278,6 +279,14 @@ const homeActions = [
 export default function BodyHarmonyPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="身体調和ガイド｜赤ちゃんの発達を月齢で知る"
+        description="呼吸・摂食・運動・感覚統合の4領域から、赤ちゃんの身体発達を月齢別に整理。首すわり、離乳食、はいはい——それぞれの「なぜ今」がわかるガイド。"
+        path="/learn/body-harmony"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["身体発達", "赤ちゃん 発達", "月齢別"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

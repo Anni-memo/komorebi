@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -133,6 +134,20 @@ const faqs = [
 export default function Checkup3YearsPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="3歳児健診ガイド｜ことば・社会性・視聴覚の総チェック"
+        description="3歳児健診の流れ・チェック項目・事前準備・よくある質問を解説。視力・聴力検査、言語発達、社会性など就園前の総合チェックを整理。"
+        path="/learn/health-checkup/3years"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["3歳児健診", "視力検査", "言語発達"]}
+        breadcrumbs={[
+          { name: "トップ", href: "/" },
+          { name: "学ぶ", href: "/learn" },
+          { name: "乳幼児健診ガイド", href: "/learn/health-checkup" },
+          { name: "3歳" },
+        ]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

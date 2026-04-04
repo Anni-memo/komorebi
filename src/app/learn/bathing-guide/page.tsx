@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -115,6 +116,14 @@ const bathTypes = [
 export default function BathingGuidePage() {
   return (
     <>
+      <ArticleJsonLd
+        title="沐浴・お風呂ガイド｜新生児の沐浴手順と温度・時間帯の目安"
+        description="新生児の沐浴はいつからいつまで？お湯の温度（38〜40度）、手順、必要なもの、よくある不安への対処法をわかりやすく解説。1ヶ月健診後のお風呂への移行も。"
+        path="/learn/bathing-guide"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["沐浴", "新生児 お風呂", "ベビーバス"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

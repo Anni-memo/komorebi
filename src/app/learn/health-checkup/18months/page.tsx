@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -90,6 +91,20 @@ const faqs = [
 export default function Checkup18MonthsPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="1歳6ヶ月健診ガイド｜歩行とことばの芽生え"
+        description="1歳6ヶ月児健診の流れ・チェック項目・持ち物・よくある質問を解説。ひとり歩き・有意語・指さし・歯科健診など確認ポイントを整理。"
+        path="/learn/health-checkup/18months"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["1歳半健診", "歩行", "言語発達"]}
+        breadcrumbs={[
+          { name: "トップ", href: "/" },
+          { name: "学ぶ", href: "/learn" },
+          { name: "乳幼児健診ガイド", href: "/learn/health-checkup" },
+          { name: "1歳6ヶ月" },
+        ]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -102,6 +103,14 @@ const importantTips = [
 export default function EarlyEducationPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="知育の基本ガイド｜月齢別の発達と遊び"
+        description="月齢・年齢別の発達の特徴と、家庭でできる知育遊びを整理。五感・運動・言語・社会性の発達をサポート。"
+        path="/learn/early-education"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["知育", "月齢別 発達", "知育遊び"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -92,6 +93,14 @@ const cautionCases = [
 export default function RSVVaccinePage() {
   return (
     <>
+      <ArticleJsonLd
+        title="RSVワクチン（アブリスボ）判断ガイド"
+        description="妊婦向けRSVワクチン（Abrysvo）のリスク・リターン・最新情報を整理。2026年4月から定期接種開始。判断に必要な情報をまとめました。"
+        path="/learn/rsv-vaccine"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["RSVワクチン", "妊婦 予防接種", "アブリスボ"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

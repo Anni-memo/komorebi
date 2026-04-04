@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -85,6 +86,20 @@ const faqs = [
 export default function Checkup34MonthsPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="3〜4ヶ月健診ガイド｜首すわりと成長の確認"
+        description="3〜4ヶ月児健診の流れ・チェック項目・持ち物・よくある質問をわかりやすく解説。首すわり・追視・体重増加など確認ポイントを整理。"
+        path="/learn/health-checkup/3-4months"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["3ヶ月健診", "首すわり", "乳幼児健診"]}
+        breadcrumbs={[
+          { name: "トップ", href: "/" },
+          { name: "学ぶ", href: "/learn" },
+          { name: "乳幼児健診ガイド", href: "/learn/health-checkup" },
+          { name: "3〜4ヶ月" },
+        ]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

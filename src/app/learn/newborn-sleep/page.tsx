@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -49,6 +50,14 @@ const sidsPrevention = [
 export default function NewbornSleepPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="新生児の睡眠パターンを知ろう"
+        description="月齢別の睡眠時間の目安、夜泣きの原因と対処法、親の睡眠確保のコツ、安全な睡眠環境（SIDS予防）についてわかりやすく解説します。"
+        path="/learn/newborn-sleep"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["新生児 睡眠", "夜泣き", "SIDS予防"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -148,6 +149,14 @@ const trimesterSummary = [
 export default function PregnancyNutritionPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="妊娠中・産後の食事ガイド｜必要な栄養素と注意点"
+        description="妊娠中・産後に必要な栄養素、避けるべき食品、つわり中の食事のコツ。エビデンスに基づいた情報を整理。"
+        path="/learn/pregnancy-nutrition"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["妊娠 食事", "妊婦 栄養", "葉酸"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

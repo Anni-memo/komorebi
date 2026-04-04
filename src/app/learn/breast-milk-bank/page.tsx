@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -110,6 +111,14 @@ const donorEligibility = [
 export default function BreastMilkBankPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="母乳バンクの基礎知識と利用ガイド"
+        description="母乳バンクとは何か、誰が利用できるか、安全性・費用・日本の現状をわかりやすく整理。早産児・低出生体重児の親が知っておきたい情報をまとめました。"
+        path="/learn/breast-milk-bank"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["母乳バンク", "早産児", "ドナーミルク"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">

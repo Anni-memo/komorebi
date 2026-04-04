@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 
 export const metadata = {
@@ -101,6 +102,14 @@ const timeline = [
 export default function BabyEventsPage() {
   return (
     <>
+      <ArticleJsonLd
+        title="赤ちゃんの行事カレンダー｜お七夜・お宮参り・お食い初めなど"
+        description="お七夜、お宮参り、お食い初め、ハーフバースデー、初誕生日など、赤ちゃんの1年間の行事を時系列で解説。費用目安・準備物・やらなくてもOKな旨も。"
+        path="/learn/baby-events"
+        datePublished="2026-03-30"
+        dateModified="2026-04-05"
+        tags={["赤ちゃん 行事", "お宮参り", "お食い初め"]}
+      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
