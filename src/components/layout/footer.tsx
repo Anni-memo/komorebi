@@ -19,6 +19,8 @@ const footerLinks = [
       { href: "/about#privacy", label: "個人情報の扱い" },
       { href: "/privacy", label: "プライバシーポリシー" },
       { href: "/about#terms", label: "利用規約" },
+      { href: "/disclaimer", label: "免責事項" },
+      { href: "/accessibility", label: "アクセシビリティ" },
     ],
   },
 ];

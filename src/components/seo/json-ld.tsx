@@ -1,4 +1,4 @@
-const SITE_URL = "https://komorebi-red.vercel.app";
+const SITE_URL = "https://komorebi.constella-hd.co.jp";
 const SITE_NAME = "こもれび";
 const AUTHOR_NAME = "こもれび編集部";
 

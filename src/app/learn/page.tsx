@@ -219,6 +219,14 @@ const articles = [
     readTime: "3分で読める",
     summary: "自治体ごとに異なる支援制度を効率よく調べる方法。",
   },
+  {
+    title: "乳幼児健診ガイド｜月齢別にわかる健診の流れと準備",
+    tag: "健康・病気",
+    audience: "0〜3歳の親向け",
+    readTime: "各5分で読める",
+    summary: "3-4ヶ月・6-7ヶ月・1歳半・3歳の健診を月齢別に解説。当日の流れ、チェック項目、よくある質問。",
+    href: "/learn/health-checkup",
+  },
 ];
 
 export default function LearnPage() {

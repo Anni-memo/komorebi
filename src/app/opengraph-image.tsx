@@ -70,7 +70,7 @@ export default async function Image() {
             color: "#a0a0a0",
           }}
         >
-          komorebi-red.vercel.app
+          komorebi.constella-hd.co.jp
         </div>
       </div>
     ),

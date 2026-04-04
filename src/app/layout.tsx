@@ -13,6 +13,7 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://komorebi.constella-hd.co.jp"),
   title: {
     default: "こもれび — 子育ての案内所",
     template: "%s | こもれび",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     description:
       "子育ての負担と不安を減らし、子に向ける時間を増やす。AIが状況を整理し、今必要な情報・手続き・準備を案内します。",
     type: "website",
-    url: "https://komorebi.app",
+    url: "https://komorebi.constella-hd.co.jp",
     siteName: "こもれび",
   },
   twitter: {
@@ -51,6 +52,12 @@ export default function RootLayout({
         <meta name="theme-color" content="#4a8c6f" />
       </head>
       <body className="min-h-full flex flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[99999] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:text-sm focus:font-medium"
+        >
+          メインコンテンツへスキップ
+        </a>
         <WebSiteJsonLd />
         {children}
         <FloatingSearch />
