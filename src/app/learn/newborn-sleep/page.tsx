@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "新生児の睡眠パターンを知ろう | こもれび",
@@ -63,6 +67,11 @@ export default function NewbornSleepPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "新生児の睡眠パターン" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">睡眠</Badge>
               <Badge variant="secondary">0歳の親向け</Badge>
@@ -77,8 +86,15 @@ export default function NewbornSleepPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "sleep-by-age", label: "月齢別の睡眠時間の目安" },
+            { id: "night-crying", label: "夜泣きの原因と対処法" },
+            { id: "parent-sleep", label: "親の睡眠を確保するコツ" },
+            { id: "sids-prevention", label: "安全な睡眠環境（SIDS予防）" },
+          ]} />
+
           {/* 月齢別の睡眠時間 */}
-          <section className="mb-8">
+          <section id="sleep-by-age" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🕐</span>
               月齢別の睡眠時間の目安
@@ -107,7 +123,7 @@ export default function NewbornSleepPage() {
           </section>
 
           {/* 夜泣きの原因と対処法 */}
-          <section className="mb-8">
+          <section id="night-crying" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🌙</span>
               夜泣きの原因と対処法
@@ -141,7 +157,7 @@ export default function NewbornSleepPage() {
           </section>
 
           {/* 親の睡眠確保 */}
-          <section className="mb-8">
+          <section id="parent-sleep" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>💤</span>
               親の睡眠を確保するコツ
@@ -159,7 +175,7 @@ export default function NewbornSleepPage() {
           </section>
 
           {/* SIDS予防 */}
-          <section className="mb-8">
+          <section id="sids-prevention" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🛡️</span>
               安全な睡眠環境（SIDS予防）
@@ -258,6 +274,9 @@ export default function NewbornSleepPage() {
               赤ちゃんの睡眠について心配なことがある場合は、かかりつけの小児科医にご相談ください。
             </p>
           </div>
+
+          <ShareButtons title="新生児の睡眠パターンを知ろう" path="/learn/newborn-sleep" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

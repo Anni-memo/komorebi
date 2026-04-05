@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "産後のメンタルケア | こもれび",
@@ -125,6 +129,11 @@ export default function MentalCarePage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "産後のメンタルケア" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">メンタル</Badge>
               <Badge variant="secondary">すべての親向け</Badge>
@@ -140,8 +149,18 @@ export default function MentalCarePage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "message", label: "今、つらい気持ちを抱えている方へ" },
+            { id: "difference", label: "マタニティブルーズと産後うつの違い" },
+            { id: "signs", label: "こんなサインがあったら相談を" },
+            { id: "self-care", label: "セルフケアの方法" },
+            { id: "help", label: "相談先一覧" },
+            { id: "partner", label: "パートナー・ご家族の方へ" },
+            { id: "references", label: "出典・参考情報" },
+          ]} />
+
           {/* 大切なメッセージ */}
-          <Card className="border-primary/30 bg-primary/5 shadow-none mb-8">
+          <Card id="message" className="border-primary/30 bg-primary/5 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2">
                 今、つらい気持ちを抱えている方へ
@@ -159,7 +178,7 @@ export default function MentalCarePage() {
           </Card>
 
           {/* マタニティブルーズと産後うつの違い */}
-          <section className="mb-8">
+          <section id="difference" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📖</span>
               マタニティブルーズと産後うつの違い
@@ -191,7 +210,7 @@ export default function MentalCarePage() {
           </section>
 
           {/* 産後うつの兆候 */}
-          <section className="mb-8">
+          <section id="signs" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🔍</span>
               こんなサインがあったら相談を
@@ -215,7 +234,7 @@ export default function MentalCarePage() {
           </section>
 
           {/* セルフケア */}
-          <section className="mb-8">
+          <section id="self-care" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🌿</span>
               セルフケアの方法
@@ -241,7 +260,7 @@ export default function MentalCarePage() {
           </section>
 
           {/* 相談先一覧 */}
-          <section className="mb-8">
+          <section id="help" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📞</span>
               相談先一覧
@@ -263,7 +282,7 @@ export default function MentalCarePage() {
           </section>
 
           {/* パートナーへの情報 */}
-          <section className="mb-8">
+          <section id="partner" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>👥</span>
               パートナー・ご家族の方へ
@@ -288,7 +307,7 @@ export default function MentalCarePage() {
           </section>
 
           {/* 出典 */}
-          <section className="mb-8">
+          <section id="references" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">出典・参考情報</h2>
             <Card className="border-border/50 shadow-none">
               <CardContent className="pt-5">
@@ -318,6 +337,9 @@ export default function MentalCarePage() {
               心身の不調が続く場合は、医療機関や専門の相談窓口に必ずご相談ください。
             </p>
           </div>
+
+          <ShareButtons title="産後のメンタルケア" path="/learn/mental-care" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

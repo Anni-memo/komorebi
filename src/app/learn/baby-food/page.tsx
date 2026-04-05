@@ -7,6 +7,10 @@ import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "離乳食のはじめかた | こもれび",
@@ -92,6 +96,11 @@ export default function BabyFoodPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "離乳食のはじめかた" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">食事</Badge>
               <Badge variant="secondary">5〜6ヶ月の親向け</Badge>
@@ -106,8 +115,15 @@ export default function BabyFoodPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "readiness", label: "離乳食を始めるサイン" },
+            { id: "stages", label: "段階別の進め方" },
+            { id: "allergy", label: "食物アレルギーの注意点" },
+            { id: "worries", label: "よくある悩みと対処法" },
+          ]} />
+
           {/* 開始の目安 */}
-          <section className="mb-8">
+          <section id="readiness" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🍼</span>
               離乳食を始めるサイン（5〜6ヶ月頃）
@@ -131,7 +147,7 @@ export default function BabyFoodPage() {
           </section>
 
           {/* 段階別の進め方 */}
-          <section className="mb-8">
+          <section id="stages" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📋</span>
               段階別の進め方
@@ -159,7 +175,7 @@ export default function BabyFoodPage() {
           </section>
 
           {/* 食物アレルギー */}
-          <section className="mb-8">
+          <section id="allergy" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>⚠️</span>
               食物アレルギーの注意点
@@ -184,7 +200,7 @@ export default function BabyFoodPage() {
           </section>
 
           {/* よくある悩み */}
-          <section className="mb-8">
+          <section id="worries" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>💬</span>
               よくある悩みと対処法
@@ -246,6 +262,9 @@ export default function BabyFoodPage() {
               ]}
             />
           </div>
+
+          <ShareButtons title="離乳食のはじめかた" path="/learn/baby-food" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

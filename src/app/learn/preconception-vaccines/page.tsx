@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "妊活前に受けておきたい予防接種ガイド｜風疹・麻疹・水痘 | こもれび",
@@ -196,6 +200,11 @@ export default function PreconceptionVaccinesPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "妊活前の予防接種ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">予防接種</Badge>
               <Badge variant="secondary">妊活・妊娠準備</Badge>
@@ -212,8 +221,19 @@ export default function PreconceptionVaccinesPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "why-before-pregnancy", label: "なぜ妊娠前に必要？" },
+            { id: "live-vaccines", label: "生ワクチン（妊娠前に必須）" },
+            { id: "inactivated-vaccines", label: "不活化ワクチン" },
+            { id: "pregnancy-classification", label: "妊娠中のワクチン分類" },
+            { id: "schedule", label: "おすすめスケジュール" },
+            { id: "partner", label: "パートナーの風疹対策" },
+            { id: "faq", label: "よくある質問" },
+            { id: "summary", label: "まとめ" },
+          ]} />
+
           {/* 大切なメッセージ */}
-          <Card className="border-primary/30 bg-primary/5 shadow-none mb-8">
+          <Card id="why-before-pregnancy" className="border-primary/30 bg-primary/5 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2">
                 なぜ「妊娠前」に予防接種が必要なの？
@@ -237,7 +257,7 @@ export default function PreconceptionVaccinesPage() {
           </Card>
 
           {/* 生ワクチン（妊娠前に必須） */}
-          <section className="mb-8">
+          <section id="live-vaccines" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>💉</span>
               妊娠前に必ず確認したいワクチン（生ワクチン）
@@ -326,7 +346,7 @@ export default function PreconceptionVaccinesPage() {
           </section>
 
           {/* 不活化ワクチン */}
-          <section className="mb-8">
+          <section id="inactivated-vaccines" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🛡</span>
               妊娠前に受けておくと安心なワクチン（不活化ワクチン）
@@ -383,7 +403,7 @@ export default function PreconceptionVaccinesPage() {
           </section>
 
           {/* 妊娠中のワクチン分類 */}
-          <section className="mb-8">
+          <section id="pregnancy-classification" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📋</span>
               妊娠中のワクチン — 打てるもの・打てないもの
@@ -434,7 +454,7 @@ export default function PreconceptionVaccinesPage() {
           </section>
 
           {/* スケジュールの組み方 */}
-          <section className="mb-8">
+          <section id="schedule" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📅</span>
               おすすめスケジュール — 妊活6か月前から始めよう
@@ -468,7 +488,7 @@ export default function PreconceptionVaccinesPage() {
           </section>
 
           {/* パートナーへの情報 */}
-          <section className="mb-8">
+          <section id="partner" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>👥</span>
               パートナー（男性）の風疹対策も大切です
@@ -497,7 +517,7 @@ export default function PreconceptionVaccinesPage() {
           </section>
 
           {/* よくある質問 */}
-          <section className="mb-8">
+          <section id="faq" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#10067;</span>
               よくある質問
@@ -519,7 +539,7 @@ export default function PreconceptionVaccinesPage() {
           </section>
 
           {/* まとめ */}
-          <section className="mb-8">
+          <section id="summary" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🌿</span>
               まとめ
@@ -654,6 +674,9 @@ export default function PreconceptionVaccinesPage() {
               助成制度の内容は自治体により異なります。最新情報はお住まいの自治体にお問い合わせください。
             </p>
           </div>
+
+          <ShareButtons title="妊活前に受けておきたい予防接種ガイド" path="/learn/preconception-vaccines" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

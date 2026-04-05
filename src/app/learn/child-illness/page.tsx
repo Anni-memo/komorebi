@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "子どもがかかりやすい病気ガイド",
@@ -188,6 +192,11 @@ export default function ChildIllnessPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "子どもがかかりやすい病気ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">健康・病気</Badge>
               <Badge variant="secondary">すべての親向け</Badge>
@@ -203,6 +212,13 @@ export default function ChildIllnessPage() {
               よくある病気の特徴・対応・受診の目安をまとめました。
             </p>
           </div>
+
+          <TableOfContents items={[
+            { id: "common-infections", label: "よくある感染症" },
+            { id: "allergy", label: "アレルギー関連" },
+            { id: "visit-guidelines", label: "受診の目安" },
+            { id: "home-care", label: "家庭でのケアの基本" },
+          ]} />
 
           {/* 重要なお知らせ */}
           <Card className="border-red-200 bg-red-50/50 shadow-none mb-8 dark:bg-red-950/20 dark:border-red-900/50">
@@ -220,7 +236,7 @@ export default function ChildIllnessPage() {
           </Card>
 
           {/* よくある感染症 */}
-          <section className="mb-10">
+          <section id="common-infections" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#129440;</span>
               よくある感染症
@@ -267,7 +283,7 @@ export default function ChildIllnessPage() {
           </section>
 
           {/* アレルギー関連 */}
-          <section className="mb-10">
+          <section id="allergy" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#127800;</span>
               アレルギー関連
@@ -293,7 +309,7 @@ export default function ChildIllnessPage() {
           </section>
 
           {/* 受診の目安 */}
-          <section className="mb-10">
+          <section id="visit-guidelines" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#127973;</span>
               受診の目安
@@ -350,7 +366,7 @@ export default function ChildIllnessPage() {
           </section>
 
           {/* 家庭でのケアの基本 */}
-          <section className="mb-10">
+          <section id="home-care" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#127968;</span>
               家庭でのケアの基本
@@ -417,6 +433,9 @@ export default function ChildIllnessPage() {
               #8000（子ども医療電話相談）は夜間・休日にも利用可能です。
             </p>
           </div>
+
+          <ShareButtons title="子どもがかかりやすい病気ガイド" path="/learn/child-illness" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

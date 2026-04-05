@@ -10,6 +10,10 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 const STORAGE_KEY = "komorebi_hospital_bag_checklist";
 
@@ -206,6 +210,11 @@ export default function HospitalBagPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "入院バッグ準備リスト" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">出産準備</Badge>
               <Badge variant="secondary">妊婦向け</Badge>
@@ -219,6 +228,18 @@ export default function HospitalBagPage() {
               出産はいつ始まるかわかりません。チェックを入れながら準備を進めましょう。
             </p>
           </div>
+
+          <TableOfContents items={[
+            { id: "when", label: "いつまでに準備する？" },
+            { id: "labor-bag", label: "陣痛バッグ" },
+            { id: "hospital-bag", label: "入院バッグ" },
+            { id: "baby-items", label: "赤ちゃん用" },
+            { id: "nice-to-have", label: "あると便利" },
+            { id: "labor-stages", label: "陣痛が来たら" },
+            { id: "breathing", label: "陣痛中の呼吸法" },
+            { id: "partner", label: "パートナーにできること" },
+            { id: "confirm", label: "病院に確認すること" },
+          ]} />
 
           {/* 進捗バー */}
           <Card className="border-border/50 shadow-none mb-8">
@@ -259,7 +280,7 @@ export default function HospitalBagPage() {
           )}
 
           {/* いつまでに */}
-          <Card className="bg-komorebi-light/30 border-primary/20 shadow-none mb-8">
+          <Card id="when" className="bg-komorebi-light/30 border-primary/20 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2 flex items-center gap-2">
                 <span aria-hidden>📅</span>いつまでに準備する？
@@ -274,7 +295,7 @@ export default function HospitalBagPage() {
 
           {/* チェックリスト（4カテゴリ） */}
           {allCategories.map((cat) => (
-            <section key={cat.key} className="mb-8">
+            <section key={cat.key} id={cat.key === "labor" ? "labor-bag" : cat.key === "hospital" ? "hospital-bag" : cat.key === "baby" ? "baby-items" : "nice-to-have"} className="mb-8">
               <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
                 <span aria-hidden>{cat.icon}</span>
                 {cat.label}
@@ -311,7 +332,7 @@ export default function HospitalBagPage() {
           ))}
 
           {/* 陣痛時の対応ガイド */}
-          <section className="mb-8">
+          <section id="labor-stages" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🫁</span>
               陣痛が来たら — 段階別ガイド
@@ -346,7 +367,7 @@ export default function HospitalBagPage() {
           </section>
 
           {/* 呼吸法 */}
-          <Card className="border-primary/30 bg-primary/5 shadow-none mb-8">
+          <Card id="breathing" className="border-primary/30 bg-primary/5 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-3 flex items-center gap-2">
                 <span aria-hidden>💨</span>
@@ -375,7 +396,7 @@ export default function HospitalBagPage() {
           </Card>
 
           {/* パートナーにできること */}
-          <section className="mb-8">
+          <section id="partner" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>👥</span>
               パートナーにできること
@@ -393,7 +414,7 @@ export default function HospitalBagPage() {
           </section>
 
           {/* 病院に確認すること */}
-          <section className="mb-8">
+          <section id="confirm" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🏥</span>
               病院に確認すること
@@ -474,6 +495,9 @@ export default function HospitalBagPage() {
               ]}
             />
           </div>
+
+          <ShareButtons title="入院バッグ準備リスト" path="/learn/hospital-bag" />
+          <MedicalDisclaimer />
 
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/learn/postnatal-procedures"

@@ -115,6 +115,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "妊娠中",
     concernTag: "日常のお世話",
+    href: "/prepare/gauze-towel",
   },
   {
     name: "ベビーバス",
@@ -123,6 +124,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "妊娠中",
     concernTag: "日常のお世話",
+    href: "/prepare/baby-bath",
   },
   {
     name: "体温計",
@@ -131,6 +133,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "0-3ヶ月",
     concernTag: "体調",
+    href: "/prepare/thermometer",
   },
   {
     name: "つめ切りばさみ",
@@ -139,6 +142,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "0-3ヶ月",
     concernTag: "日常のお世話",
+    href: "/prepare/nail-scissors",
   },
 
   // ── あれば助かる ──
@@ -185,6 +189,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "0-3ヶ月",
     concernTag: "睡眠",
+    href: "/prepare/swaddle",
   },
   {
     name: "授乳ケープ",
@@ -193,6 +198,7 @@ const items: PrepareItem[] = [
     audience: "母乳育児の家庭",
     ageTag: "0-3ヶ月",
     concernTag: "外出",
+    href: "/prepare/nursing-cover",
   },
   {
     name: "ベビーワゴン（収納）",
@@ -201,6 +207,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "妊娠中",
     concernTag: "日常のお世話",
+    href: "/prepare/baby-wagon",
   },
   {
     name: "おむつ替えシート",
@@ -209,6 +216,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "0-3ヶ月",
     concernTag: "外出",
+    href: "/prepare/diaper-changing-sheet",
   },
 
   // ── あれば助かる（知育） ──
@@ -239,6 +247,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "6-12ヶ月",
     concernTag: "食事",
+    href: "/prepare/straw-mug",
   },
   {
     name: "ベビーチェア",
@@ -247,6 +256,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "6-12ヶ月",
     concernTag: "食事",
+    href: "/prepare/baby-chair",
   },
   {
     name: "ベビーゲート",
@@ -255,6 +265,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "1歳以上",
     concernTag: "日常のお世話",
+    href: "/prepare/baby-gate",
   },
   {
     name: "ファーストシューズ",
@@ -263,6 +274,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "1歳以上",
     concernTag: "外出",
+    href: "/prepare/first-shoes",
   },
   {
     name: "三輪車・手押し車",
@@ -271,6 +283,7 @@ const items: PrepareItem[] = [
     audience: "すべての家庭",
     ageTag: "1歳以上",
     concernTag: "外出",
+    href: "/prepare/ride-on-toys",
   },
 ];
 

@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "妊娠後期にできるマタニティヨガ｜安全なポーズと注意点 | こもれび",
@@ -233,6 +237,11 @@ export default function MaternityYogaPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "妊娠後期にできるマタニティヨガ" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">運動・ヨガ</Badge>
               <Badge variant="secondary">妊婦向け</Badge>
@@ -249,8 +258,19 @@ export default function MaternityYogaPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "notice", label: "始める前に必ずお読みください" },
+            { id: "benefits", label: "妊娠後期にヨガをするメリット" },
+            { id: "safety", label: "安全に行うための注意点" },
+            { id: "poses", label: "自宅でできるマタニティヨガ 5つのポーズ" },
+            { id: "ng-poses", label: "やってはいけないNGポーズ" },
+            { id: "frequency", label: "頻度・時間の目安" },
+            { id: "faq", label: "よくある質問" },
+            { id: "summary", label: "まとめ" },
+          ]} />
+
           {/* 大切なお知らせ */}
-          <Card className="border-primary/30 bg-primary/5 shadow-none mb-8">
+          <Card id="notice" className="border-primary/30 bg-primary/5 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2">
                 始める前に必ずお読みください
@@ -265,7 +285,7 @@ export default function MaternityYogaPage() {
           </Card>
 
           {/* メリット */}
-          <section className="mb-8">
+          <section id="benefits" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🌿</span>
               妊娠後期にヨガをするメリット
@@ -287,7 +307,7 @@ export default function MaternityYogaPage() {
           </section>
 
           {/* 安全に行うための注意点 */}
-          <section className="mb-8">
+          <section id="safety" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🩺</span>
               安全に行うための注意点
@@ -324,7 +344,7 @@ export default function MaternityYogaPage() {
           </section>
 
           {/* ヨガポーズ */}
-          <section className="mb-8">
+          <section id="poses" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🧘</span>
               自宅でできるマタニティヨガ 5つのポーズ
@@ -403,7 +423,7 @@ export default function MaternityYogaPage() {
           </section>
 
           {/* NGポーズ */}
-          <section className="mb-8">
+          <section id="ng-poses" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#10060;</span>
               やってはいけないNGポーズ
@@ -428,7 +448,7 @@ export default function MaternityYogaPage() {
           </section>
 
           {/* 頻度・時間の目安 */}
-          <section className="mb-8">
+          <section id="frequency" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128337;</span>
               頻度・時間の目安
@@ -477,7 +497,7 @@ export default function MaternityYogaPage() {
           </section>
 
           {/* よくある質問 */}
-          <section className="mb-8">
+          <section id="faq" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#10067;</span>
               よくある質問
@@ -499,7 +519,7 @@ export default function MaternityYogaPage() {
           </section>
 
           {/* まとめ */}
-          <section className="mb-8">
+          <section id="summary" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#127807;</span>
               まとめ
@@ -594,6 +614,9 @@ export default function MaternityYogaPage() {
               体調に異変を感じた場合は、すぐに中止して医療機関を受診してください。
             </p>
           </div>
+
+          <ShareButtons title="妊娠後期にできるマタニティヨガ" path="/learn/maternity-yoga" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

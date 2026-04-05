@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "ベビー服・肌着の選びかた｜種類・枚数・季節別ガイド",
@@ -177,6 +181,11 @@ export default function BabyClothingPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "ベビー服・肌着の選びかた" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">学ぶ</Badge>
               <Badge variant="secondary">ベビー服・肌着</Badge>
@@ -193,8 +202,18 @@ export default function BabyClothingPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "why-confusing", label: "ベビー服、なぜ迷いやすいのか" },
+            { id: "types", label: "肌着・ウェアの種類を整理" },
+            { id: "season-guide", label: "季節別の組み合わせガイド" },
+            { id: "quantity", label: "必要枚数まとめ" },
+            { id: "size", label: "サイズの選び方" },
+            { id: "mistakes", label: "よくある失敗と対策" },
+            { id: "materials", label: "素材の選び方" },
+          ]} />
+
           {/* 1. なぜ迷いやすいのか */}
-          <section className="mb-8">
+          <section id="why-confusing" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               ベビー服、なぜ迷いやすいのか
             </h2>
@@ -218,7 +237,7 @@ export default function BabyClothingPage() {
           </section>
 
           {/* 2. 肌着の種類を整理 */}
-          <section className="mb-8">
+          <section id="types" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               肌着・ウェアの種類を整理
             </h2>
@@ -247,7 +266,7 @@ export default function BabyClothingPage() {
           </section>
 
           {/* 3. 季節別の組み合わせガイド */}
-          <section className="mb-8">
+          <section id="season-guide" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-2">
               季節別の組み合わせガイド
             </h2>
@@ -284,7 +303,7 @@ export default function BabyClothingPage() {
           </section>
 
           {/* 4. 必要枚数まとめ表 */}
-          <section className="mb-8">
+          <section id="quantity" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               必要枚数まとめ
             </h2>
@@ -316,7 +335,7 @@ export default function BabyClothingPage() {
           </section>
 
           {/* 5. サイズの選び方 */}
-          <section className="mb-8">
+          <section id="size" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               サイズの選び方
             </h2>
@@ -359,7 +378,7 @@ export default function BabyClothingPage() {
           </section>
 
           {/* 6. よくある失敗と対策 */}
-          <section className="mb-8">
+          <section id="mistakes" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               よくある失敗と対策
             </h2>
@@ -378,7 +397,7 @@ export default function BabyClothingPage() {
           </section>
 
           {/* 7. 素材の選び方 */}
-          <section className="mb-8">
+          <section id="materials" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-2">
               素材の選び方
             </h2>
@@ -432,6 +451,9 @@ export default function BabyClothingPage() {
               参考: ミキハウス 妊娠・出産・子育てマガジン、アカチャンホンポ、たまひよSHOP、エンジェリーベ、ユニクロ ベビー肌着ガイド
             </p>
           </div>
+
+          <ShareButtons title="ベビー服・肌着の選びかた" path="/learn/baby-clothing" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

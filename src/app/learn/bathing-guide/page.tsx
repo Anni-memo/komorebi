@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "沐浴・お風呂ガイド｜新生児の沐浴手順と温度・時間帯の目安",
@@ -129,6 +133,11 @@ export default function BathingGuidePage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "沐浴・お風呂ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">新生児</Badge>
               <Badge variant="secondary">日常ケア</Badge>
@@ -143,8 +152,19 @@ export default function BathingGuidePage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "about", label: "沐浴とは" },
+            { id: "essentials", label: "必要なもの" },
+            { id: "steps", label: "沐浴の手順" },
+            { id: "temperature", label: "お湯の温度" },
+            { id: "timing", label: "時間帯の目安" },
+            { id: "worries", label: "よくある不安と対処" },
+            { id: "transition", label: "1ヶ月健診後のお風呂への移行" },
+            { id: "bath-types", label: "ベビーバスの種類" },
+          ]} />
+
           {/* 沐浴とは */}
-          <section className="mb-8">
+          <section id="about" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🛁</span>
               沐浴とは
@@ -168,7 +188,7 @@ export default function BathingGuidePage() {
           </section>
 
           {/* 必要なもの */}
-          <section className="mb-8">
+          <section id="essentials" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📦</span>
               必要なもの
@@ -191,7 +211,7 @@ export default function BathingGuidePage() {
           </section>
 
           {/* 沐浴の手順 */}
-          <section className="mb-8">
+          <section id="steps" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>👶</span>
               沐浴の手順（ステップバイステップ）
@@ -216,7 +236,7 @@ export default function BathingGuidePage() {
           </section>
 
           {/* お湯の温度 */}
-          <section className="mb-8">
+          <section id="temperature" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🌡️</span>
               お湯の温度
@@ -236,7 +256,7 @@ export default function BathingGuidePage() {
           </section>
 
           {/* 時間帯の目安 */}
-          <section className="mb-8">
+          <section id="timing" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🕐</span>
               時間帯の目安
@@ -266,7 +286,7 @@ export default function BathingGuidePage() {
           </section>
 
           {/* よくある不安と対処 */}
-          <section className="mb-8">
+          <section id="worries" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>💬</span>
               よくある不安と対処
@@ -284,7 +304,7 @@ export default function BathingGuidePage() {
           </section>
 
           {/* 1ヶ月健診後のお風呂への移行 */}
-          <section className="mb-8">
+          <section id="transition" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🚿</span>
               1ヶ月健診後のお風呂への移行
@@ -321,7 +341,7 @@ export default function BathingGuidePage() {
           </section>
 
           {/* ベビーバスの種類 */}
-          <section className="mb-8">
+          <section id="bath-types" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🧴</span>
               ベビーバスの種類
@@ -353,6 +373,9 @@ export default function BathingGuidePage() {
               赤ちゃんの肌トラブルや体調に不安がある場合は、小児科医またはかかりつけ医にご相談ください。
             </p>
           </div>
+
+          <ShareButtons title="沐浴・お風呂ガイド" path="/learn/bathing-guide" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

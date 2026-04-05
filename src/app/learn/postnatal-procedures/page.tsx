@@ -10,6 +10,10 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 const STORAGE_KEY = "komorebi_postnatal_checklist";
 
@@ -219,6 +223,11 @@ export default function PostnatalProceduresPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "出産後に必要な手続き一覧" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">手続き</Badge>
               <Badge variant="secondary">出産直後の方向け</Badge>
@@ -236,8 +245,15 @@ export default function PostnatalProceduresPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "progress", label: "手続き進捗" },
+            { id: "timeline", label: "手続きのタイムライン" },
+            { id: "details", label: "各手続きの詳細" },
+            { id: "partner", label: "パートナー・ご家族の方へ" },
+          ]} />
+
           {/* 進捗バー */}
-          <Card className="border-border/50 shadow-none mb-8">
+          <Card id="progress" className="border-border/50 shadow-none mb-8">
             <CardContent className="pt-5">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-foreground">手続き進捗</span>
@@ -298,7 +314,7 @@ export default function PostnatalProceduresPage() {
           )}
 
           {/* タイムライン概要 */}
-          <section className="mb-8">
+          <section id="timeline" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📅</span>
               手続きのタイムライン
@@ -320,7 +336,7 @@ export default function PostnatalProceduresPage() {
           </section>
 
           {/* 各手続きの詳細（チェックリスト付き） */}
-          <section className="mb-8">
+          <section id="details" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📝</span>
               各手続きの詳細
@@ -407,7 +423,7 @@ export default function PostnatalProceduresPage() {
           </section>
 
           {/* パートナーや家族へ */}
-          <Card className="border-primary/30 bg-primary/5 shadow-none mb-8">
+          <Card id="partner" className="border-primary/30 bg-primary/5 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2 flex items-center gap-2">
                 <span aria-hidden>👥</span>
@@ -515,6 +531,9 @@ export default function PostnatalProceduresPage() {
               ]}
             />
           </div>
+
+          <ShareButtons title="出産後に必要な手続き一覧" path="/learn/postnatal-procedures" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

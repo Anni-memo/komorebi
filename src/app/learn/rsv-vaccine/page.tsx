@@ -7,6 +7,10 @@ import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "RSVワクチン（アブリスボ）判断ガイド",
@@ -106,6 +110,11 @@ export default function RSVVaccinePage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "RSVワクチン判断ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">妊婦向け</Badge>
               <Badge variant="secondary">予防接種</Badge>
@@ -125,8 +134,18 @@ export default function RSVVaccinePage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "notice", label: "重要なお知らせ" },
+            { id: "efficacy", label: "有効性データ" },
+            { id: "comparison", label: "アブリスボとベイフォータスの違い" },
+            { id: "vaccination-risks", label: "打つリスク" },
+            { id: "no-vaccine-risks", label: "打たないリスク" },
+            { id: "decision-guide", label: "判断の参考" },
+            { id: "references", label: "出典・参考文献" },
+          ]} />
+
           {/* 重要なお知らせ */}
-          <Card className="border-primary/30 bg-primary/5 shadow-none mb-8">
+          <Card id="notice" className="border-primary/30 bg-primary/5 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2 flex items-center gap-2">
                 <span aria-hidden>📢</span>
@@ -141,7 +160,7 @@ export default function RSVVaccinePage() {
           </Card>
 
           {/* 有効性データ */}
-          <section className="mb-8">
+          <section id="efficacy" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📊</span>
               有効性データ
@@ -176,7 +195,7 @@ export default function RSVVaccinePage() {
           </Card>
 
           {/* アブリスボとベイフォータスの違い */}
-          <section className="mb-8">
+          <section id="comparison" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🔬</span>
               アブリスボとベイフォータスの違い
@@ -222,7 +241,7 @@ export default function RSVVaccinePage() {
           </section>
 
           {/* 打つリスク */}
-          <section className="mb-8">
+          <section id="vaccination-risks" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>⚠️</span>
               打つリスク（副反応・懸念事項）
@@ -250,7 +269,7 @@ export default function RSVVaccinePage() {
           </section>
 
           {/* 打たないリスク */}
-          <section className="mb-8">
+          <section id="no-vaccine-risks" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🔴</span>
               打たないリスク（赤ちゃんへの影響）
@@ -278,7 +297,7 @@ export default function RSVVaccinePage() {
           </section>
 
           {/* 判断ガイド */}
-          <section className="mb-8">
+          <section id="decision-guide" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>💡</span>
               判断の参考
@@ -318,7 +337,7 @@ export default function RSVVaccinePage() {
           </section>
 
           {/* 出典 */}
-          <section className="mb-8">
+          <section id="references" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">出典・参考文献</h2>
             <Card className="border-border/50 shadow-none">
               <CardContent className="pt-5">
@@ -376,6 +395,9 @@ export default function RSVVaccinePage() {
               ]}
             />
           </div>
+
+          <ShareButtons title="RSVワクチン（アブリスボ）判断ガイド" path="/learn/rsv-vaccine" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

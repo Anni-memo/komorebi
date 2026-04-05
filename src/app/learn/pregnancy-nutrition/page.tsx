@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "妊娠中・産後の食事ガイド｜必要な栄養素と注意点",
@@ -162,6 +166,11 @@ export default function PregnancyNutritionPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "妊娠中・産後の食事ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">食事</Badge>
               <Badge variant="secondary">妊婦・授乳中の方向け</Badge>
@@ -176,8 +185,16 @@ export default function PregnancyNutritionPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "pregnancy-nutrients", label: "妊娠中に必要な栄養素" },
+            { id: "postpartum-nutrients", label: "産後・授乳中に必要な栄養素" },
+            { id: "avoid-foods", label: "避けるべき食品・注意が必要な食品" },
+            { id: "morning-sickness", label: "つわり中の食事のコツ" },
+            { id: "trimester-summary", label: "時期別のポイントまとめ" },
+          ]} />
+
           {/* 妊娠中に必要な栄養素 */}
-          <section className="mb-8">
+          <section id="pregnancy-nutrients" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🤰</span>
               妊娠中に必要な栄養素
@@ -204,7 +221,7 @@ export default function PregnancyNutritionPage() {
           </section>
 
           {/* 産後・授乳中に必要な栄養素 */}
-          <section className="mb-8">
+          <section id="postpartum-nutrients" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🍼</span>
               産後・授乳中に必要な栄養素
@@ -227,7 +244,7 @@ export default function PregnancyNutritionPage() {
           </section>
 
           {/* 避けるべき食品・注意が必要な食品 */}
-          <section className="mb-8">
+          <section id="avoid-foods" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>⚠️</span>
               避けるべき食品・注意が必要な食品
@@ -304,7 +321,7 @@ export default function PregnancyNutritionPage() {
           </section>
 
           {/* つわり中の食事のコツ */}
-          <section className="mb-8">
+          <section id="morning-sickness" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>💡</span>
               つわり中の食事のコツ
@@ -329,7 +346,7 @@ export default function PregnancyNutritionPage() {
           </section>
 
           {/* 時期別のポイントまとめ */}
-          <section className="mb-8">
+          <section id="trimester-summary" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📋</span>
               時期別のポイントまとめ
@@ -410,6 +427,9 @@ export default function PregnancyNutritionPage() {
               具体的な食事指導については、担当の産婦人科医や管理栄養士にご相談ください。
             </p>
           </div>
+
+          <ShareButtons title="妊娠中・産後の食事ガイド" path="/learn/pregnancy-nutrition" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

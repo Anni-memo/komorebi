@@ -218,6 +218,7 @@ const articles = [
     audience: "すべての親向け",
     readTime: "3分で読める",
     summary: "自治体ごとに異なる支援制度を効率よく調べる方法。",
+    href: "/learn/local-support",
   },
   {
     title: "乳幼児健診ガイド｜月齢別にわかる健診の流れと準備",

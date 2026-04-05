@@ -7,6 +7,10 @@ import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "身体調和ガイド｜赤ちゃんの発達を月齢で知る",
@@ -293,6 +297,11 @@ export default function BodyHarmonyPage() {
 
           {/* ── ヒーロー ── */}
           <section className="mb-10">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "身体調和ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">身体発達</Badge>
               <Badge variant="secondary">0〜3歳</Badge>
@@ -317,8 +326,17 @@ export default function BodyHarmonyPage() {
             </p>
           </section>
 
+          <TableOfContents items={[
+            { id: "what-is", label: "身体調和とは" },
+            { id: "domains", label: "4つの領域" },
+            { id: "overview", label: "3分で全体像をつかむ" },
+            { id: "stages", label: "月齢別ステージ" },
+            { id: "chains", label: "なぜ「連鎖」なのか" },
+            { id: "home-actions", label: "家庭でできること" },
+          ]} />
+
           {/* ── 身体調和とは ── */}
-          <section className="mb-10">
+          <section id="what-is" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary/10 text-primary text-xs font-bold">?</span>
               身体調和とは
@@ -348,7 +366,7 @@ export default function BodyHarmonyPage() {
           </section>
 
           {/* ── 4つの領域 ── */}
-          <section className="mb-10">
+          <section id="domains" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🔗</span>
               4つの領域
@@ -377,7 +395,7 @@ export default function BodyHarmonyPage() {
           </section>
 
           {/* ── 3分で全体像 ── */}
-          <section className="mb-10">
+          <section id="overview" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🗺️</span>
               3分で全体像をつかむ
@@ -419,7 +437,7 @@ export default function BodyHarmonyPage() {
           <hr className="border-border/50 my-10" />
 
           {/* ── 月齢別ステージ詳細 ── */}
-          <section className="mb-10">
+          <section id="stages" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
               <span aria-hidden>📅</span>
               月齢別ステージ
@@ -500,7 +518,7 @@ export default function BodyHarmonyPage() {
           <hr className="border-border/50 my-10" />
 
           {/* ── なぜ「連鎖」なのか ── */}
-          <section className="mb-10">
+          <section id="chains" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>⛓️</span>
               なぜ「連鎖」なのか
@@ -529,7 +547,7 @@ export default function BodyHarmonyPage() {
           <hr className="border-border/50 my-10" />
 
           {/* ── 家庭でできること ── */}
-          <section className="mb-10">
+          <section id="home-actions" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🏠</span>
               家庭でできること
@@ -600,6 +618,9 @@ export default function BodyHarmonyPage() {
               を参考にしています。
             </p>
           </div>
+
+          <ShareButtons title="身体調和ガイド｜赤ちゃんの発達を月齢で知る" path="/learn/body-harmony" />
+          <MedicalDisclaimer />
 
           {/* ── 導線 ── */}
           <div className="flex flex-col sm:flex-row gap-3">

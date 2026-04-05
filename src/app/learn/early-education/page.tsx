@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "知育の基本ガイド｜月齢別の発達と遊び",
@@ -116,6 +120,11 @@ export default function EarlyEducationPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "知育の基本ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">発達・知育</Badge>
               <Badge variant="secondary">すべての親向け</Badge>
@@ -133,8 +142,15 @@ export default function EarlyEducationPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "what-is", label: "知育とは" },
+            { id: "stages", label: "月齢・年齢別の発達と遊び" },
+            { id: "senses", label: "五感を育てる遊びのアイデア" },
+            { id: "tips", label: "知育で大切なこと" },
+          ]} />
+
           {/* 1. 知育とは */}
-          <section className="mb-8">
+          <section id="what-is" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🌱</span>
               知育とは
@@ -158,7 +174,7 @@ export default function EarlyEducationPage() {
           </section>
 
           {/* 2. 月齢・年齢別の発達と遊び */}
-          <section className="mb-8">
+          <section id="stages" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📅</span>
               月齢・年齢別の発達と遊び
@@ -193,7 +209,7 @@ export default function EarlyEducationPage() {
           </section>
 
           {/* 3. 五感を育てる遊びのアイデア */}
-          <section className="mb-8">
+          <section id="senses" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🎨</span>
               五感を育てる遊びのアイデア
@@ -223,7 +239,7 @@ export default function EarlyEducationPage() {
           </section>
 
           {/* 4. 知育で大切なこと */}
-          <section className="mb-8">
+          <section id="tips" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>💡</span>
               知育で大切なこと
@@ -268,6 +284,9 @@ export default function EarlyEducationPage() {
               お子さまの発達に不安がある場合は、かかりつけの小児科医や地域の保健センターにご相談ください。
             </p>
           </div>
+
+          <ShareButtons title="知育の基本ガイド｜月齢別の発達と遊び" path="/learn/early-education" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

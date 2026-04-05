@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "母乳バンクの基礎知識と利用ガイド",
@@ -124,6 +128,11 @@ export default function BreastMilkBankPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "母乳バンクの基礎知識と利用ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">新生児の親向け</Badge>
               <Badge variant="secondary">健康・病気</Badge>
@@ -143,8 +152,22 @@ export default function BreastMilkBankPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "about", label: "母乳バンクとは" },
+            { id: "numbers", label: "数字で見る日本の母乳バンク" },
+            { id: "flow", label: "ドナーミルクができるまで" },
+            { id: "target", label: "利用の対象となる赤ちゃん" },
+            { id: "benefits", label: "ドナーミルクのメリット" },
+            { id: "safety", label: "安全性への取り組み" },
+            { id: "cost", label: "費用について" },
+            { id: "locations", label: "日本の母乳バンク拠点" },
+            { id: "how-to-use", label: "利用したいとき" },
+            { id: "donor", label: "ドナーになりたい方へ" },
+            { id: "references", label: "出典・参考文献" },
+          ]} />
+
           {/* 母乳バンクとは */}
-          <Card className="border-primary/30 bg-primary/5 shadow-none mb-8">
+          <Card id="about" className="border-primary/30 bg-primary/5 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2 flex items-center gap-2">
                 <span aria-hidden>🤱</span>
@@ -160,7 +183,7 @@ export default function BreastMilkBankPage() {
           </Card>
 
           {/* 数字で見る日本の母乳バンク */}
-          <section className="mb-8">
+          <section id="numbers" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📊</span>
               数字で見る日本の母乳バンク
@@ -181,7 +204,7 @@ export default function BreastMilkBankPage() {
           </section>
 
           {/* ドナーミルクの流れ */}
-          <section className="mb-8">
+          <section id="flow" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🔄</span>
               ドナーミルクができるまで
@@ -206,7 +229,7 @@ export default function BreastMilkBankPage() {
           </section>
 
           {/* 利用対象者 */}
-          <section className="mb-8">
+          <section id="target" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>👶</span>
               利用の対象となる赤ちゃん
@@ -230,7 +253,7 @@ export default function BreastMilkBankPage() {
           </section>
 
           {/* ドナーミルクのメリット */}
-          <section className="mb-8">
+          <section id="benefits" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>💚</span>
               ドナーミルクのメリット（人工乳との比較）
@@ -258,7 +281,7 @@ export default function BreastMilkBankPage() {
           </section>
 
           {/* 安全性 */}
-          <section className="mb-8">
+          <section id="safety" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🛡️</span>
               安全性への取り組み
@@ -286,7 +309,7 @@ export default function BreastMilkBankPage() {
           </section>
 
           {/* 費用 */}
-          <Card className="bg-komorebi-light/30 border-primary/20 shadow-none mb-8">
+          <Card id="cost" className="bg-komorebi-light/30 border-primary/20 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2 flex items-center gap-2">
                 <span aria-hidden>💰</span>
@@ -306,7 +329,7 @@ export default function BreastMilkBankPage() {
           </Card>
 
           {/* 日本の母乳バンク拠点 */}
-          <section className="mb-8">
+          <section id="locations" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🏥</span>
               日本の母乳バンク拠点
@@ -341,7 +364,7 @@ export default function BreastMilkBankPage() {
           </section>
 
           {/* 利用の流れ */}
-          <section className="mb-8">
+          <section id="how-to-use" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📋</span>
               利用したいとき
@@ -371,7 +394,7 @@ export default function BreastMilkBankPage() {
           </section>
 
           {/* ドナーになりたい方へ */}
-          <section className="mb-8">
+          <section id="donor" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🎁</span>
               ドナーになりたい方へ
@@ -417,7 +440,7 @@ export default function BreastMilkBankPage() {
           </section>
 
           {/* 出典 */}
-          <section className="mb-8">
+          <section id="references" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">出典・参考文献</h2>
             <Card className="border-border/50 shadow-none">
               <CardContent className="pt-5">
@@ -454,6 +477,9 @@ export default function BreastMilkBankPage() {
               施設の登録状況や制度の詳細は変更される場合があります。
             </p>
           </div>
+
+          <ShareButtons title="母乳バンクの基礎知識と利用ガイド" path="/learn/breast-milk-bank" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

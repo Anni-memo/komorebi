@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "妊娠中の体調トラブルと病気ガイド",
@@ -159,6 +163,11 @@ export default function PregnancyHealthPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "妊娠中の体調トラブルと病気ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">健康・病気</Badge>
               <Badge variant="secondary">妊婦向け</Badge>
@@ -175,6 +184,13 @@ export default function PregnancyHealthPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "common-troubles", label: "妊娠中に多い体調トラブル" },
+            { id: "serious-conditions", label: "注意が必要な病気" },
+            { id: "infections", label: "感染症に注意" },
+            { id: "emergency-signs", label: "すぐ受診すべきサイン" },
+          ]} />
+
           {/* 重要なお知らせ */}
           <Card className="border-red-200 bg-red-50/50 shadow-none mb-8 dark:bg-red-950/20 dark:border-red-900/50">
             <CardContent className="pt-5">
@@ -190,7 +206,7 @@ export default function PregnancyHealthPage() {
           </Card>
 
           {/* 妊娠中に多い体調トラブル */}
-          <section className="mb-10">
+          <section id="common-troubles" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#129328;</span>
               妊娠中に多い体調トラブル
@@ -226,7 +242,7 @@ export default function PregnancyHealthPage() {
           </section>
 
           {/* 注意が必要な病気 */}
-          <section className="mb-10">
+          <section id="serious-conditions" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#127973;</span>
               注意が必要な病気
@@ -259,7 +275,7 @@ export default function PregnancyHealthPage() {
           </section>
 
           {/* 感染症に注意 */}
-          <section className="mb-10">
+          <section id="infections" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#129440;</span>
               感染症に注意
@@ -288,7 +304,7 @@ export default function PregnancyHealthPage() {
           </section>
 
           {/* 受診の目安チェックリスト */}
-          <section className="mb-10">
+          <section id="emergency-signs" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128680;</span>
               すぐ受診すべきサイン
@@ -349,6 +365,9 @@ export default function PregnancyHealthPage() {
               症状に不安がある場合は、必ずかかりつけの産科にご相談ください。
             </p>
           </div>
+
+          <ShareButtons title="妊娠中の体調トラブルと病気ガイド" path="/learn/pregnancy-health" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "新生児のまくら｜必要性・窒息リスク・商品比較ガイド | こもれび",
@@ -189,6 +193,11 @@ export default function BabyPillowPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "新生児のまくら" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">学ぶ</Badge>
               <Badge variant="secondary">睡眠</Badge>
@@ -205,8 +214,17 @@ export default function BabyPillowPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "necessity", label: "そもそも新生児にまくらは必要？" },
+            { id: "sids-risk", label: "窒息・SIDSリスク" },
+            { id: "safe-usage", label: "それでも使う場合の安全ルール" },
+            { id: "comparison", label: "人気5商品を比較" },
+            { id: "scenario", label: "あなたの状況別おすすめ" },
+            { id: "faq", label: "よくある質問" },
+          ]} />
+
           {/* 1. そもそも必要？ */}
-          <section className="mb-8">
+          <section id="necessity" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               そもそも新生児にまくらは必要？
             </h2>
@@ -234,7 +252,7 @@ export default function BabyPillowPage() {
           </section>
 
           {/* 2. 窒息・SIDSリスク */}
-          <section className="mb-8">
+          <section id="sids-risk" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-2">
               窒息・SIDSリスク（最重要）
             </h2>
@@ -261,7 +279,7 @@ export default function BabyPillowPage() {
           </section>
 
           {/* 3. 安全に使うためのルール */}
-          <section className="mb-8">
+          <section id="safe-usage" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               それでも使う場合の安全ルール
             </h2>
@@ -285,7 +303,7 @@ export default function BabyPillowPage() {
           </section>
 
           {/* 4. 商品比較表 */}
-          <section className="mb-8">
+          <section id="comparison" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-2">
               人気5商品を比較
             </h2>
@@ -359,7 +377,7 @@ export default function BabyPillowPage() {
           </section>
 
           {/* 5. シーン別おすすめ */}
-          <section className="mb-8">
+          <section id="scenario" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               あなたの状況別おすすめ
             </h2>
@@ -386,7 +404,7 @@ export default function BabyPillowPage() {
           </section>
 
           {/* 6. よくある質問 */}
-          <section className="mb-8">
+          <section id="faq" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               よくある質問
             </h2>
@@ -459,6 +477,9 @@ export default function BabyPillowPage() {
               商品情報は調査時点のものであり、価格・仕様は変更される場合があります。
             </p>
           </div>
+
+          <ShareButtons title="新生児のまくら｜必要性・窒息リスク・商品比較" path="/learn/baby-pillow" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

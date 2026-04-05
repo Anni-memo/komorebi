@@ -10,6 +10,10 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 const STORAGE_KEY = "komorebi_vaccination_checklist";
 
@@ -268,6 +272,11 @@ export default function VaccinationSchedulePage() {
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "予防接種スケジュール" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">予防接種</Badge>
               <Badge variant="secondary">チェックリスト</Badge>
@@ -283,8 +292,14 @@ export default function VaccinationSchedulePage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "progress", label: "接種進捗" },
+            { id: "timeline", label: "タイムライン" },
+            { id: "references", label: "出典・参考文献" },
+          ]} />
+
           {/* 進捗バー */}
-          <Card className="border-border/50 shadow-none mb-8">
+          <Card id="progress" className="border-border/50 shadow-none mb-8">
             <CardContent className="pt-5">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-foreground">接種進捗</span>
@@ -351,7 +366,7 @@ export default function VaccinationSchedulePage() {
           )}
 
           {/* タイムライン */}
-          <div className="space-y-6">
+          <div id="timeline" className="space-y-6">
             {monthLabels.map((period) => {
               const periodVaccines = vaccines.filter((v) =>
                 v.schedule.some((s) => s.month === period.month)
@@ -447,7 +462,7 @@ export default function VaccinationSchedulePage() {
           </div>
 
           {/* 出典・参考文献 */}
-          <section className="mb-8">
+          <section id="references" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               出典・参考文献
             </h2>
@@ -496,6 +511,9 @@ export default function VaccinationSchedulePage() {
               同時接種の組み合わせや具体的なスケジュールは、かかりつけの小児科にご相談ください。
             </p>
           </div>
+
+          <ShareButtons title="予防接種スケジュール" path="/learn/vaccination-schedule" />
+          <MedicalDisclaimer />
 
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
             <Link

@@ -7,6 +7,10 @@ import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "保活ガイド - 保育園探しの全体像",
@@ -158,6 +162,11 @@ export default function HokatsuPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "保活ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">保活</Badge>
               <Badge variant="secondary">保育園を考えている方向け</Badge>
@@ -176,8 +185,17 @@ export default function HokatsuPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "schedule", label: "保活の全体スケジュール" },
+            { id: "nursery-types", label: "保育園の種類" },
+            { id: "visit-checklist", label: "見学のチェックポイント" },
+            { id: "documents", label: "必要書類" },
+            { id: "scoring", label: "点数制度の基本" },
+            { id: "rejection", label: "落ちたときの対処法" },
+          ]} />
+
           {/* 全体スケジュール */}
-          <section className="mb-10">
+          <section id="schedule" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128197;</span>
               保活の全体スケジュール
@@ -218,7 +236,7 @@ export default function HokatsuPage() {
           </section>
 
           {/* 保育園の種類 */}
-          <section className="mb-10">
+          <section id="nursery-types" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#127979;</span>
               保育園の種類
@@ -248,7 +266,7 @@ export default function HokatsuPage() {
           </section>
 
           {/* 見学チェックポイント */}
-          <section className="mb-10">
+          <section id="visit-checklist" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128270;</span>
               見学のチェックポイント
@@ -283,7 +301,7 @@ export default function HokatsuPage() {
           </section>
 
           {/* 必要書類 */}
-          <section className="mb-10">
+          <section id="documents" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128196;</span>
               必要書類
@@ -316,7 +334,7 @@ export default function HokatsuPage() {
           </section>
 
           {/* 点数制度 */}
-          <section className="mb-10">
+          <section id="scoring" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128290;</span>
               点数制度の基本
@@ -345,7 +363,7 @@ export default function HokatsuPage() {
           </section>
 
           {/* 落ちたときの対処法 */}
-          <section className="mb-10">
+          <section id="rejection" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128161;</span>
               落ちたときの対処法
@@ -442,6 +460,9 @@ export default function HokatsuPage() {
               ]}
             />
           </div>
+
+          <ShareButtons title="保活ガイド" path="/learn/hokatsu" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

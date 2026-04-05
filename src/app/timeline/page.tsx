@@ -144,7 +144,7 @@ const phases = [
         period: "3歳頃",
         items: [
           { title: "3歳児健診ガイド", href: "/learn/health-checkup/3years", tag: "健診" },
-          { title: "地域の子育て支援制度の調べかた", href: "/learn", tag: "制度" },
+          { title: "地域の子育て支援制度の調べかた", href: "/learn/local-support", tag: "制度" },
         ],
       },
     ],

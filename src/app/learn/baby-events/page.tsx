@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "赤ちゃんの行事カレンダー｜お七夜・お宮参り・お食い初めなど",
@@ -115,6 +119,11 @@ export default function BabyEventsPage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "赤ちゃんの行事カレンダー" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">行事・イベント</Badge>
               <Badge variant="secondary">0歳〜1歳</Badge>
@@ -129,8 +138,15 @@ export default function BabyEventsPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "why", label: "なぜ知っておくと安心か" },
+            { id: "timeline", label: "行事タイムライン" },
+            { id: "photo", label: "写真撮影のタイミング" },
+            { id: "message", label: "全部やらなくて大丈夫です" },
+          ]} />
+
           {/* なぜ知っておくと安心か */}
-          <Card className="bg-komorebi-light/30 border-primary/20 shadow-none mb-8">
+          <Card id="why" className="bg-komorebi-light/30 border-primary/20 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2">
                 なぜ知っておくと安心か
@@ -144,7 +160,7 @@ export default function BabyEventsPage() {
           </Card>
 
           {/* 行事タイムライン */}
-          <section className="mb-8">
+          <section id="timeline" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📅</span>
               行事タイムライン
@@ -197,7 +213,7 @@ export default function BabyEventsPage() {
           </section>
 
           {/* 写真撮影のタイミング */}
-          <section className="mb-8">
+          <section id="photo" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📸</span>
               写真撮影のタイミング
@@ -239,7 +255,7 @@ export default function BabyEventsPage() {
           </section>
 
           {/* 安心メッセージ */}
-          <Card className="bg-komorebi-light/30 border-primary/20 shadow-none mb-8">
+          <Card id="message" className="bg-komorebi-light/30 border-primary/20 shadow-none mb-8">
             <CardContent className="pt-5">
               <h2 className="font-semibold text-foreground mb-2">
                 全部やらなくて大丈夫です
@@ -262,6 +278,9 @@ export default function BabyEventsPage() {
               ご家族の状況に合わせて、無理のない範囲でお祝いください。
             </p>
           </div>
+
+          <ShareButtons title="赤ちゃんの行事カレンダー" path="/learn/baby-events" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

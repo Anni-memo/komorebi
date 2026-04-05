@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "��幼児健診ガイド｜月齢別にわかる健診の流れと準備",
@@ -127,20 +131,13 @@ export default function HealthCheckupPage() {
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
-          {/* パンくず */}
-          <nav className="flex items-center gap-1 text-xs text-muted-foreground mb-6">
-            <Link
-              href="/learn"
-              className="hover:text-primary transition-colors"
-            >
-              学ぶ
-            </Link>
-            <span>/</span>
-            <span className="text-foreground">乳幼児健診ガイド</span>
-          </nav>
-
           {/* ヘッダー */}
           <section className="mb-10">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "乳幼児健診ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge className="bg-rose-100 text-rose-700 border-rose-200 border text-xs">
                 健康・病気
@@ -159,8 +156,14 @@ export default function HealthCheckupPage() {
             </p>
           </section>
 
+          <TableOfContents items={[
+            { id: "overview", label: "乳幼児健診とは" },
+            { id: "guide", label: "月齢別ガイド" },
+            { id: "preparation", label: "どの健診にも共通の準備" },
+          ]} />
+
           {/* 概要カード */}
-          <section className="mb-10">
+          <section id="overview" className="mb-10">
             <Card className="bg-komorebi-light/20 border-primary/20 shadow-none">
               <CardContent className="pt-5">
                 <h2 className="font-bold text-foreground text-sm mb-2">
@@ -177,7 +180,7 @@ export default function HealthCheckupPage() {
           </section>
 
           {/* 月齢別ガイド一覧 */}
-          <section className="mb-10">
+          <section id="guide" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📅</span>
               月齢別ガイド
@@ -250,7 +253,7 @@ export default function HealthCheckupPage() {
           <hr className="border-border/50 my-10" />
 
           {/* 共通の持ち物・準備 */}
-          <section className="mb-10">
+          <section id="preparation" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>🎒</span>
               どの健診にも共通の準備
@@ -304,6 +307,9 @@ export default function HealthCheckupPage() {
               詳しくはお住まいの自治体や保健センターにお問い合わせください。
             </p>
           </div>
+
+          <ShareButtons title="乳幼児健診ガイド" path="/learn/health-checkup" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

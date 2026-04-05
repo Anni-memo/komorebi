@@ -7,6 +7,10 @@ import { buttonVariants } from "@/components/ui/button-variants";
 import { PdfDownloadSection } from "@/components/pdf-download-section";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "子どもの発熱対応ガイド",
@@ -185,6 +189,11 @@ export default function FeverGuidePage() {
         <div className="max-w-3xl mx-auto px-4 py-10">
           {/* ヘッダー */}
           <div className="mb-8">
+            <BreadcrumbNav items={[
+              { label: "トップ", href: "/" },
+              { label: "学ぶ", href: "/learn" },
+              { label: "子どもの発熱対応ガイド" },
+            ]} />
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="secondary">健康・病気</Badge>
               <Badge variant="secondary">すべての親向け</Badge>
@@ -200,6 +209,15 @@ export default function FeverGuidePage() {
               落ち着いて、一つずつ確認していきましょう。
             </p>
           </div>
+
+          <TableOfContents items={[
+            { id: "age-response", label: "月齢別の発熱時の対応" },
+            { id: "visit-guidelines", label: "受診の目安" },
+            { id: "home-care", label: "家でできるケア" },
+            { id: "antipyretic", label: "解熱剤の使い方" },
+            { id: "emergency-signs", label: "救急に行くべきサイン" },
+            { id: "consultation", label: "相談先" },
+          ]} />
 
           {/* 重要なお知らせ */}
           <Card className="border-red-200 bg-red-50/50 shadow-none mb-8 dark:bg-red-950/20 dark:border-red-900/50">
@@ -217,7 +235,7 @@ export default function FeverGuidePage() {
           </Card>
 
           {/* 月齢別の対応 */}
-          <section className="mb-10">
+          <section id="age-response" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128118;</span>
               月齢別の発熱時の対応
@@ -247,7 +265,7 @@ export default function FeverGuidePage() {
           </section>
 
           {/* 受診の目安 */}
-          <section className="mb-10">
+          <section id="visit-guidelines" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#127973;</span>
               受診の目安
@@ -282,7 +300,7 @@ export default function FeverGuidePage() {
           </section>
 
           {/* 家でできるケア */}
-          <section className="mb-10">
+          <section id="home-care" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#127968;</span>
               家でできるケア
@@ -313,7 +331,7 @@ export default function FeverGuidePage() {
           </section>
 
           {/* 解熱剤の使い方 */}
-          <section className="mb-10">
+          <section id="antipyretic" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128138;</span>
               解熱剤の使い方
@@ -335,7 +353,7 @@ export default function FeverGuidePage() {
           </section>
 
           {/* 救急に行くべきサイン */}
-          <section className="mb-10">
+          <section id="emergency-signs" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128680;</span>
               救急車を呼ぶ・救急外来に行くべきサイン
@@ -361,7 +379,7 @@ export default function FeverGuidePage() {
           </section>
 
           {/* 相談先 */}
-          <section className="mb-10">
+          <section id="consultation" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>&#128222;</span>
               相談先
@@ -447,6 +465,9 @@ export default function FeverGuidePage() {
               ]}
             />
           </div>
+
+          <ShareButtons title="子どもの発熱対応ガイド" path="/learn/fever-guide" />
+          <MedicalDisclaimer />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">
