@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { AmazonProductCard } from "@/components/amazon-product-card";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "ストローマグの選びかた",
@@ -137,6 +141,11 @@ export default function StrawMugPage() {
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
+          <BreadcrumbNav items={[
+            { label: "トップ", href: "/" },
+            { label: "準備する", href: "/prepare" },
+            { label: "ストローマグの選びかた" },
+          ]} />
           {/* ヘッダー */}
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-3">
@@ -151,8 +160,17 @@ export default function StrawMugPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "why-confusing", label: "ストローマグ、なぜ迷いやすいのか" },
+            { id: "comparison-axes", label: "選ぶときに見るべき5つの軸" },
+            { id: "products", label: "まずはこの4つを見れば十分です" },
+            { id: "type-guide", label: "あなたの状況に合わせて選ぶなら" },
+            { id: "comparison-table", label: "比較表" },
+            { id: "where-to-buy", label: "購入できる場所" },
+          ]} />
+
           {/* 1. なぜ迷いやすいのか */}
-          <section className="mb-8">
+          <section className="mb-8" id="why-confusing">
             <h2 className="text-lg font-bold text-foreground mb-4">
               ストローマグ、なぜ迷いやすいのか
             </h2>
@@ -176,7 +194,7 @@ export default function StrawMugPage() {
           </section>
 
           {/* 2. 比較軸 */}
-          <section className="mb-8">
+          <section className="mb-8" id="comparison-axes">
             <h2 className="text-lg font-bold text-foreground mb-4">
               選ぶときに見るべき5つの軸
             </h2>
@@ -200,7 +218,7 @@ export default function StrawMugPage() {
           </section>
 
           {/* 3. 商品別の使用感 */}
-          <section className="mb-8">
+          <section className="mb-8" id="products">
             <h2 className="text-lg font-bold text-foreground mb-4">
               まずはこの4つを見れば十分です
             </h2>
@@ -266,7 +284,7 @@ export default function StrawMugPage() {
           </section>
 
           {/* 4. タイプ別おすすめ */}
-          <section className="mb-8">
+          <section className="mb-8" id="type-guide">
             <h2 className="text-lg font-bold text-foreground mb-4">
               あなたの状況に合わせて選ぶなら
             </h2>
@@ -286,7 +304,7 @@ export default function StrawMugPage() {
           </section>
 
           {/* 5. 比較表 */}
-          <section className="mb-8">
+          <section className="mb-8" id="comparison-table">
             <h2 className="text-lg font-bold text-foreground mb-4">比較表</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm border-collapse">
@@ -352,7 +370,7 @@ export default function StrawMugPage() {
           </Card>
 
           {/* 購入できる場所 */}
-          <section className="mb-8">
+          <section className="mb-8" id="where-to-buy">
             <h2 className="text-lg font-bold text-foreground mb-4">
               購入できる場所
             </h2>
@@ -387,14 +405,9 @@ export default function StrawMugPage() {
           </section>
 
           {/* 免責事項 */}
-          <div className="p-4 bg-muted/30 rounded-lg mb-8">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">注意:</strong>{" "}
-              価格・仕様は2026年時点の情報です。実際の価格は販売店により異なります。
-              ストローマグは赤ちゃんの月齢や飲む力によって合うものが変わるため、
-              最初は1つ試してみて、合わなければ別のタイプを検討するのがおすすめです。
-            </p>
-          </div>
+          <MedicalDisclaimer />
+
+          <ShareButtons title="ストローマグの選びかた" path="/prepare/straw-mug" />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

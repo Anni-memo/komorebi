@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { AmazonProductCard } from "@/components/amazon-product-card";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "知育玩具の選びかた｜月齢別おすすめ",
@@ -122,6 +126,12 @@ export default function EducationalToysPage() {
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
+          <BreadcrumbNav items={[
+            { label: "トップ", href: "/" },
+            { label: "準備する", href: "/prepare" },
+            { label: "知育玩具の選びかた" },
+          ]} />
+
           {/* ヘッダー */}
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-3">
@@ -139,8 +149,15 @@ export default function EducationalToysPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "selection-points", label: "選びかたのポイント" },
+            { id: "age-recommendations", label: "月齢別おすすめ玩具" },
+            { id: "brands", label: "人気の知育玩具ブランド" },
+            { id: "storage-tips", label: "おもちゃの管理・収納のコツ" },
+          ]} />
+
           {/* 1. 選びかたのポイント */}
-          <section className="mb-8">
+          <section id="selection-points" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               選びかたのポイント
             </h2>
@@ -164,7 +181,7 @@ export default function EducationalToysPage() {
           </section>
 
           {/* 2. 月齢別おすすめ玩具 */}
-          <section className="mb-8">
+          <section id="age-recommendations" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               月齢別おすすめ玩具
             </h2>
@@ -213,7 +230,7 @@ export default function EducationalToysPage() {
           </section>
 
           {/* 3. 人気の知育玩具ブランド */}
-          <section className="mb-8">
+          <section id="brands" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               人気の知育玩具ブランド
             </h2>
@@ -233,7 +250,7 @@ export default function EducationalToysPage() {
           </section>
 
           {/* 4. おもちゃの管理・収納のコツ */}
-          <section className="mb-8">
+          <section id="storage-tips" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📦</span>
               おもちゃの管理・収納のコツ
@@ -271,14 +288,9 @@ export default function EducationalToysPage() {
           </Card>
 
           {/* 免責事項 */}
-          <div className="p-4 bg-muted/30 rounded-lg mb-8">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">注意:</strong>{" "}
-              価格・仕様は2026年3月時点の情報です。実際の価格は販売店により異なります。
-              おもちゃの対象月齢・安全基準は各メーカーの表示を必ずご確認ください。
-              小さな部品のあるおもちゃは誤飲に注意し、必ず保護者の目の届く場所で遊ばせてください。
-            </p>
-          </div>
+          <MedicalDisclaimer />
+
+          <ShareButtons title="知育玩具の選びかた｜月齢別おすすめ" path="/prepare/educational-toys" />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

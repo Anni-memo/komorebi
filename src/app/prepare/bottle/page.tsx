@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { AmazonProductCard } from "@/components/amazon-product-card";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "哺乳瓶の選びかた",
@@ -142,6 +146,12 @@ export default function BottlePage() {
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
+          <BreadcrumbNav items={[
+            { label: "トップ", href: "/" },
+            { label: "準備する", href: "/prepare" },
+            { label: "哺乳瓶の選びかた" },
+          ]} />
+
           {/* ヘッダー */}
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-3">
@@ -159,8 +169,18 @@ export default function BottlePage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "why-confusing", label: "なぜ迷いやすいのか" },
+            { id: "selection-axes", label: "選ぶときに見るべき5つの軸" },
+            { id: "glass-vs-plastic", label: "ガラスとプラスチック、どちらがいい？" },
+            { id: "products", label: "おすすめ商品" },
+            { id: "type-guide", label: "あなたの状況に合わせて選ぶなら" },
+            { id: "comparison-table", label: "比較表" },
+            { id: "where-to-buy", label: "購入できる場所" },
+          ]} />
+
           {/* 1. なぜ迷いやすいのか */}
-          <section className="mb-8">
+          <section id="why-confusing" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               哺乳瓶、なぜ迷いやすいのか
             </h2>
@@ -184,7 +204,7 @@ export default function BottlePage() {
           </section>
 
           {/* 2. 比較軸 */}
-          <section className="mb-8">
+          <section id="selection-axes" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               選ぶときに見るべき5つの軸
             </h2>
@@ -208,7 +228,7 @@ export default function BottlePage() {
           </section>
 
           {/* 3. ガラス vs プラスチック */}
-          <section className="mb-8">
+          <section id="glass-vs-plastic" className="mb-8">
             <Card className="bg-muted/20 border-border/50 shadow-none">
               <CardContent className="pt-5">
                 <h2 className="font-semibold text-foreground mb-3">
@@ -241,7 +261,7 @@ export default function BottlePage() {
           </section>
 
           {/* 4. 商品別の使用感 */}
-          <section className="mb-8">
+          <section id="products" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               まずはこの4つを見れば十分です
             </h2>
@@ -308,7 +328,7 @@ export default function BottlePage() {
           </section>
 
           {/* 5. タイプ別おすすめ */}
-          <section className="mb-8">
+          <section id="type-guide" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               あなたの状況に合わせて選ぶなら
             </h2>
@@ -328,7 +348,7 @@ export default function BottlePage() {
           </section>
 
           {/* 6. 比較表 */}
-          <section className="mb-8">
+          <section id="comparison-table" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">比較表</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm border-collapse">
@@ -396,7 +416,7 @@ export default function BottlePage() {
           </Card>
 
           {/* 購入できる場所 */}
-          <section className="mb-8">
+          <section id="where-to-buy" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               購入できる場所
             </h2>
@@ -435,14 +455,9 @@ export default function BottlePage() {
           </section>
 
           {/* 免責事項 */}
-          <div className="p-4 bg-muted/30 rounded-lg mb-8">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">注意:</strong>{" "}
-              価格・仕様は2026年3月時点の情報です。実際の価格は販売店により異なります。
-              赤ちゃんによって好みの乳首形状は異なるため、合わない場合は別の製品を試すことをおすすめします。
-              参考: 各メーカー公式サイト、マイベスト、たまひよ、ゼクシィBaby
-            </p>
-          </div>
+          <MedicalDisclaimer />
+
+          <ShareButtons title="哺乳瓶の選びかた" path="/prepare/bottle" />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

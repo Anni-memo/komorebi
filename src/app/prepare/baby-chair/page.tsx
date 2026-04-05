@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { AmazonProductCard } from "@/components/amazon-product-card";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "ベビーチェアの選びかた",
@@ -138,6 +142,11 @@ export default function BabyChairPage() {
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
+          <BreadcrumbNav items={[
+            { label: "トップ", href: "/" },
+            { label: "準備する", href: "/prepare" },
+            { label: "ベビーチェアの選びかた" },
+          ]} />
           {/* ヘッダー */}
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-3">
@@ -152,8 +161,17 @@ export default function BabyChairPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "why-confusing", label: "ベビーチェア、なぜ迷いやすいのか" },
+            { id: "comparison-axes", label: "選ぶときに見るべき5つの軸" },
+            { id: "products", label: "まずはこの4つを見れば十分です" },
+            { id: "type-guide", label: "あなたの状況に合わせて選ぶなら" },
+            { id: "comparison-table", label: "比較表" },
+            { id: "where-to-buy", label: "購入できる場所" },
+          ]} />
+
           {/* 1. なぜ迷いやすいのか */}
-          <section className="mb-8">
+          <section className="mb-8" id="why-confusing">
             <h2 className="text-lg font-bold text-foreground mb-4">
               ベビーチェア、なぜ迷いやすいのか
             </h2>
@@ -177,7 +195,7 @@ export default function BabyChairPage() {
           </section>
 
           {/* 2. 比較軸 */}
-          <section className="mb-8">
+          <section className="mb-8" id="comparison-axes">
             <h2 className="text-lg font-bold text-foreground mb-4">
               選ぶときに見るべき5つの軸
             </h2>
@@ -201,7 +219,7 @@ export default function BabyChairPage() {
           </section>
 
           {/* 3. 商品別の使用感 */}
-          <section className="mb-8">
+          <section className="mb-8" id="products">
             <h2 className="text-lg font-bold text-foreground mb-4">
               まずはこの4つを見れば十分です
             </h2>
@@ -268,7 +286,7 @@ export default function BabyChairPage() {
           </section>
 
           {/* 4. タイプ別おすすめ */}
-          <section className="mb-8">
+          <section className="mb-8" id="type-guide">
             <h2 className="text-lg font-bold text-foreground mb-4">
               あなたの状況に合わせて選ぶなら
             </h2>
@@ -288,7 +306,7 @@ export default function BabyChairPage() {
           </section>
 
           {/* 5. 比較表 */}
-          <section className="mb-8">
+          <section className="mb-8" id="comparison-table">
             <h2 className="text-lg font-bold text-foreground mb-4">比較表</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm border-collapse">
@@ -354,7 +372,7 @@ export default function BabyChairPage() {
           </Card>
 
           {/* 購入できる場所 */}
-          <section className="mb-8">
+          <section className="mb-8" id="where-to-buy">
             <h2 className="text-lg font-bold text-foreground mb-4">
               購入できる場所
             </h2>
@@ -390,14 +408,9 @@ export default function BabyChairPage() {
           </section>
 
           {/* 免責事項 */}
-          <div className="p-4 bg-muted/30 rounded-lg mb-8">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">注意:</strong>{" "}
-              価格・仕様は2026年時点の情報です。実際の価格は販売店により異なります。
-              ベビーチェアはお子さまの体格やご家庭のテーブルの高さによって合うものが変わるため、
-              可能であれば店頭で実際に座らせてみることをおすすめします。
-            </p>
-          </div>
+          <MedicalDisclaimer />
+
+          <ShareButtons title="ベビーチェアの選びかた" path="/prepare/baby-chair" />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

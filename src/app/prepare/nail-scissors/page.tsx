@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { AmazonProductCard } from "@/components/amazon-product-card";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "赤ちゃんのつめ切りの選びかた",
@@ -55,6 +59,11 @@ export default function NailScissorsPage() {
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
+          <BreadcrumbNav items={[
+            { label: "トップ", href: "/" },
+            { label: "準備する", href: "/prepare" },
+            { label: "赤ちゃんのつめ切りの選びかた" },
+          ]} />
           {/* ヘッダー */}
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-3">
@@ -72,8 +81,15 @@ export default function NailScissorsPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "basics", label: "まず知っておきたい基本" },
+            { id: "selection-points", label: "選ぶときのポイント" },
+            { id: "type-features", label: "タイプ別の特徴" },
+            { id: "products", label: "おすすめのつめ切り" },
+          ]} />
+
           {/* 1. 基本知識 */}
-          <section className="mb-8">
+          <section id="basics" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               まず知っておきたい基本
             </h2>
@@ -92,7 +108,7 @@ export default function NailScissorsPage() {
           </section>
 
           {/* 2. 選び方のポイント */}
-          <section className="mb-8">
+          <section id="selection-points" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               選ぶときのポイント
             </h2>
@@ -120,7 +136,7 @@ export default function NailScissorsPage() {
           </section>
 
           {/* 3. タイプ別の特徴 */}
-          <section className="mb-8">
+          <section id="type-features" className="mb-8">
             <Card className="bg-muted/20 border-border/50 shadow-none">
               <CardContent className="pt-5">
                 <h2 className="font-semibold text-foreground mb-3">
@@ -161,7 +177,7 @@ export default function NailScissorsPage() {
           </section>
 
           {/* 4. おすすめ商品 */}
-          <section className="mb-8">
+          <section id="products" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               おすすめのつめ切り
             </h2>
@@ -334,13 +350,9 @@ export default function NailScissorsPage() {
           </Card>
 
           {/* 免責事項 */}
-          <div className="p-4 bg-muted/30 rounded-lg mb-8">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">注意:</strong>{" "}
-              価格・仕様は2026年4月時点の情報です。実際の価格は販売店により異なります。
-              つめ切り中に出血した場合は、清潔なガーゼで数分押さえれば止まります。心配な場合はかかりつけ医にご相談ください。
-            </p>
-          </div>
+          <MedicalDisclaimer />
+
+          <ShareButtons title="赤ちゃんのつめ切りの選びかた" path="/prepare/nail-scissors" />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

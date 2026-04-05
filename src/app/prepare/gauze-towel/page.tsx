@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { AmazonProductCard } from "@/components/amazon-product-card";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "ガーゼ・タオルの選びかた",
@@ -55,6 +59,12 @@ export default function GauzeTowelPage() {
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
+          <BreadcrumbNav items={[
+            { label: "トップ", href: "/" },
+            { label: "準備する", href: "/prepare" },
+            { label: "ガーゼ・タオルの選びかた" },
+          ]} />
+
           {/* ヘッダー */}
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-3">
@@ -72,8 +82,15 @@ export default function GauzeTowelPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "basic-knowledge", label: "まず知っておきたい基本" },
+            { id: "selection-points", label: "選ぶときのポイント" },
+            { id: "usage-guide", label: "用途別の使い分け" },
+            { id: "recommended-products", label: "おすすめのガーゼ・タオル" },
+          ]} />
+
           {/* 1. 基本知識 */}
-          <section className="mb-8">
+          <section id="basic-knowledge" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               まず知っておきたい基本
             </h2>
@@ -92,7 +109,7 @@ export default function GauzeTowelPage() {
           </section>
 
           {/* 2. 選び方のポイント */}
-          <section className="mb-8">
+          <section id="selection-points" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               選ぶときのポイント
             </h2>
@@ -120,7 +137,7 @@ export default function GauzeTowelPage() {
           </section>
 
           {/* 3. 使い方の目安 */}
-          <section className="mb-8">
+          <section id="usage-guide" className="mb-8">
             <Card className="bg-muted/20 border-border/50 shadow-none">
               <CardContent className="pt-5">
                 <h2 className="font-semibold text-foreground mb-3">
@@ -161,7 +178,7 @@ export default function GauzeTowelPage() {
           </section>
 
           {/* 4. おすすめ商品 */}
-          <section className="mb-8">
+          <section id="recommended-products" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               おすすめのガーゼ・タオル
             </h2>
@@ -334,13 +351,9 @@ export default function GauzeTowelPage() {
           </Card>
 
           {/* 免責事項 */}
-          <div className="p-4 bg-muted/30 rounded-lg mb-8">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">注意:</strong>{" "}
-              価格・仕様は2026年4月時点の情報です。実際の価格は販売店により異なります。
-              肌に合わないと感じたら、別の素材や織り方のものを試してみてください。
-            </p>
-          </div>
+          <MedicalDisclaimer />
+
+          <ShareButtons title="ガーゼ・タオルの選びかた" path="/prepare/gauze-towel" />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

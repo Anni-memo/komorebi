@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { AmazonProductCard } from "@/components/amazon-product-card";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "おむつ替えシートの選びかた",
@@ -110,6 +114,11 @@ export default function DiaperChangingSheetPage() {
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
+          <BreadcrumbNav items={[
+            { label: "トップ", href: "/" },
+            { label: "準備する", href: "/prepare" },
+            { label: "おむつ替えシートの選びかた" },
+          ]} />
           {/* ヘッダー */}
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-3">
@@ -127,8 +136,17 @@ export default function DiaperChangingSheetPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "is-it-necessary", label: "おむつ替えシート、本当に必要？" },
+            { id: "selection-points", label: "選ぶときに見るべき5つのポイント" },
+            { id: "type-comparison", label: "使い捨て vs 洗えるタイプ vs シリコン" },
+            { id: "products", label: "おすすめのおむつ替えシート3選" },
+            { id: "type-guide", label: "あなたの状況に合わせて選ぶなら" },
+            { id: "where-to-buy", label: "購入できる場所" },
+          ]} />
+
           {/* 1. 基本知識 */}
-          <section className="mb-8">
+          <section id="is-it-necessary" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               おむつ替えシート、本当に必要？
             </h2>
@@ -149,7 +167,7 @@ export default function DiaperChangingSheetPage() {
           </section>
 
           {/* 2. 選び方ポイント */}
-          <section className="mb-8">
+          <section id="selection-points" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               選ぶときに見るべき5つのポイント
             </h2>
@@ -173,7 +191,7 @@ export default function DiaperChangingSheetPage() {
           </section>
 
           {/* 3. 使い分けガイド */}
-          <section className="mb-8">
+          <section id="type-comparison" className="mb-8">
             <Card className="bg-muted/20 border-border/50 shadow-none">
               <CardContent className="pt-5">
                 <h2 className="font-semibold text-foreground mb-3">
@@ -214,7 +232,7 @@ export default function DiaperChangingSheetPage() {
           </section>
 
           {/* 4. おすすめ商品 */}
-          <section className="mb-8">
+          <section id="products" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               おすすめのおむつ替えシート3選
             </h2>
@@ -277,7 +295,7 @@ export default function DiaperChangingSheetPage() {
           </section>
 
           {/* 5. タイプ別おすすめ */}
-          <section className="mb-8">
+          <section id="type-guide" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               あなたの状況に合わせて選ぶなら
             </h2>
@@ -314,7 +332,7 @@ export default function DiaperChangingSheetPage() {
           </Card>
 
           {/* 購入できる場所 */}
-          <section className="mb-8">
+          <section id="where-to-buy" className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4">
               購入できる場所
             </h2>
@@ -339,13 +357,9 @@ export default function DiaperChangingSheetPage() {
           </section>
 
           {/* 免責事項 */}
-          <div className="p-4 bg-muted/30 rounded-lg mb-8">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">注意:</strong>{" "}
-              価格・仕様は2026年4月時点の情報です。実際の価格は販売店により異なります。
-              使い捨てタイプはペットシーツで代用する方もいます。ご自身の使いやすい方法を見つけてください。
-            </p>
-          </div>
+          <MedicalDisclaimer />
+
+          <ShareButtons title="おむつ替えシートの選びかた" path="/prepare/diaper-changing-sheet" />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">

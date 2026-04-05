@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { AmazonProductCard } from "@/components/amazon-product-card";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
   title: "ベビーワゴンの選びかた",
@@ -125,6 +129,11 @@ export default function BabyWagonPage() {
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
+          <BreadcrumbNav items={[
+            { label: "トップ", href: "/" },
+            { label: "準備する", href: "/prepare" },
+            { label: "ベビーワゴンの選びかた" },
+          ]} />
           {/* ヘッダー */}
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-3">
@@ -142,8 +151,17 @@ export default function BabyWagonPage() {
             </p>
           </div>
 
+          <TableOfContents items={[
+            { id: "basics", label: "ベビーワゴンって必要？" },
+            { id: "selection-points", label: "選ぶときに見るべき5つのポイント" },
+            { id: "storage-example", label: "段ごとの収納例" },
+            { id: "products", label: "おすすめのベビーワゴン3選" },
+            { id: "type-guide", label: "あなたの状況に合わせて選ぶなら" },
+            { id: "where-to-buy", label: "購入できる場所" },
+          ]} />
+
           {/* 1. 基本知識 */}
-          <section className="mb-8">
+          <section className="mb-8" id="basics">
             <h2 className="text-lg font-bold text-foreground mb-4">
               ベビーワゴンって必要？
             </h2>
@@ -163,7 +181,7 @@ export default function BabyWagonPage() {
           </section>
 
           {/* 2. 選び方ポイント */}
-          <section className="mb-8">
+          <section className="mb-8" id="selection-points">
             <h2 className="text-lg font-bold text-foreground mb-4">
               選ぶときに見るべき5つのポイント
             </h2>
@@ -187,7 +205,7 @@ export default function BabyWagonPage() {
           </section>
 
           {/* 3. 収納例 */}
-          <section className="mb-8">
+          <section className="mb-8" id="storage-example">
             <h2 className="text-lg font-bold text-foreground mb-4">
               段ごとの収納例
             </h2>
@@ -204,7 +222,7 @@ export default function BabyWagonPage() {
           </section>
 
           {/* 4. おすすめ商品 */}
-          <section className="mb-8">
+          <section className="mb-8" id="products">
             <h2 className="text-lg font-bold text-foreground mb-4">
               おすすめのベビーワゴン3選
             </h2>
@@ -277,7 +295,7 @@ export default function BabyWagonPage() {
           </section>
 
           {/* 5. タイプ別おすすめ */}
-          <section className="mb-8">
+          <section className="mb-8" id="type-guide">
             <h2 className="text-lg font-bold text-foreground mb-4">
               あなたの状況に合わせて選ぶなら
             </h2>
@@ -312,7 +330,7 @@ export default function BabyWagonPage() {
           </Card>
 
           {/* 購入できる場所 */}
-          <section className="mb-8">
+          <section className="mb-8" id="where-to-buy">
             <h2 className="text-lg font-bold text-foreground mb-4">
               購入できる場所
             </h2>
@@ -332,14 +350,9 @@ export default function BabyWagonPage() {
           </section>
 
           {/* 免責事項 */}
-          <div className="p-4 bg-muted/30 rounded-lg mb-8">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">注意:</strong>{" "}
-              価格・仕様は2026年4月時点の情報です。実際の価格は販売店により異なります。
-              ワゴンを赤ちゃんのそばに置くときは、必ずキャスターをロックしてください。
-              小さなパーツやストック品は赤ちゃんの手が届かない下段に置くと安全です。
-            </p>
-          </div>
+          <MedicalDisclaimer />
+
+          <ShareButtons title="ベビーワゴンの選びかた" path="/prepare/baby-wagon" />
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">
