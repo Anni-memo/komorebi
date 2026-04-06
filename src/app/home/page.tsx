@@ -560,6 +560,28 @@ export default function PersonalHomePage() {
             )}
           </section>
 
+          {/* ─── 胎動・陣痛カウンター（妊娠中ユーザー向け） ─── */}
+          {(stage === "pregnant" || !profile) && (
+            <section className="mb-8">
+              <Link href="/learn/contraction-counter">
+                <Card className="border-pink-200 bg-gradient-to-r from-pink-50 to-rose-50 shadow-none hover:border-pink-300 transition-colors cursor-pointer dark:from-pink-950/30 dark:to-rose-950/30 dark:border-pink-800">
+                  <CardContent className="py-4 px-5">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl" aria-hidden>👶</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-bold text-foreground">胎動・陣痛カウンター</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">胎動を数えたり、陣痛の間隔を記録できます</p>
+                      </div>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-muted-foreground shrink-0">
+                        <path d="M6 4l4 4-4 4" />
+                      </svg>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </section>
+          )}
+
           <div className="space-y-8">
             {/* ─── 2. 今日やること ─── */}
             <section>

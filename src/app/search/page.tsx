@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect, useMemo, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 const searchIndex = [
   { title: "RSVワクチン判断ガイド", type: "記事", keywords: ["RSV", "ワクチン", "予防接種", "妊婦", "アブリスボ"], href: "/learn/rsv-vaccine" },
@@ -47,6 +48,7 @@ const searchIndex = [
   { title: "出産育児一時金", type: "制度", keywords: ["出産", "一時金", "給付", "50万"], href: "/benefits" },
   { title: "児童手当", type: "制度", keywords: ["児童手当", "手当", "申請"], href: "/benefits" },
   { title: "乳幼児医療費助成", type: "制度", keywords: ["医療費", "助成", "乳幼児"], href: "/benefits" },
+  { title: "胎動・陣痛カウンター", type: "ツール", keywords: ["胎動", "陣痛", "カウンター", "計測", "間隔", "出産"], href: "/learn/contraction-counter" },
 ];
 
 type SearchResult = typeof searchIndex[number];
@@ -62,6 +64,7 @@ function groupByType(results: SearchResult[]) {
 
 function SearchContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const initialQuery = searchParams.get("q") ?? "";
   const [query, setQuery] = useState(initialQuery);
 
@@ -80,6 +83,19 @@ function SearchContent() {
     );
   }, [query]);
 
+  function handleSearch(e: React.FormEvent) {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    // 検索結果が1件のみの場合、直接そのページへ遷移
+    if (results.length === 1) {
+      router.push(results[0].href);
+      return;
+    }
+    // URLを更新して検索状態を保持
+    router.push(`/search?q=${encodeURIComponent(q)}`);
+  }
+
   const grouped = useMemo(() => groupByType(results), [results]);
 
   const typeLabels: Record<string, string> = {
@@ -97,30 +113,35 @@ function SearchContent() {
           <h1 className="text-2xl font-bold text-foreground mb-6">検索</h1>
 
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSearch}
             className="mb-8"
           >
-            <div className="relative">
-              <svg
-                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <circle cx="7" cy="7" r="5" />
-                <path d="M11 11l3.5 3.5" />
-              </svg>
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="キーワードで検索（例：夜泣き、離乳食、保活）"
-                className="w-full rounded-xl border border-border bg-background pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all"
-                autoFocus
-              />
+            <div className="flex gap-2">
+              <div className="relative flex-1">
+                <svg
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <circle cx="7" cy="7" r="5" />
+                  <path d="M11 11l3.5 3.5" />
+                </svg>
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="キーワードで検索（例：夜泣き、離乳食、保活）"
+                  className="w-full rounded-xl border border-border bg-background pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all"
+                  autoFocus
+                />
+              </div>
+              <Button type="submit" className="shrink-0 rounded-xl px-5">
+                検索
+              </Button>
             </div>
           </form>
 
