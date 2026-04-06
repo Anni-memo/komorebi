@@ -1,46 +1,144 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button-variants";
-import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { ArticleMeta } from "@/components/article-meta";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav";
-import { TableOfContents } from "@/components/table-of-contents";
 import { ShareButtons } from "@/components/share-buttons";
 import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 import { pregnancyRecipes } from "@/lib/pregnancy-recipes";
 
-export const metadata = {
-  title:
-    "妊娠月別おすすめ料理ガイド｜2〜10ヶ月の簡単レシピ63品 | こもれび",
-  description:
-    "妊娠2ヶ月から10ヶ月まで、月ごとの体調と必要な栄養素に合わせた簡単レシピを各7品ずつ紹介。つわり期・安定期・後期それぞれに最適な料理を管理栄養士監修情報に基づいてセレクト。",
+const trimesterColors: Record<string, string> = {
+  初期: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
+  中期: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
+  後期: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
 };
 
-const trimesterColors: Record<string, string> = {
-  初期: "bg-green-100 text-green-700",
-  中期: "bg-yellow-100 text-yellow-700",
-  後期: "bg-orange-100 text-orange-700",
+const trimesterBorder: Record<string, string> = {
+  初期: "border-l-green-400",
+  中期: "border-l-yellow-400",
+  後期: "border-l-orange-400",
 };
+
+// トリメスター別にグループ化
+const trimesterGroups = [
+  { label: "初期", sub: "2〜4ヶ月", months: pregnancyRecipes.filter((m) => m.trimester === "初期") },
+  { label: "中期", sub: "5〜7ヶ月", months: pregnancyRecipes.filter((m) => m.trimester === "中期") },
+  { label: "後期", sub: "8〜10ヶ月", months: pregnancyRecipes.filter((m) => m.trimester === "後期") },
+];
+
+// ── ツリーナビ（投資Library LIBRARY MAP 風） ──
+function RecipeTreeNav() {
+  const [openCats, setOpenCats] = useState<Record<string, boolean>>({
+    初期: true,
+    中期: true,
+    後期: true,
+  });
+
+  function toggle(cat: string) {
+    setOpenCats((prev) => ({ ...prev, [cat]: !prev[cat] }));
+  }
+
+  return (
+    <div className="bg-foreground/[0.03] border border-border/50 rounded-xl overflow-hidden mb-8">
+      <div className="px-5 pt-4 pb-2">
+        <p className="text-[10px] font-mono tracking-[0.2em] text-muted-foreground/60 uppercase">
+          Recipe Map
+        </p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-0">
+        {trimesterGroups.map((group) => {
+          const isOpen = openCats[group.label];
+          return (
+            <div key={group.label} className="border-t sm:border-t-0 sm:border-l border-border/30 first:border-l-0 first:border-t-0">
+              <button
+                onClick={() => toggle(group.label)}
+                className="w-full flex items-center gap-2 px-5 py-3 hover:bg-muted/30 transition-colors text-left"
+              >
+                <svg
+                  width="8"
+                  height="8"
+                  viewBox="0 0 8 8"
+                  className={`shrink-0 transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`}
+                >
+                  <path d="M2 1l4 3-4 3z" fill="currentColor" className="text-primary/60" />
+                </svg>
+                <span className="text-sm font-bold text-foreground">{group.label}</span>
+                <span className="text-[10px] font-mono text-muted-foreground/50 tracking-wider ml-auto">
+                  {group.sub}
+                </span>
+              </button>
+              {isOpen && (
+                <div className="pb-3 px-5 pl-9 space-y-0.5">
+                  {group.months.map((m) => (
+                    <a
+                      key={m.month}
+                      href={`#month-${m.month}`}
+                      className="block text-xs text-muted-foreground py-1 pl-3 border-l border-primary/15 hover:text-primary hover:pl-4 hover:border-primary/40 transition-all"
+                    >
+                      {m.month}ヶ月（{m.weeks}）
+                      <span className="text-muted-foreground/40 ml-1.5">{m.recipes.length}品</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── 目次（メモの複利風 — アンカーリンク付き） ──
+function RecipeTOC() {
+  return (
+    <Card className="border-l-4 border-l-primary/60 border-border/40 shadow-none mb-8 bg-muted/20">
+      <CardContent className="pt-4 pb-4">
+        <p className="text-[10px] font-mono tracking-[0.18em] text-primary/60 uppercase mb-3">
+          目次
+        </p>
+        <div className="space-y-3">
+          {trimesterGroups.map((group) => (
+            <div key={group.label}>
+              <p className="text-xs font-semibold text-foreground mb-1 flex items-center gap-1.5">
+                <span className={`w-2 h-2 rounded-full inline-block ${
+                  group.label === "初期" ? "bg-green-400" : group.label === "中期" ? "bg-yellow-400" : "bg-orange-400"
+                }`} />
+                {group.label}（{group.sub}）
+              </p>
+              <div className="pl-3.5 border-l border-border/40 space-y-0.5">
+                {group.months.map((m) => (
+                  <a
+                    key={m.month}
+                    href={`#month-${m.month}`}
+                    className="block text-xs text-muted-foreground hover:text-primary transition-colors py-0.5"
+                  >
+                    {m.month}ヶ月（{m.weeks}）— {m.keyNutrients}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+          <div className="pt-1 border-t border-border/30">
+            <a href="#summary" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+              月別まとめ表
+            </a>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function PregnancyRecipesPage() {
   return (
     <>
-      <ArticleJsonLd
-        title="妊娠月別おすすめ料理ガイド｜2〜10ヶ月の簡単レシピ63品"
-        description="妊娠2ヶ月から10ヶ月まで、月ごとの体調と必要な栄養素に合わせた簡単レシピを各7品ずつ紹介。"
-        path="/learn/pregnancy-recipes"
-        datePublished="2026-04-06"
-        tags={[
-          "妊娠 レシピ",
-          "妊婦 料理",
-          "つわり 食事",
-          "妊娠中期 レシピ",
-          "妊娠後期 レシピ",
-        ]}
-      />
       <Header />
       <main className="flex-1">
         <div className="max-w-3xl mx-auto px-4 py-10">
@@ -87,22 +185,21 @@ export default function PregnancyRecipesPage() {
             </CardContent>
           </Card>
 
-          <TableOfContents
-            items={pregnancyRecipes.map((m) => ({
-              id: `month-${m.month}`,
-              label: `${m.month}ヶ月（${m.weeks}）— ${m.trimester}`,
-            }))}
-          />
+          {/* ── ツリーナビ（LIBRARY MAP風） ── */}
+          <RecipeTreeNav />
+
+          {/* ── 目次（メモの複利風） ── */}
+          <RecipeTOC />
 
           {/* 月別セクション */}
           {pregnancyRecipes.map((monthData) => (
             <section
               key={monthData.month}
               id={`month-${monthData.month}`}
-              className="mb-10"
+              className="mb-10 scroll-mt-20"
             >
               {/* 月ヘッダー */}
-              <div className="flex flex-wrap items-center gap-2 mb-3">
+              <div className={`flex flex-wrap items-center gap-2 mb-3 pl-3 border-l-4 ${trimesterBorder[monthData.trimester]}`}>
                 <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
                   <span aria-hidden>🍽️</span>
                   {monthData.month}ヶ月（{monthData.weeks}）
@@ -182,7 +279,7 @@ export default function PregnancyRecipesPage() {
           ))}
 
           {/* まとめ表 */}
-          <section className="mb-8">
+          <section id="summary" className="mb-8 scroll-mt-20">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <span aria-hidden>📋</span>
               月別まとめ
