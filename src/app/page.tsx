@@ -3,6 +3,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SearchBar } from "@/components/search-bar";
 import { AuthRedirect } from "@/components/auth-redirect";
+import { CounterBanner } from "@/components/counter-banner";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
@@ -133,6 +134,9 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* 胎動・陣痛カウンター（34週以降の妊婦向け） */}
+        <CounterBanner />
 
         {/* 2. できること紹介 */}
         <section id="features" className="py-16 bg-muted/20">
