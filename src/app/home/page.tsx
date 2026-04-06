@@ -607,12 +607,19 @@ export default function PersonalHomePage() {
                         ｜重点: {monthRecipes.keyNutrients}
                       </p>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                        {monthRecipes.recipes.slice(0, 4).map((recipe) => (
-                          <div key={recipe.name} className="flex items-center justify-between bg-background/60 rounded-lg px-3 py-2">
-                            <span className="text-xs text-foreground truncate">{recipe.name}</span>
-                            <Badge variant="outline" className="text-[10px] shrink-0 ml-1.5">{recipe.time}</Badge>
-                          </div>
-                        ))}
+                        {monthRecipes.recipes.slice(0, 4).map((recipe) => {
+                          const content = (
+                            <div className={`flex items-center justify-between bg-background/60 rounded-lg px-3 py-2 ${recipe.slug ? "hover:bg-background transition-colors" : ""}`}>
+                              <span className="text-xs text-foreground truncate">{recipe.name}</span>
+                              <Badge variant="outline" className="text-[10px] shrink-0 ml-1.5">{recipe.time}</Badge>
+                            </div>
+                          );
+                          return recipe.slug ? (
+                            <Link key={recipe.name} href={`/learn/pregnancy-recipes/${recipe.slug}`}>{content}</Link>
+                          ) : (
+                            <div key={recipe.name}>{content}</div>
+                          );
+                        })}
                       </div>
                       <Link
                         href={`/learn/pregnancy-recipes#month-${monthRecipes.month}`}

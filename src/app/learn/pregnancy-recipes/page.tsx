@@ -234,46 +234,58 @@ export default function PregnancyRecipesPage() {
 
               {/* レシピ7品 */}
               <div className="space-y-3">
-                {monthData.recipes.map((recipe, i) => (
-                  <Card
-                    key={recipe.name}
-                    className="border-border/50 shadow-none"
-                  >
-                    <CardContent className="pt-4 pb-4">
-                      <div className="flex items-start gap-3">
-                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary/10 text-primary text-xs font-bold shrink-0 mt-0.5">
-                          {i + 1}
-                        </span>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                            <h3 className="font-semibold text-foreground text-sm">
-                              {recipe.name}
-                            </h3>
-                            <Badge
-                              variant="outline"
-                              className="text-xs shrink-0"
-                            >
-                              {recipe.time}
-                            </Badge>
-                          </div>
-                          <div className="flex flex-wrap gap-1.5 mb-1.5">
-                            {recipe.nutrients.split("・").map((n) => (
-                              <span
-                                key={n}
-                                className="text-xs px-2 py-0.5 bg-muted rounded-full text-muted-foreground"
+                {monthData.recipes.map((recipe, i) => {
+                  const inner = (
+                    <Card
+                      className={`border-border/50 shadow-none ${recipe.slug ? "hover:border-primary/30 transition-colors cursor-pointer" : ""}`}
+                    >
+                      <CardContent className="pt-4 pb-4">
+                        <div className="flex items-start gap-3">
+                          <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary/10 text-primary text-xs font-bold shrink-0 mt-0.5">
+                            {i + 1}
+                          </span>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                              <h3 className="font-semibold text-foreground text-sm">
+                                {recipe.name}
+                              </h3>
+                              <Badge
+                                variant="outline"
+                                className="text-xs shrink-0"
                               >
-                                {n}
-                              </span>
-                            ))}
+                                {recipe.time}
+                              </Badge>
+                              {recipe.slug && (
+                                <span className="text-xs text-primary">レシピを見る →</span>
+                              )}
+                            </div>
+                            <div className="flex flex-wrap gap-1.5 mb-1.5">
+                              {recipe.nutrients.split("・").map((n) => (
+                                <span
+                                  key={n}
+                                  className="text-xs px-2 py-0.5 bg-muted rounded-full text-muted-foreground"
+                                >
+                                  {n}
+                                </span>
+                              ))}
+                            </div>
+                            <p className="text-xs text-muted-foreground leading-relaxed">
+                              {recipe.point}
+                            </p>
                           </div>
-                          <p className="text-xs text-muted-foreground leading-relaxed">
-                            {recipe.point}
-                          </p>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                      </CardContent>
+                    </Card>
+                  );
+
+                  return recipe.slug ? (
+                    <Link key={recipe.name} href={`/learn/pregnancy-recipes/${recipe.slug}`}>
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div key={recipe.name}>{inner}</div>
+                  );
+                })}
               </div>
             </section>
           ))}
