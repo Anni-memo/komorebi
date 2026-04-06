@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -535,9 +536,31 @@ export default function MyPage() {
     <>
       <Header />
       <main className="flex-1">
-        <div className="max-w-3xl mx-auto px-4 py-10">
-          <h1 className="text-2xl font-bold text-foreground mb-6">マイページ</h1>
+        {/* ウェルカムバナー */}
+        <section className="relative h-44 sm:h-52 overflow-hidden">
+          <Image
+            src="/images/mypage-banner.jpg"
+            alt="木漏れ日の森"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 max-w-3xl mx-auto px-4 pb-5">
+            <h1 className="text-xl font-bold text-white drop-shadow-lg mb-1">
+              {p.nickname ? `${p.nickname}さん、こんにちは` : "マイページ"}
+            </h1>
+            <p className="text-sm text-white/85 drop-shadow">
+              {isPregnant && p.expected_due_date && calcPregnancyWeeks(p.expected_due_date)
+                ? `妊娠${calcPregnancyWeeks(p.expected_due_date)}`
+                : !isPregnant && p.child_birthdate && calcMonthsOld(p.child_birthdate)
+                ? calcMonthsOld(p.child_birthdate)
+                : "あなたに合った情報をお届けします"}
+            </p>
+          </div>
+        </section>
 
+        <div className="max-w-3xl mx-auto px-4 py-6">
           {/* Save message toast */}
           {saveMessage && (
             <div className="mb-4 p-3 bg-primary/10 text-primary rounded-lg text-sm text-center">

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
@@ -526,56 +527,66 @@ export default function PersonalHomePage() {
     <>
       <Header />
       <main className="flex-1 bg-muted/10 pb-20 md:pb-0">
-        <div className="max-w-3xl mx-auto px-4 py-6">
-          {/* ─── 1. ヘッダー：挨拶 + プロフィール要約 + 通知 ─── */}
-          <section className="mb-8">
-            <div className="flex items-start justify-between mb-2">
+        {/* ─── 1. ウェルカムバナー ─── */}
+        <section className="relative h-44 sm:h-52 overflow-hidden">
+          <Image
+            src="/images/mypage-banner.jpg"
+            alt="木漏れ日の森"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 max-w-3xl mx-auto px-4 pb-5">
+            <div className="flex items-end justify-between">
               <div>
-                <h1 className="text-lg font-bold text-foreground">
+                <h1 className="text-xl font-bold text-white drop-shadow-lg">
                   {getGreeting()}
                 </h1>
-                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                <p className="text-sm text-white/85 mt-1 leading-relaxed drop-shadow">
                   {greetingMessage}
                 </p>
+                {profile ? (
+                  <div className="flex flex-wrap items-center gap-2 mt-2">
+                    {profileSummary && (
+                      <Badge variant="secondary" className="text-xs bg-white/20 text-white border-white/30 backdrop-blur-sm">
+                        {profileSummary}
+                      </Badge>
+                    )}
+                    {familyTags.slice(1).map((tag) => (
+                      <Badge key={tag} variant="secondary" className="text-xs bg-white/20 text-white border-white/30 backdrop-blur-sm">{tag}</Badge>
+                    ))}
+                    <Link
+                      href="/mypage/edit"
+                      className="text-xs text-white/70 hover:text-white transition-colors ml-1"
+                    >
+                      プロフィールを見直す
+                    </Link>
+                  </div>
+                ) : (
+                  <p className="text-sm text-white/80 mt-2">
+                    <Link href={isLoggedIn ? "/onboarding" : "/auth/signup"} className="text-white underline hover:text-white/90">
+                      {isLoggedIn ? "プロフィールを設定" : "アカウント登録"}
+                    </Link>
+                    すると、あなた向けの案内が表示されます。
+                  </p>
+                )}
               </div>
               <Link
                 href="/notifications"
-                className="shrink-0 ml-3 mt-1 p-2 rounded-full hover:bg-muted/50 transition-colors"
+                className="shrink-0 ml-3 p-2 rounded-full hover:bg-white/20 transition-colors"
                 aria-label="通知"
               >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-muted-foreground">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/80">
                   <path d="M10 2a5 5 0 0 0-5 5v3l-1.5 2.5h13L15 10V7a5 5 0 0 0-5-5Z" />
                   <path d="M8 16a2 2 0 0 0 4 0" />
                 </svg>
               </Link>
             </div>
+          </div>
+        </section>
 
-            {profile ? (
-              <div className="flex flex-wrap items-center gap-2 mt-3">
-                {profileSummary && (
-                  <Badge variant="secondary" className="text-xs">
-                    {profileSummary}
-                  </Badge>
-                )}
-                {familyTags.slice(1).map((tag) => (
-                  <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
-                ))}
-                <Link
-                  href="/mypage/edit"
-                  className="text-xs text-muted-foreground hover:text-primary transition-colors ml-1"
-                >
-                  プロフィールを見直す
-                </Link>
-              </div>
-            ) : (
-              <p className="text-sm text-muted-foreground mt-2">
-                <Link href={isLoggedIn ? "/onboarding" : "/auth/signup"} className="text-primary hover:underline">
-                  {isLoggedIn ? "プロフィールを設定" : "アカウント登録"}
-                </Link>
-                すると、あなた向けの案内が表示されます。
-              </p>
-            )}
-          </section>
+        <div className="max-w-3xl mx-auto px-4 py-6">
 
           {/* ─── 妊娠週数 + 今週のおすすめ料理（妊娠中ユーザー向け） ─── */}
           {pregnancyWeeksAndDays && (
