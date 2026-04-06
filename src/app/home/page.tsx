@@ -19,6 +19,7 @@ import {
   calcMonthsFromBirthdate,
   type StageMessage,
 } from "@/lib/stage-messages";
+import { pregnancyWeeks } from "@/lib/pregnancy-calendar-data";
 
 // ─── Types ───────────────────────────────────────────────────
 
@@ -387,6 +388,7 @@ export default function PersonalHomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
   const [stageMessageOpen, setStageMessageOpen] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState(false);
 
   useEffect(() => {
     // Check visit history
@@ -605,43 +607,185 @@ export default function PersonalHomePage() {
 
         </div>
 
-        {/* 今日の赤ちゃん（タップで展開） */}
+        {/* 今日の赤ちゃん＋妊娠カレンダー（タップで展開） */}
         {stageMessage && (
           <div className="max-w-3xl mx-auto px-4 mt-3">
-            <div>
-              <button
-                onClick={() => setStageMessageOpen(!stageMessageOpen)}
-                className="inline-flex items-center gap-1.5 bg-pink-50 border border-pink-200 rounded-full px-3 py-1.5 hover:bg-pink-100/80 active:bg-pink-100 transition-colors shadow-sm"
-              >
-                <span className="text-xs">🍼</span>
-                <span className="text-xs font-medium text-pink-700">赤ちゃんの様子</span>
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className={`text-pink-400 transition-transform duration-200 ${stageMessageOpen ? "rotate-180" : ""}`}
+            <div className="flex items-start gap-2">
+              {/* 赤ちゃんの様子 */}
+              <div className="flex-1 min-w-0">
+                <button
+                  onClick={() => setStageMessageOpen(!stageMessageOpen)}
+                  className="inline-flex items-center gap-1.5 bg-pink-50 border border-pink-200 rounded-full px-3 py-1.5 hover:bg-pink-100/80 active:bg-pink-100 transition-colors shadow-sm"
                 >
-                  <path d="M3 4.5l3 3 3-3" />
-                </svg>
-              </button>
+                  <span className="text-xs">🍼</span>
+                  <span className="text-xs font-medium text-pink-700">赤ちゃんの様子</span>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className={`text-pink-400 transition-transform duration-200 ${stageMessageOpen ? "rotate-180" : ""}`}
+                  >
+                    <path d="M3 4.5l3 3 3-3" />
+                  </svg>
+                </button>
 
-              {/* 展開コンテンツ */}
-              {stageMessageOpen && (
-                <div className="mt-2 bg-pink-50/80 border border-pink-200 rounded-xl px-4 py-4 space-y-3 shadow-sm">
-                  <div>
-                    <p className="text-xs text-pink-500 font-medium mb-1">🍼 赤ちゃんの様子</p>
-                    <p className="text-sm text-foreground leading-relaxed">{stageMessage.babyStatus}</p>
+                {/* 展開コンテンツ */}
+                {stageMessageOpen && (
+                  <div className="mt-2 bg-pink-50/80 border border-pink-200 rounded-xl px-4 py-4 space-y-3 shadow-sm">
+                    <div>
+                      <p className="text-xs text-pink-500 font-medium mb-1">🍼 赤ちゃんの様子</p>
+                      <p className="text-sm text-foreground leading-relaxed">{stageMessage.babyStatus}</p>
+                    </div>
+                    <div className="border-t border-pink-200/60 pt-3">
+                      <p className="text-xs text-pink-500 font-medium mb-1">💡 ママへのアドバイス</p>
+                      <p className="text-sm text-foreground leading-relaxed">{stageMessage.momAdvice}</p>
+                    </div>
+                    <div className="border-t border-pink-200/60 pt-3">
+                      <p className="text-sm text-pink-600/90 leading-relaxed italic">{stageMessage.encouragement}</p>
+                    </div>
                   </div>
-                  <div className="border-t border-pink-200/60 pt-3">
-                    <p className="text-xs text-pink-500 font-medium mb-1">💡 ママへのアドバイス</p>
-                    <p className="text-sm text-foreground leading-relaxed">{stageMessage.momAdvice}</p>
-                  </div>
-                  <div className="border-t border-pink-200/60 pt-3">
-                    <p className="text-sm text-pink-600/90 leading-relaxed italic">{stageMessage.encouragement}</p>
-                  </div>
+                )}
+              </div>
+
+              {/* 妊娠カレンダー */}
+              {stage === "pregnant" && (
+                <div className="shrink-0">
+                  <button
+                    onClick={() => setCalendarOpen(!calendarOpen)}
+                    className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200 rounded-full px-3 py-1.5 hover:bg-amber-100/80 active:bg-amber-100 transition-colors shadow-sm"
+                  >
+                    <span className="text-xs">📅</span>
+                    <span className="text-xs font-medium text-amber-700">カレンダー</span>
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className={`text-amber-400 transition-transform duration-200 ${calendarOpen ? "rotate-180" : ""}`}
+                    >
+                      <path d="M3 4.5l3 3 3-3" />
+                    </svg>
+                  </button>
+
+                  {calendarOpen && (() => {
+                    const now = new Date();
+                    const year = now.getFullYear();
+                    const month = now.getMonth();
+                    const today = now.getDate();
+                    const firstDay = new Date(year, month, 1).getDay();
+                    const daysInMonth = new Date(year, month + 1, 0).getDate();
+                    const dayNames = ["日", "月", "火", "水", "木", "金", "土"];
+
+                    // 出産予定日からLMP（最終月経日）を計算
+                    const dueDateStr = profile?.expected_due_date;
+                    const dueMs = dueDateStr ? new Date(dueDateStr).getTime() : 0;
+                    const lmpMs = dueMs - 280 * 24 * 60 * 60 * 1000;
+
+                    // サイズ比較を絵文字に変換
+                    const sizeEmoji: Record<string, string> = {
+                      "けしの実": "🌰", "ごまの粒": "🫘", "レンズ豆": "🫘", "ブルーベリー": "🫐",
+                      "ラズベリー": "🫐", "さくらんぼ": "🍒", "いちご": "🍓", "ライム": "🍋",
+                      "梅の実": "🍑", "キウイ": "🥝", "レモン": "🍋", "りんご": "🍎",
+                      "アボカド": "🥑", "大きな玉ねぎ": "🧅", "パプリカ": "🫑", "マンゴー": "🥭",
+                      "バナナ": "🍌", "にんじん": "🥕", "パパイヤ": "🥭", "大きなグレープフルーツ": "🍊",
+                      "とうもろこし": "🌽", "カリフラワー": "🥦", "ネギ（長さ）": "🥬",
+                      "カリフラワー（大）": "🥦", "なす（大）": "🍆", "バターナッツかぼちゃ": "🎃",
+                      "キャベツ": "🥬", "ココナッツ": "🥥", "大根": "🥬", "パイナップル": "🍍",
+                      "メロン": "🍈", "ハニーデューメロン": "🍈", "ロメインレタス": "🥬",
+                      "冬瓜": "🎃", "かぼちゃ": "🎃", "小玉すいか": "🍉", "すいか": "🍉",
+                      "すいか（大）": "🍉", "すいか（特大）": "🍉",
+                    };
+
+                    // 今日の妊娠週数を取得
+                    const currentW = dueDateStr ? calcWeeksFromDueDate(dueDateStr) : null;
+                    const currentWData = currentW ? pregnancyWeeks.find(w => w.week === currentW) : null;
+
+                    // 各日付の妊娠週数を計算するヘルパー
+                    const getWeekForDay = (day: number): number | null => {
+                      if (!dueMs) return null;
+                      const dateMs = new Date(year, month, day).getTime();
+                      const diffDays = Math.floor((dateMs - lmpMs) / (1000 * 60 * 60 * 24));
+                      const w = Math.floor(diffDays / 7);
+                      return (w >= 4 && w <= 42) ? w : null;
+                    };
+
+                    const getDayOfWeek = (day: number): number => {
+                      if (!dueMs) return 0;
+                      const dateMs = new Date(year, month, day).getTime();
+                      const diffDays = Math.floor((dateMs - lmpMs) / (1000 * 60 * 60 * 24));
+                      return diffDays % 7;
+                    };
+
+                    const cells: (number | null)[] = Array(firstDay).fill(null);
+                    for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+
+                    return (
+                      <div className="mt-2 bg-amber-50/80 border border-amber-200 rounded-xl px-3 py-3 shadow-sm w-[250px]">
+                        {/* 現在の週数 + サイズ目安 */}
+                        {currentWData && (
+                          <div className="flex items-center justify-center gap-1.5 mb-2">
+                            <span className="text-lg">{sizeEmoji[currentWData.babySizeComparison] ?? "👶"}</span>
+                            <div className="text-center">
+                              <p className="text-xs font-bold text-amber-800">
+                                {currentW}週{dueDateStr ? (() => {
+                                  const diffDays = Math.floor((now.getTime() - lmpMs) / (1000 * 60 * 60 * 24));
+                                  return diffDays % 7;
+                                })() : 0}日
+                              </p>
+                              <p className="text-[10px] text-amber-600">{currentWData.babySizeComparison}くらい</p>
+                            </div>
+                          </div>
+                        )}
+
+                        <p className="text-[11px] font-semibold text-amber-700 text-center mb-1.5">
+                          {year}年{month + 1}月
+                        </p>
+                        <div className="grid grid-cols-7 gap-0.5 text-center mb-1">
+                          {dayNames.map((d) => (
+                            <span key={d} className="text-[9px] font-medium text-amber-500">{d}</span>
+                          ))}
+                        </div>
+                        <div className="grid grid-cols-7 gap-px text-center">
+                          {cells.map((d, i) => {
+                            if (d === null) return <span key={i} />;
+                            const w = getWeekForDay(d);
+                            const dow = getDayOfWeek(d);
+                            const isToday = d === today;
+                            return (
+                              <div
+                                key={i}
+                                className={`flex flex-col items-center py-0.5 rounded ${
+                                  isToday
+                                    ? "bg-amber-400 text-white"
+                                    : ""
+                                }`}
+                              >
+                                <span className={`text-[11px] leading-tight font-${isToday ? "bold" : "normal"} ${!isToday ? "text-amber-800" : ""}`}>
+                                  {d}
+                                </span>
+                                {w !== null && (
+                                  <span className={`text-[7px] leading-tight ${isToday ? "text-amber-100" : "text-amber-500/70"}`}>
+                                    {w}w{dow}d
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <Link
+                          href="/learn/pregnancy-calendar"
+                          className="block mt-2 text-center text-[11px] font-medium text-amber-600 hover:text-amber-800 hover:underline transition-colors"
+                        >
+                          妊娠カレンダーを見る →
+                        </Link>
+                      </div>
+                    );
+                  })()}
                 </div>
               )}
             </div>
