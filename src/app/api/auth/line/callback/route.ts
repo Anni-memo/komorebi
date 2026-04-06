@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
+import { createClient as createServerClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -16,7 +17,9 @@ export async function GET(request: Request) {
   // CSRF検証
   const cookieStore = await cookies();
   const savedState = cookieStore.get("line_oauth_state")?.value;
+  const mode = cookieStore.get("line_oauth_mode")?.value;
   cookieStore.delete("line_oauth_state");
+  cookieStore.delete("line_oauth_mode");
 
   if (!savedState || savedState !== state) {
     return NextResponse.redirect(`${origin}/auth/login?error=invalid_state`);
@@ -57,13 +60,44 @@ export async function GET(request: Request) {
     const displayName = profile.displayName as string;
     const pictureUrl = profile.pictureUrl as string | undefined;
 
-    // 3. Supabase Admin Clientでユーザーを検索/作成
+    // 3. Supabase Admin Client
     const supabaseAdmin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // LINE IDでユーザーを検索
+    // === Link Mode: 既存アカウントにLINEを紐付け ===
+    if (mode === "link") {
+      const supabase = await createServerClient();
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (!user) {
+        return NextResponse.redirect(`${origin}/auth/login?error=not_logged_in`);
+      }
+
+      // 既に別ユーザーが同じLINE IDを使っていないか確認
+      const { data: existing } = await supabaseAdmin
+        .from("profiles")
+        .select("id")
+        .eq("line_user_id", lineUserId)
+        .limit(1);
+
+      if (existing && existing.length > 0 && existing[0].id !== user.id) {
+        return NextResponse.redirect(`${origin}/mypage?error=line_already_linked`);
+      }
+
+      // プロフィールにLINE情報を保存
+      await supabaseAdmin.from("profiles").upsert({
+        id: user.id,
+        line_user_id: lineUserId,
+        line_display_name: displayName,
+        line_picture_url: pictureUrl,
+      });
+
+      return NextResponse.redirect(`${origin}/mypage?line_linked=true`);
+    }
+
+    // === Login Mode: LINEでログイン/新規登録 ===
     const { data: existingUsers } = await supabaseAdmin
       .from("profiles")
       .select("id")
@@ -71,13 +105,16 @@ export async function GET(request: Request) {
       .limit(1);
 
     let userId: string;
+    let email: string;
 
     if (existingUsers && existingUsers.length > 0) {
-      // 既存ユーザー
       userId = existingUsers[0].id;
+      // 既存ユーザーのメールを取得
+      const { data: userData } = await supabaseAdmin.auth.admin.getUserById(userId);
+      email = userData?.user?.email || `line_${lineUserId}@line.placeholder`;
     } else {
       // 新規ユーザー作成
-      const email = `line_${lineUserId}@line.placeholder`;
+      email = `line_${lineUserId}@line.placeholder`;
       const { data: newUser, error: createError } =
         await supabaseAdmin.auth.admin.createUser({
           email,
@@ -91,36 +128,30 @@ export async function GET(request: Request) {
         });
 
       if (createError || !newUser.user) {
-        return NextResponse.redirect(
-          `${origin}/auth/login?error=user_creation_failed`
-        );
+        return NextResponse.redirect(`${origin}/auth/login?error=user_creation_failed`);
       }
 
       userId = newUser.user.id;
 
-      // profilesテーブルにLINE情報を保存
       await supabaseAdmin.from("profiles").upsert({
         id: userId,
         line_user_id: lineUserId,
-        display_name: displayName,
-        avatar_url: pictureUrl,
+        line_display_name: displayName,
+        line_picture_url: pictureUrl,
       });
     }
 
-    // 4. マジックリンク用のトークンを生成してセッションを作成
+    // マジックリンクでセッション作成
     const { data: linkData, error: linkError } =
       await supabaseAdmin.auth.admin.generateLink({
         type: "magiclink",
-        email: `line_${lineUserId}@line.placeholder`,
+        email,
       });
 
     if (linkError || !linkData) {
-      return NextResponse.redirect(
-        `${origin}/auth/login?error=session_creation_failed`
-      );
+      return NextResponse.redirect(`${origin}/auth/login?error=session_creation_failed`);
     }
 
-    // トークンを使ってコールバックにリダイレクト
     const token_hash = linkData.properties?.hashed_token;
     if (token_hash) {
       const redirectUrl = new URL(`${origin}/auth/callback`);

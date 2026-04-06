@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Header } from "@/components/layout/header";
@@ -11,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ImeInput } from "@/components/ui/ime-input";
 import { createClient } from "@/lib/supabase/client";
+import { usePwaInstall } from "@/hooks/use-pwa-install";
 
 // --- Constants ---
 
@@ -221,6 +223,9 @@ export default function MyPage() {
   const [editingField, setEditingField] = useState<EditableField>(null);
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
+  const [lineLinked, setLineLinked] = useState(false);
+  const [lineDisplayName, setLineDisplayName] = useState<string | null>(null);
+  const { canInstall, isInstalled, install } = usePwaInstall();
 
   // Draft values for editing
   const [draftNickname, setDraftNickname] = useState("");
@@ -232,6 +237,23 @@ export default function MyPage() {
   const [draftNotifCats, setDraftNotifCats] = useState<string[]>([]);
   const [draftChannel, setDraftChannel] = useState("");
   const [draftFrequency, setDraftFrequency] = useState("");
+
+  const searchParams = useSearchParams();
+
+  // LINE連携完了の通知
+  useEffect(() => {
+    if (searchParams.get("line_linked") === "true") {
+      setSaveMessage("LINEと連携しました");
+      setLineLinked(true);
+      setTimeout(() => setSaveMessage(""), 3000);
+      window.history.replaceState({}, "", "/mypage");
+    }
+    if (searchParams.get("error") === "line_already_linked") {
+      setSaveMessage("このLINEアカウントは既に別のユーザーと連携されています");
+      setTimeout(() => setSaveMessage(""), 5000);
+      window.history.replaceState({}, "", "/mypage");
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     async function load() {
@@ -255,6 +277,10 @@ export default function MyPage() {
             const p = data as Profile;
             setProfile(p);
             saveLocalProfile(p);
+            if (data.line_user_id) {
+              setLineLinked(true);
+              setLineDisplayName(data.line_display_name || null);
+            }
             setLoading(false);
             return;
           }
@@ -561,6 +587,19 @@ export default function MyPage() {
         </section>
 
         <div className="max-w-3xl mx-auto px-4 py-6">
+          {/* アプリを追加 */}
+          {canInstall && !isInstalled && (
+            <button
+              onClick={install}
+              className="w-full mb-4 flex items-center justify-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <path d="M8 1v9M5 7l3 3 3-3M2 13h12" />
+              </svg>
+              こもれびをホーム画面に追加
+            </button>
+          )}
+
           {/* Save message toast */}
           {saveMessage && (
             <div className="mb-4 p-3 bg-primary/10 text-primary rounded-lg text-sm text-center">
@@ -820,6 +859,49 @@ export default function MyPage() {
                     </span>
                   </EditableRow>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* LINE連携 */}
+            <Card className="border-border/50 shadow-none">
+              <CardHeader className="pb-1">
+                <CardTitle className="text-base">LINE連携</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {lineLinked ? (
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: "#06C755" }}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                        <path d="M20 6L9 17l-5-5" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-foreground">連携済み</p>
+                      {lineDisplayName && (
+                        <p className="text-xs text-muted-foreground">{lineDisplayName}</p>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      LINEと連携すると、健診リマインドや大切なお知らせをLINEで受け取れます。
+                    </p>
+                    <a
+                      href="/api/auth/line/link"
+                      className="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:opacity-90"
+                      style={{ backgroundColor: "#06C755" }}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+                      </svg>
+                      LINEと連携する
+                    </a>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
