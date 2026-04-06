@@ -280,6 +280,9 @@ export default function NewbornSleepPage() {
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">
+            <Link href="/learn/sleep-training" className={buttonVariants({ variant: "outline" })}>
+              ネントレ完全ガイドを読む
+            </Link>
             <Link href="/learn/baby-safety-guide" className={buttonVariants({ variant: "outline" })}>
               安全な睡眠環境・SIDS予防を読む
             </Link>

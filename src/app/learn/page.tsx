@@ -77,6 +77,14 @@ const articles = [
     href: "/learn/newborn-sleep",
   },
   {
+    title: "ネントレ完全ガイド｜4つの方法比較と7日間実践プラン",
+    tag: "睡眠",
+    audience: "0歳の親向け",
+    readTime: "保存版",
+    summary: "ジーナ式・ファーバー・椅子法・CIOの4つを比較。月齢別の推奨睡眠時間、開始判断チェック、7日間プラン付き。",
+    href: "/learn/sleep-training",
+  },
+  {
     title: "妊娠中・産後の食事ガイド",
     tag: "食事",
     audience: "妊婦・授乳中の方向け",
@@ -91,6 +99,14 @@ const articles = [
     readTime: "5分で読める",
     summary: "いつから、何から始めるか。進め方の基本と困ったときの対処。",
     href: "/learn/baby-food",
+  },
+  {
+    title: "赤ちゃんの食物アレルギーガイド｜早期導入と安全な進め方",
+    tag: "食事",
+    audience: "0歳の親向け",
+    readTime: "保存版",
+    summary: "LEAP・PETIT研究に基づく早期導入エビデンス、月齢別アレルゲン導入カレンダー、症状3段階フローチャート。",
+    href: "/learn/food-allergy-guide",
   },
   {
     title: "出産後に必要な手続き一覧",

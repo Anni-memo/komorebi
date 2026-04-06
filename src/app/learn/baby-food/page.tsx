@@ -268,6 +268,9 @@ export default function BabyFoodPage() {
 
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">
+            <Link href="/learn/food-allergy-guide" className={buttonVariants({ variant: "outline" })}>
+              食物アレルギーガイドを読む
+            </Link>
             <Link href="/learn/newborn-sleep" className={buttonVariants({ variant: "outline" })}>
               新生児の睡眠パターンを読む
             </Link>
