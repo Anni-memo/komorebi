@@ -6,6 +6,7 @@ import { FloatingSearch } from "@/components/floating-search";
 import { CookieBanner } from "@/components/cookie-banner";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { FloatingMusic } from "@/components/floating-music";
+import { PwaRegister } from "@/components/pwa-register";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -53,6 +54,9 @@ export default function RootLayout({
     <html lang="ja" className={`${notoSansJP.variable} h-full antialiased`}>
       <head>
         <meta name="theme-color" content="#4a8c6f" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       <body className="min-h-full flex flex-col">
         <a
@@ -67,6 +71,7 @@ export default function RootLayout({
         <ScrollToTop />
         <CookieBanner />
         <FloatingMusic />
+        <PwaRegister />
         <Analytics />
       </body>
     </html>

@@ -2,9 +2,35 @@
   "name": "こもれび — 子育ての案内所",
   "short_name": "こもれび",
   "description": "子育ての負担と不安を減らし、子に向ける時間を増やす",
-  "start_url": "/",
+  "start_url": "/home",
   "display": "standalone",
   "background_color": "#f8f6f0",
   "theme_color": "#4a8c6f",
-  "icons": []
+  "orientation": "portrait",
+  "categories": ["health", "lifestyle", "education"],
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-maskable-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }
