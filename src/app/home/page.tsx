@@ -12,6 +12,13 @@ import { createClient } from "@/lib/supabase/client";
 import { TodoCard, type TodoPriority } from "@/components/home/todo-card";
 import { MobileTabBar } from "@/components/home/mobile-tab-bar";
 import { calcPregnancyMonth, calcPregnancyWeeksAndDays, getRecipesForMonth } from "@/lib/pregnancy-recipes";
+import {
+  getPregnancyMessage,
+  getPostnatalMessage,
+  calcWeeksFromDueDate,
+  calcMonthsFromBirthdate,
+  type StageMessage,
+} from "@/lib/stage-messages";
 
 // ─── Types ───────────────────────────────────────────────────
 
@@ -379,6 +386,7 @@ export default function PersonalHomePage() {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
+  const [stageMessageOpen, setStageMessageOpen] = useState(false);
 
   useEffect(() => {
     // Check visit history
@@ -452,6 +460,14 @@ export default function PersonalHomePage() {
   const pregnancyWeeksAndDays =
     stage === "pregnant" && profile?.expected_due_date
       ? calcPregnancyWeeksAndDays(profile.expected_due_date)
+      : null;
+
+  // ステージ別メッセージ
+  const stageMessage: StageMessage | null =
+    stage === "pregnant" && profile?.expected_due_date
+      ? getPregnancyMessage(calcWeeksFromDueDate(profile.expected_due_date))
+      : profile?.child_birthdate
+      ? getPostnatalMessage(calcMonthsFromBirthdate(profile.child_birthdate))
       : null;
 
   // 妊娠月別おすすめ料理
@@ -528,63 +544,109 @@ export default function PersonalHomePage() {
       <Header />
       <main className="flex-1 bg-muted/10 pb-20 md:pb-0">
         {/* ─── 1. ウェルカムバナー ─── */}
-        <section className="relative h-44 sm:h-52 overflow-hidden">
-          <Image
-            src="/images/mypage-banner.jpg"
-            alt="木漏れ日の森"
-            fill
-            priority
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 max-w-3xl mx-auto px-4 pb-5">
-            <div className="flex items-end justify-between">
-              <div>
-                <h1 className="text-xl font-bold text-white drop-shadow-lg">
-                  {getGreeting()}
-                </h1>
-                <p className="text-sm text-white/85 mt-1 leading-relaxed drop-shadow">
-                  {greetingMessage}
-                </p>
-                {profile ? (
-                  <div className="flex flex-wrap items-center gap-2 mt-2">
-                    {profileSummary && (
-                      <Badge variant="secondary" className="text-xs bg-white/20 text-white border-white/30 backdrop-blur-sm">
-                        {profileSummary}
-                      </Badge>
-                    )}
-                    {familyTags.slice(1).map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-xs bg-white/20 text-white border-white/30 backdrop-blur-sm">{tag}</Badge>
-                    ))}
-                    <Link
-                      href="/mypage/edit"
-                      className="text-xs text-white/70 hover:text-white transition-colors ml-1"
-                    >
-                      プロフィールを見直す
-                    </Link>
-                  </div>
-                ) : (
-                  <p className="text-sm text-white/80 mt-2">
-                    <Link href={isLoggedIn ? "/onboarding" : "/auth/signup"} className="text-white underline hover:text-white/90">
-                      {isLoggedIn ? "プロフィールを設定" : "アカウント登録"}
-                    </Link>
-                    すると、あなた向けの案内が表示されます。
+        <div className="relative">
+          <section className="relative h-44 sm:h-52 overflow-hidden">
+            <Image
+              src="/images/mypage-banner.jpg"
+              alt="木漏れ日の森"
+              fill
+              priority
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 max-w-3xl mx-auto px-4 pb-5">
+              <div className="flex items-end justify-between">
+                <div>
+                  <h1 className="text-xl font-bold text-white drop-shadow-lg">
+                    {getGreeting()}
+                  </h1>
+                  <p className="text-sm text-white/85 mt-1 leading-relaxed drop-shadow">
+                    {greetingMessage}
                   </p>
-                )}
+                  {profile ? (
+                    <div className="flex flex-wrap items-center gap-2 mt-2">
+                      {profileSummary && (
+                        <Badge variant="secondary" className="text-xs bg-white/20 text-white border-white/30 backdrop-blur-sm">
+                          {profileSummary}
+                        </Badge>
+                      )}
+                      {familyTags.slice(1).map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs bg-white/20 text-white border-white/30 backdrop-blur-sm">{tag}</Badge>
+                      ))}
+                      <Link
+                        href="/mypage/edit"
+                        className="text-xs text-white/70 hover:text-white transition-colors ml-1"
+                      >
+                        プロフィールを見直す
+                      </Link>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-white/80 mt-2">
+                      <Link href={isLoggedIn ? "/onboarding" : "/auth/signup"} className="text-white underline hover:text-white/90">
+                        {isLoggedIn ? "プロフィールを設定" : "アカウント登録"}
+                      </Link>
+                      すると、あなた向けの案内が表示されます。
+                    </p>
+                  )}
+                </div>
+                <Link
+                  href="/notifications"
+                  className="shrink-0 ml-3 p-2 rounded-full hover:bg-white/20 transition-colors"
+                  aria-label="通知"
+                >
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/80">
+                    <path d="M10 2a5 5 0 0 0-5 5v3l-1.5 2.5h13L15 10V7a5 5 0 0 0-5-5Z" />
+                    <path d="M8 16a2 2 0 0 0 4 0" />
+                  </svg>
+                </Link>
               </div>
-              <Link
-                href="/notifications"
-                className="shrink-0 ml-3 p-2 rounded-full hover:bg-white/20 transition-colors"
-                aria-label="通知"
+            </div>
+          </section>
+
+        </div>
+
+        {/* 今日の赤ちゃん（タップで展開） */}
+        {stageMessage && (
+          <div className="max-w-3xl mx-auto px-4 mt-3">
+            <div>
+              <button
+                onClick={() => setStageMessageOpen(!stageMessageOpen)}
+                className="inline-flex items-center gap-1.5 bg-pink-50 border border-pink-200 rounded-full px-3 py-1.5 hover:bg-pink-100/80 active:bg-pink-100 transition-colors shadow-sm"
               >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/80">
-                  <path d="M10 2a5 5 0 0 0-5 5v3l-1.5 2.5h13L15 10V7a5 5 0 0 0-5-5Z" />
-                  <path d="M8 16a2 2 0 0 0 4 0" />
+                <span className="text-xs">🍼</span>
+                <span className="text-xs font-medium text-pink-700">赤ちゃんの様子</span>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className={`text-pink-400 transition-transform duration-200 ${stageMessageOpen ? "rotate-180" : ""}`}
+                >
+                  <path d="M3 4.5l3 3 3-3" />
                 </svg>
-              </Link>
+              </button>
+
+              {/* 展開コンテンツ */}
+              {stageMessageOpen && (
+                <div className="mt-2 bg-pink-50/80 border border-pink-200 rounded-xl px-4 py-4 space-y-3 shadow-sm">
+                  <div>
+                    <p className="text-xs text-pink-500 font-medium mb-1">🍼 赤ちゃんの様子</p>
+                    <p className="text-sm text-foreground leading-relaxed">{stageMessage.babyStatus}</p>
+                  </div>
+                  <div className="border-t border-pink-200/60 pt-3">
+                    <p className="text-xs text-pink-500 font-medium mb-1">💡 ママへのアドバイス</p>
+                    <p className="text-sm text-foreground leading-relaxed">{stageMessage.momAdvice}</p>
+                  </div>
+                  <div className="border-t border-pink-200/60 pt-3">
+                    <p className="text-sm text-pink-600/90 leading-relaxed italic">{stageMessage.encouragement}</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        </section>
+        )}
 
         <div className="max-w-3xl mx-auto px-4 py-6">
 
