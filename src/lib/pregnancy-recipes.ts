@@ -462,10 +462,13 @@ export function calcPregnancyMonth(expectedDueDate: string): number {
 
 /** 妊娠週数と日数を計算する（出産予定日から） */
 export function calcPregnancyWeeksAndDays(expectedDueDate: string): { weeks: number; days: number } {
-  const due = new Date(expectedDueDate);
+  const [y, m, d] = expectedDueDate.split("-").map(Number);
+  const due = new Date(y, m - 1, d);
+  due.setHours(0, 0, 0, 0);
   const lmp = new Date(due.getTime() - 280 * 24 * 60 * 60 * 1000);
   const now = new Date();
-  const diffDays = Math.floor(
+  now.setHours(0, 0, 0, 0);
+  const diffDays = Math.round(
     (now.getTime() - lmp.getTime()) / (1000 * 60 * 60 * 24)
   );
   const weeks = Math.floor(diffDays / 7);

@@ -396,10 +396,13 @@ export function getPostnatalMessage(months: number): StageMessage | null {
  * 出産予定日から妊娠週数を計算
  */
 export function calcWeeksFromDueDate(dueDate: string): number {
-  const due = new Date(dueDate);
+  const [y, m, d] = dueDate.split("-").map(Number);
+  const due = new Date(y, m - 1, d);
+  due.setHours(0, 0, 0, 0);
   const lmp = new Date(due.getTime() - 280 * 24 * 60 * 60 * 1000);
   const now = new Date();
-  const diffDays = Math.floor(
+  now.setHours(0, 0, 0, 0);
+  const diffDays = Math.round(
     (now.getTime() - lmp.getTime()) / (1000 * 60 * 60 * 24)
   );
   return Math.floor(diffDays / 7);

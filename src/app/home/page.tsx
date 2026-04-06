@@ -681,10 +681,17 @@ export default function PersonalHomePage() {
                     const daysInMonth = new Date(year, month + 1, 0).getDate();
                     const dayNames = ["日", "月", "火", "水", "木", "金", "土"];
 
-                    // 出産予定日からLMP（最終月経日）を計算
+                    // 出産予定日からLMP（最終月経日）を計算（ローカル時刻で正規化）
                     const dueDateStr = profile?.expected_due_date;
-                    const dueMs = dueDateStr ? new Date(dueDateStr).getTime() : 0;
-                    const lmpMs = dueMs - 280 * 24 * 60 * 60 * 1000;
+                    let dueMs = 0;
+                    let lmpMs = 0;
+                    if (dueDateStr) {
+                      const [dy, dm, dd] = dueDateStr.split("-").map(Number);
+                      const dueLocal = new Date(dy, dm - 1, dd);
+                      dueLocal.setHours(0, 0, 0, 0);
+                      dueMs = dueLocal.getTime();
+                      lmpMs = dueMs - 280 * 24 * 60 * 60 * 1000;
+                    }
 
                     // サイズ比較を絵文字に変換
                     const sizeEmoji: Record<string, string> = {
@@ -708,16 +715,18 @@ export default function PersonalHomePage() {
                     // 各日付の妊娠週数を計算するヘルパー
                     const getWeekForDay = (day: number): number | null => {
                       if (!dueMs) return null;
-                      const dateMs = new Date(year, month, day).getTime();
-                      const diffDays = Math.floor((dateMs - lmpMs) / (1000 * 60 * 60 * 24));
+                      const d = new Date(year, month, day);
+                      d.setHours(0, 0, 0, 0);
+                      const diffDays = Math.round((d.getTime() - lmpMs) / (1000 * 60 * 60 * 24));
                       const w = Math.floor(diffDays / 7);
                       return (w >= 4 && w <= 42) ? w : null;
                     };
 
                     const getDayOfWeek = (day: number): number => {
                       if (!dueMs) return 0;
-                      const dateMs = new Date(year, month, day).getTime();
-                      const diffDays = Math.floor((dateMs - lmpMs) / (1000 * 60 * 60 * 24));
+                      const d = new Date(year, month, day);
+                      d.setHours(0, 0, 0, 0);
+                      const diffDays = Math.round((d.getTime() - lmpMs) / (1000 * 60 * 60 * 24));
                       return diffDays % 7;
                     };
 
@@ -728,16 +737,21 @@ export default function PersonalHomePage() {
                       <div className="mt-2 bg-amber-50/80 border border-amber-200 rounded-xl px-3 py-3 shadow-sm w-[250px]">
                         {/* 現在の週数 + サイズ目安 */}
                         {currentWData && (
-                          <div className="flex items-center justify-center gap-1.5 mb-2">
-                            <span className="text-lg">{sizeEmoji[currentWData.babySizeComparison] ?? "👶"}</span>
+                          <div className="flex items-center justify-center gap-2 mb-2">
+                            <span className="text-2xl">{sizeEmoji[currentWData.babySizeComparison] ?? "👶"}</span>
                             <div className="text-center">
                               <p className="text-xs font-bold text-amber-800">
                                 {currentW}週{dueDateStr ? (() => {
-                                  const diffDays = Math.floor((now.getTime() - lmpMs) / (1000 * 60 * 60 * 24));
+                                  const nowLocal = new Date();
+                                  nowLocal.setHours(0, 0, 0, 0);
+                                  const diffDays = Math.round((nowLocal.getTime() - lmpMs) / (1000 * 60 * 60 * 24));
                                   return diffDays % 7;
                                 })() : 0}日
                               </p>
                               <p className="text-[10px] text-amber-600">{currentWData.babySizeComparison}くらい</p>
+                              <p className="text-[9px] text-amber-500/80">
+                                {currentWData.babySize.lengthCm}cm・{currentWData.babySize.weightG}g
+                              </p>
                             </div>
                           </div>
                         )}

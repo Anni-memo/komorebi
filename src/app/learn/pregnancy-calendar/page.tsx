@@ -218,7 +218,9 @@ function CalendarView({
   today.setHours(0, 0, 0, 0);
 
   // LMP（最終月経日）= 出産予定日 - 280日
-  const due = new Date(dueDate);
+  const [dy, dm, dd] = dueDate.split("-").map(Number);
+  const due = new Date(dy, dm - 1, dd);
+  due.setHours(0, 0, 0, 0);
   const lmpDate = new Date(due.getTime() - 280 * 24 * 60 * 60 * 1000);
 
   // 妊娠4週の開始日（LMP + 28日）
