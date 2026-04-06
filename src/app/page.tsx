@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SearchBar } from "@/components/search-bar";
@@ -109,14 +110,23 @@ export default function HomePage() {
       <main className="flex-1">
         {/* 1. ファーストビュー */}
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-komorebi-light/30 to-transparent pointer-events-none" />
+          <div className="absolute inset-0">
+            <Image
+              src="/images/hero-header.png"
+              alt="木漏れ日の中で赤ちゃんと過ごすお母さん"
+              fill
+              priority
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
+          </div>
           <div className="max-w-3xl mx-auto px-4 pt-20 pb-16 text-center relative">
-            <h1 className="text-3xl sm:text-4xl font-bold leading-snug tracking-tight text-foreground mb-4">
+            <h1 className="text-3xl sm:text-4xl font-bold leading-snug tracking-tight text-white mb-4 drop-shadow-lg">
               子育ての負担と不安を減らし、
               <br />
               子に向ける時間を増やす。
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto">
+            <p className="text-base sm:text-lg text-white/90 leading-relaxed mb-8 max-w-xl mx-auto drop-shadow">
               AIがあなたの状況を整理して、
               <br className="sm:hidden" />
               今必要な情報・手続き・準備を案内します。
