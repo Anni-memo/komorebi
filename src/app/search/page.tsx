@@ -49,6 +49,7 @@ const searchIndex = [
   { title: "児童手当", type: "制度", keywords: ["児童手当", "手当", "申請"], href: "/benefits" },
   { title: "乳幼児医療費助成", type: "制度", keywords: ["医療費", "助成", "乳幼児"], href: "/benefits" },
   { title: "胎動・陣痛カウンター", type: "ツール", keywords: ["胎動", "陣痛", "カウンター", "計測", "間隔", "出産"], href: "/learn/contraction-counter" },
+  { title: "妊娠月別おすすめ料理ガイド", type: "記事", keywords: ["料理", "レシピ", "妊娠", "つわり", "食事", "栄養", "葉酸", "鉄分"], href: "/learn/pregnancy-recipes" },
 ];
 
 type SearchResult = typeof searchIndex[number];
