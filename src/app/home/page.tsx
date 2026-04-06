@@ -599,8 +599,12 @@ export default function PersonalHomePage() {
                   </div>
                   {monthRecipes && (
                     <div className="border-t border-primary/10 pt-3">
-                      <p className="text-xs font-semibold text-foreground mb-2 flex items-center gap-1.5">
-                        <span aria-hidden>🍽️</span>今週のおすすめ料理
+                      <p className="text-xs font-semibold text-foreground mb-1 flex items-center gap-1.5">
+                        <span aria-hidden>🍽️</span>今週のあなたにおすすめな料理
+                      </p>
+                      <p className="text-[10px] text-muted-foreground mb-2">
+                        推奨たんぱく質: {pregnancyWeeksAndDays && pregnancyWeeksAndDays.weeks < 14 ? "50g/日" : pregnancyWeeksAndDays && pregnancyWeeksAndDays.weeks < 28 ? "55g/日（付加5g）" : "75g/日（付加25g）"}
+                        ｜重点: {monthRecipes.keyNutrients}
                       </p>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                         {monthRecipes.recipes.slice(0, 4).map((recipe) => (
