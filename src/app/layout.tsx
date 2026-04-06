@@ -5,6 +5,7 @@ import { WebSiteJsonLd } from "@/components/seo/json-ld";
 import { FloatingSearch } from "@/components/floating-search";
 import { CookieBanner } from "@/components/cookie-banner";
 import { ScrollToTop } from "@/components/scroll-to-top";
+import { FloatingMusic } from "@/components/floating-music";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -65,6 +66,7 @@ export default function RootLayout({
         <FloatingSearch />
         <ScrollToTop />
         <CookieBanner />
+        <FloatingMusic />
         <Analytics />
       </body>
     </html>

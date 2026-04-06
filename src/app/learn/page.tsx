@@ -125,7 +125,15 @@ const articles = [
     href: "/learn/fever-guide",
   },
   {
-    title: "子どもがかかりやすい病気ガイド",
+    title: "赤ちゃんの事故を防ぐ｜月齢別リスクと安全チェックリスト",
+    tag: "健康・病気",
+    audience: "0歳〜3歳の親向け",
+    readTime: "保存版",
+    summary: "誤飲・転落・SIDS・溺水。月齢別のリスクマップ、部屋別チェックリスト、緊急時の応急処置をまとめて確認。",
+    href: "/learn/baby-safety-guide",
+  },
+  {
+    title: "子どもがかかりやすい病気ガ���ド",
     tag: "健康・病気",
     audience: "すべての親向け",
     readTime: "保存版",
@@ -211,6 +219,14 @@ const articles = [
     readTime: "5分で読める",
     summary: "月齢別の発達の特徴と、家庭でできる知育遊びを整理。特別な教材は不要。",
     href: "/learn/early-education",
+  },
+  {
+    title: "子育て世帯が使える給付金・制度まとめ【2026年最新】",
+    tag: "制度",
+    audience: "妊婦〜就学前の親向け",
+    readTime: "保存版",
+    summary: "児童手当拡充・こども誰でも通園制度・出生後休業支援給付金など、妊娠から就学前まで使える制度をライフステージ順に解説。",
+    href: "/learn/childcare-benefits-guide",
   },
   {
     title: "地域の子育て支援制度の調べかた",

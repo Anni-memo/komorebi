@@ -538,6 +538,12 @@ export default function PostnatalProceduresPage() {
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
+              href="/learn/childcare-benefits-guide"
+              className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-4 h-8 text-sm font-medium hover:bg-muted transition-colors"
+            >
+              給付金・制度の全体像を見る
+            </Link>
+            <Link
               href="/learn/mental-care"
               className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-4 h-8 text-sm font-medium hover:bg-muted transition-colors"
             >

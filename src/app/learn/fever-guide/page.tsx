@@ -472,10 +472,16 @@ export default function FeverGuidePage() {
           {/* 導線 */}
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
+              href="/learn/baby-safety-guide"
+              className={buttonVariants({ variant: "outline" })}
+            >
+              事故予防・応急処置ガイドを読む
+            </Link>
+            <Link
               href="/learn/vaccination-schedule"
               className={buttonVariants({ variant: "outline" })}
             >
-              予防接種スケジュールを見る
+              予防接種スケジュー��を見る
             </Link>
             <Link href="/learn" className={buttonVariants({ variant: "ghost" })}>
               学ぶトップに戻る
