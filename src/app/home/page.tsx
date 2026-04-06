@@ -605,6 +605,7 @@ export default function PersonalHomePage() {
                       <p className="text-[10px] text-muted-foreground mb-2">
                         推奨たんぱく質: {pregnancyWeeksAndDays && pregnancyWeeksAndDays.weeks < 14 ? "50g/日" : pregnancyWeeksAndDays && pregnancyWeeksAndDays.weeks < 28 ? "55g/日（付加5g）" : "75g/日（付加25g）"}
                         ｜重点: {monthRecipes.keyNutrients}
+                        {" "}<Link href="/learn/pregnancy-nutrition-science" className="text-primary hover:underline">なぜ必要？→</Link>
                       </p>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                         {monthRecipes.recipes.slice(0, 4).map((recipe) => {
