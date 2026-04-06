@@ -87,11 +87,6 @@ function WeekCard({
                   今ここ
                 </Badge>
               )}
-              {data.checkup && (
-                <Badge variant="outline" className="text-xs border-sky-300 text-sky-600">
-                  健診
-                </Badge>
-              )}
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <span className="text-xs text-muted-foreground">
@@ -143,17 +138,6 @@ function WeekCard({
                 </p>
               </div>
 
-              {/* 健診情報 */}
-              {data.checkup && (
-                <div className="bg-amber-50/60 rounded-lg p-3">
-                  <p className="text-xs font-semibold text-amber-700 mb-1 flex items-center gap-1">
-                    <span aria-hidden>&#x1F3E5;</span> 健診
-                  </p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {data.checkup}
-                  </p>
-                </div>
-              )}
             </div>
           </CardContent>
         )}
@@ -274,11 +258,6 @@ function CalendarView({
   // 月初の曜日（0=日曜）
   const firstDayOfWeek = new Date(year, month, 1).getDay();
 
-  // 健診がある週のセット
-  const checkupWeeks = new Set(
-    pregnancyWeeks.filter((w) => w.checkup).map((w) => w.week)
-  );
-
   // カレンダーセルを生成
   const cells: (null | {
     day: number;
@@ -287,7 +266,6 @@ function CalendarView({
     trimester: 1 | 2 | 3 | null;
     week: number | null;
     dayOfPregnancy: number;
-    hasCheckup: boolean;
   })[] = [];
 
   // 月初の空セル
@@ -312,7 +290,6 @@ function CalendarView({
       trimester,
       week,
       dayOfPregnancy,
-      hasCheckup: week !== null && checkupWeeks.has(week),
     });
   }
 
@@ -377,10 +354,6 @@ function CalendarView({
           <span className="w-3 h-3 rounded bg-emerald-100/80 border border-emerald-200" />
           後期
         </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-sky-400" />
-          健診
-        </span>
       </div>
 
       {/* カレンダーグリッド */}
@@ -440,9 +413,6 @@ function CalendarView({
                   <span className="text-[10px] text-muted-foreground mt-0.5">
                     {cell.week}w{cell.dayOfPregnancy}d
                   </span>
-                )}
-                {cell.hasCheckup && cell.dayOfPregnancy === 0 && (
-                  <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-sky-400" />
                 )}
               </button>
             );
@@ -509,16 +479,6 @@ function CalendarView({
                   {selectedWeekData.todoAndTips}
                 </p>
               </div>
-              {selectedWeekData.checkup && (
-                <div className="bg-amber-50/60 rounded-lg p-3">
-                  <p className="text-xs font-semibold text-amber-700 mb-1">
-                    &#x1F3E5; 健診
-                  </p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {selectedWeekData.checkup}
-                  </p>
-                </div>
-              )}
             </div>
           </CardContent>
         </Card>
