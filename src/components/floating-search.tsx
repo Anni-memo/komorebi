@@ -129,10 +129,16 @@ export function FloatingSearch() {
                 />
                 <button
                   type="button"
-                  onClick={() => setOpen(false)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground hover:text-foreground px-2 py-1"
+                  onClick={() => {
+                    if (query.trim()) {
+                      handleSearch(query);
+                    } else {
+                      setOpen(false);
+                    }
+                  }}
+                  className={`absolute right-3 top-1/2 -translate-y-1/2 text-xs px-2 py-1 ${query.trim() ? "text-primary font-medium hover:text-primary/80" : "text-muted-foreground hover:text-foreground"}`}
                 >
-                  閉じる
+                  {query.trim() ? "検索する" : "閉じる"}
                 </button>
               </div>
             </form>
