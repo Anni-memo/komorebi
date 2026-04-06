@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { ImeInput } from "@/components/ui/ime-input";
 import { createClient } from "@/lib/supabase/client";
 import { usePwaInstall } from "@/hooks/use-pwa-install";
+import { PwaInstallGuide } from "@/components/pwa-install-guide";
 
 // --- Constants ---
 
@@ -225,7 +226,7 @@ export default function MyPage() {
   const [saveMessage, setSaveMessage] = useState("");
   const [lineLinked, setLineLinked] = useState(false);
   const [lineDisplayName, setLineDisplayName] = useState<string | null>(null);
-  const { canInstall, isInstalled, install } = usePwaInstall();
+  const { isInstalled, showGuide, install, closeGuide } = usePwaInstall();
 
   // Draft values for editing
   const [draftNickname, setDraftNickname] = useState("");
@@ -588,7 +589,7 @@ export default function MyPage() {
 
         <div className="max-w-3xl mx-auto px-4 py-6">
           {/* アプリを追加 */}
-          {canInstall && !isInstalled && (
+          {!isInstalled && (
             <button
               onClick={install}
               className="w-full mb-4 flex items-center justify-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
@@ -934,6 +935,7 @@ export default function MyPage() {
         </div>
       </main>
       <Footer />
+      {showGuide && <PwaInstallGuide onClose={closeGuide} />}
     </>
   );
 }

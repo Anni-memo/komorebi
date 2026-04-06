@@ -5,8 +5,9 @@ import { useEffect, useState, useCallback } from "react";
 let deferredPrompt: Event | null = null;
 
 export function usePwaInstall() {
-  const [canInstall, setCanInstall] = useState(false);
+  const [hasNativePrompt, setHasNativePrompt] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
 
   useEffect(() => {
     // 既にインストール済みか判定（standalone or fullscreen）
@@ -18,23 +19,21 @@ export function usePwaInstall() {
       return;
     }
 
-    // 既にキャッチ済みのプロンプトがあれば利用
     if (deferredPrompt) {
-      setCanInstall(true);
+      setHasNativePrompt(true);
     }
 
     const handler = (e: Event) => {
       e.preventDefault();
       deferredPrompt = e;
-      setCanInstall(true);
+      setHasNativePrompt(true);
     };
 
     window.addEventListener("beforeinstallprompt", handler);
 
-    // インストール完了を検知
     window.addEventListener("appinstalled", () => {
       setIsInstalled(true);
-      setCanInstall(false);
+      setHasNativePrompt(false);
       deferredPrompt = null;
     });
 
@@ -42,17 +41,24 @@ export function usePwaInstall() {
   }, []);
 
   const install = useCallback(async () => {
-    if (!deferredPrompt) return;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (deferredPrompt as any).prompt();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result = await (deferredPrompt as any).userChoice;
-    if (result.outcome === "accepted") {
-      setIsInstalled(true);
-      setCanInstall(false);
+    if (deferredPrompt) {
+      // Chrome/Edge: ネイティブプロンプト
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (deferredPrompt as any).prompt();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const result = await (deferredPrompt as any).userChoice;
+      if (result.outcome === "accepted") {
+        setIsInstalled(true);
+        setHasNativePrompt(false);
+      }
+      deferredPrompt = null;
+    } else {
+      // Firefox/Safari等: 手順ガイドを表示
+      setShowGuide(true);
     }
-    deferredPrompt = null;
   }, []);
 
-  return { canInstall, isInstalled, install };
+  const closeGuide = useCallback(() => setShowGuide(false), []);
+
+  return { hasNativePrompt, isInstalled, showGuide, install, closeGuide };
 }

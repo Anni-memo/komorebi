@@ -8,6 +8,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { usePwaInstall } from "@/hooks/use-pwa-install";
+import { PwaInstallGuide } from "@/components/pwa-install-guide";
 
 const navItems = [
   { href: "/learn", label: "学ぶ" },
@@ -70,7 +71,7 @@ export function Header() {
   };
 
   const userInitial = user?.email?.charAt(0).toUpperCase() ?? "?";
-  const { canInstall, isInstalled, install } = usePwaInstall();
+  const { isInstalled, showGuide, install, closeGuide } = usePwaInstall();
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -128,7 +129,7 @@ export function Header() {
               ログイン
             </Link>
           )}
-          {canInstall && !isInstalled && (
+          {!isInstalled && (
             <Button
               variant="outline"
               size="sm"
@@ -257,7 +258,7 @@ export function Header() {
                       </Avatar>
                       <span>マイページ</span>
                     </Link>
-                    {canInstall && !isInstalled && (
+                    {!isInstalled && (
                       <button
                         onClick={() => { install(); setOpen(false); }}
                         className="flex items-center gap-3 text-base text-primary font-medium py-3"
@@ -303,7 +304,7 @@ export function Header() {
                       <span className="text-lg" aria-hidden>📝</span>
                       新規登録
                     </Link>
-                    {canInstall && !isInstalled && (
+                    {!isInstalled && (
                       <button
                         onClick={() => { install(); setOpen(false); }}
                         className="flex items-center gap-3 text-base text-primary font-medium py-3"
@@ -327,6 +328,7 @@ export function Header() {
           </SheetContent>
         </Sheet>
       </div>
+      {showGuide && <PwaInstallGuide onClose={closeGuide} />}
     </header>
   );
 }
