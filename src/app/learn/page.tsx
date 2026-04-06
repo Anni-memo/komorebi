@@ -45,6 +45,14 @@ function matchesCategory(articleTag: string, filterValue: string): boolean {
 
 const articles = [
   {
+    title: "妊娠カレンダー｜週数別 赤ちゃんの成長とママの変化",
+    tag: "出産準備",
+    audience: "妊婦向け",
+    readTime: "保存版",
+    summary: "出産予定日を入力すると今の週数をハイライト。4〜42週の赤ちゃんの発達・ママの体の変化・やることを一覧で確認。",
+    href: "/learn/pregnancy-calendar",
+  },
+  {
     title: "RSVワクチン（アブリスボ）判断ガイド",
     tag: "予防接種",
     audience: "妊婦向け",
