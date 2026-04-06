@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/client";
 import { TodoCard, type TodoPriority } from "@/components/home/todo-card";
 import { MobileTabBar } from "@/components/home/mobile-tab-bar";
+import { calcPregnancyMonth, calcPregnancyWeeksAndDays, getRecipesForMonth } from "@/lib/pregnancy-recipes";
 
 // ─── Types ───────────────────────────────────────────────────
 
@@ -446,6 +447,22 @@ export default function PersonalHomePage() {
   const qaItems = staticQA[stage] || staticQA.default;
   const prepareItems = staticPrepare[stage] || staticPrepare.default;
 
+  // 妊娠週数・日数
+  const pregnancyWeeksAndDays =
+    stage === "pregnant" && profile?.expected_due_date
+      ? calcPregnancyWeeksAndDays(profile.expected_due_date)
+      : null;
+
+  // 妊娠月別おすすめ料理
+  const pregnancyMonth =
+    stage === "pregnant" && profile?.expected_due_date
+      ? calcPregnancyMonth(profile.expected_due_date)
+      : null;
+  const monthRecipes =
+    pregnancyMonth && pregnancyMonth >= 2
+      ? getRecipesForMonth(pregnancyMonth)
+      : null;
+
   const familyTags = profile?.family_situation
     ?.filter((s) => s !== "skip")
     .map((s) => getFamilyLabel(s)) || [];
@@ -559,6 +576,52 @@ export default function PersonalHomePage() {
               </p>
             )}
           </section>
+
+          {/* ─── 妊娠週数 + 今週のおすすめ料理（妊娠中ユーザー向け） ─── */}
+          {pregnancyWeeksAndDays && (
+            <section className="mb-6">
+              <Card className="border-primary/20 bg-gradient-to-r from-komorebi-light/40 to-komorebi-light/20 shadow-none dark:from-primary/10 dark:to-primary/5">
+                <CardContent className="py-5 px-5">
+                  <div className="flex items-center gap-4 mb-3">
+                    <span className="text-2xl" aria-hidden>🤰</span>
+                    <div>
+                      <p className="text-2xl font-bold text-foreground">
+                        {pregnancyWeeksAndDays.weeks}週{pregnancyWeeksAndDays.days}日
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        妊娠{pregnancyMonth}ヶ月目
+                        {profile?.expected_due_date && (() => {
+                          const d = getDaysUntilDue(profile.expected_due_date!);
+                          return d > 0 ? ` — 予定日まであと${d}日` : "";
+                        })()}
+                      </p>
+                    </div>
+                  </div>
+                  {monthRecipes && (
+                    <div className="border-t border-primary/10 pt-3">
+                      <p className="text-xs font-semibold text-foreground mb-2 flex items-center gap-1.5">
+                        <span aria-hidden>🍽️</span>今週のおすすめ料理
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                        {monthRecipes.recipes.slice(0, 4).map((recipe) => (
+                          <div key={recipe.name} className="flex items-center justify-between bg-background/60 rounded-lg px-3 py-2">
+                            <span className="text-xs text-foreground truncate">{recipe.name}</span>
+                            <Badge variant="outline" className="text-[10px] shrink-0 ml-1.5">{recipe.time}</Badge>
+                          </div>
+                        ))}
+                      </div>
+                      <Link
+                        href={`/learn/pregnancy-recipes#month-${monthRecipes.month}`}
+                        className="text-xs text-primary hover:underline mt-2 inline-block"
+                      >
+                        全{monthRecipes.recipes.length}品のレシピを見る →
+                      </Link>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </section>
+          )}
 
           {/* ─── 胎動・陣痛カウンター（妊娠中ユーザー向け） ─── */}
           {(stage === "pregnant" || !profile) && (
@@ -698,6 +761,48 @@ export default function PersonalHomePage() {
                 ))}
               </ListCard>
             </section>
+
+            {/* ─── 5.5 妊娠月別おすすめ料理（妊娠中ユーザーのみ） ─── */}
+            {monthRecipes && (
+              <section>
+                <SectionHeader
+                  icon="🍽️"
+                  title={`${monthRecipes.month}ヶ月目のおすすめ料理`}
+                  subtitle={`${monthRecipes.mealTip}（重点: ${monthRecipes.keyNutrients}）`}
+                />
+                <Card className="border-border/50 shadow-none">
+                  <CardContent className="py-2">
+                    <ul className="divide-y divide-border/30">
+                      {monthRecipes.recipes.map((recipe) => (
+                        <li key={recipe.name}>
+                          <div className="flex items-center justify-between px-3 py-3">
+                            <div className="flex-1 min-w-0">
+                              <span className="text-sm text-foreground leading-snug block">
+                                {recipe.name}
+                              </span>
+                              <span className="text-xs text-muted-foreground">
+                                {recipe.nutrients}
+                              </span>
+                            </div>
+                            <Badge variant="outline" className="text-xs shrink-0 ml-2">
+                              {recipe.time}
+                            </Badge>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+                <div className="mt-2">
+                  <Link
+                    href={`/learn/pregnancy-recipes#month-${monthRecipes.month}`}
+                    className="text-xs text-primary hover:underline"
+                  >
+                    詳しいレシピガイドを見る →
+                  </Link>
+                </div>
+              </section>
+            )}
 
             {/* ─── 6. 不安が減る記事 ─── */}
             <section>
