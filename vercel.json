@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/milestone-notifications",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
