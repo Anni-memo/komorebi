@@ -424,6 +424,29 @@ export default function MyPage() {
     window.location.href = "/";
   }
 
+  async function handleLineUnlink() {
+    if (!window.confirm("LINE連携を解除します。よろしいですか？")) return;
+    setSaving(true);
+    setSaveMessage("");
+    try {
+      const res = await fetch("/api/auth/line/unlink", { method: "POST" });
+      if (!res.ok) {
+        setSaveMessage("解除に失敗しました。時間をおいて再度お試しください");
+        setTimeout(() => setSaveMessage(""), 4000);
+        return;
+      }
+      setLineLinked(false);
+      setLineDisplayName(null);
+      setSaveMessage("LINE連携を解除しました");
+      setTimeout(() => setSaveMessage(""), 3000);
+    } catch {
+      setSaveMessage("解除に失敗しました。時間をおいて再度お試しください");
+      setTimeout(() => setSaveMessage(""), 4000);
+    } finally {
+      setSaving(false);
+    }
+  }
+
   // --- Loading ---
   if (loading) {
     return (
@@ -870,21 +893,32 @@ export default function MyPage() {
               </CardHeader>
               <CardContent>
                 {lineLinked ? (
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center"
-                      style={{ backgroundColor: "#06C755" }}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-8 h-8 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: "#06C755" }}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                          <path d="M20 6L9 17l-5-5" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-foreground">連携済み</p>
+                        {lineDisplayName && (
+                          <p className="text-xs text-muted-foreground">{lineDisplayName}</p>
+                        )}
+                      </div>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-muted-foreground hover:text-destructive"
+                      onClick={handleLineUnlink}
+                      disabled={saving}
                     >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                        <path d="M20 6L9 17l-5-5" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground">連携済み</p>
-                      {lineDisplayName && (
-                        <p className="text-xs text-muted-foreground">{lineDisplayName}</p>
-                      )}
-                    </div>
+                      解除する
+                    </Button>
                   </div>
                 ) : (
                   <div>
