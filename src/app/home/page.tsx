@@ -11,6 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/client";
 import { TodoCard, type TodoPriority } from "@/components/home/todo-card";
 import { MobileTabBar } from "@/components/home/mobile-tab-bar";
+import { TodayAiCard } from "@/components/home/today-ai-card";
+import { getTodayGuidance } from "@/lib/today-guidance";
 import { calcPregnancyMonth, calcPregnancyWeeksAndDays, getRecipesForMonth } from "@/lib/pregnancy-recipes";
 import {
   getPregnancyMessage,
@@ -606,6 +608,13 @@ export default function PersonalHomePage() {
           </section>
 
         </div>
+
+        {/* 今日のAIカード（Phase 1: ルールベース、Phase 2で動的生成） */}
+        {profile && (
+          <div className="max-w-3xl mx-auto px-4 mt-4">
+            <TodayAiCard guidance={getTodayGuidance(profile)} />
+          </div>
+        )}
 
         {/* 今日の赤ちゃん＋妊娠カレンダー（タップで展開） */}
         {stageMessage && (
