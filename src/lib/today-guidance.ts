@@ -222,3 +222,18 @@ export function getTodayGuidance(profile: TodayGuidanceInput): TodayGuidance {
 
   return defaultGuidance;
 }
+
+// Phase 2: API経由でClaude生成ガイダンスを取得。失敗時は呼び出し側でルールベースを継続利用。
+export async function fetchTodayGuidance(): Promise<TodayGuidance | null> {
+  try {
+    const res = await fetch("/api/today-guidance", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { guidance?: TodayGuidance };
+    return data.guidance ?? null;
+  } catch {
+    return null;
+  }
+}

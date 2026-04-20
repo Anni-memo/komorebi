@@ -12,7 +12,7 @@ import { createClient } from "@/lib/supabase/client";
 import { TodoCard, type TodoPriority } from "@/components/home/todo-card";
 import { MobileTabBar } from "@/components/home/mobile-tab-bar";
 import { TodayAiCard } from "@/components/home/today-ai-card";
-import { getTodayGuidance } from "@/lib/today-guidance";
+import { fetchTodayGuidance, getTodayGuidance, type TodayGuidance } from "@/lib/today-guidance";
 import { calcPregnancyMonth, calcPregnancyWeeksAndDays, getRecipesForMonth } from "@/lib/pregnancy-recipes";
 import {
   getPregnancyMessage,
@@ -391,6 +391,7 @@ export default function PersonalHomePage() {
   const [isFirstVisit, setIsFirstVisit] = useState(true);
   const [stageMessageOpen, setStageMessageOpen] = useState(false);
   const [calendarOpen, setCalendarOpen] = useState(false);
+  const [aiGuidance, setAiGuidance] = useState<TodayGuidance | null>(null);
 
   useEffect(() => {
     // Check visit history
@@ -449,6 +450,18 @@ export default function PersonalHomePage() {
 
     load();
   }, []);
+
+  // Phase 2: Claude生成ガイダンスを非同期で取得。失敗時はルールベース表示のまま。
+  useEffect(() => {
+    if (!profile || !isLoggedIn) return;
+    let cancelled = false;
+    fetchTodayGuidance().then((result) => {
+      if (!cancelled && result) setAiGuidance(result);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [profile, isLoggedIn]);
 
   // ─── Derived state ──────────────────────────────────────────
 
@@ -609,10 +622,10 @@ export default function PersonalHomePage() {
 
         </div>
 
-        {/* 今日のAIカード（Phase 1: ルールベース、Phase 2で動的生成） */}
+        {/* 今日のAIカード（Phase 2: ルールベースで即時描画 → APIで個別化ガイダンスにswap） */}
         {profile && (
           <div className="max-w-3xl mx-auto px-4 mt-4">
-            <TodayAiCard guidance={getTodayGuidance(profile)} />
+            <TodayAiCard guidance={aiGuidance ?? getTodayGuidance(profile)} />
           </div>
         )}
 
