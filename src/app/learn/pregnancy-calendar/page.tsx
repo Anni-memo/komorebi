@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav";
 import { ShareButtons } from "@/components/share-buttons";
 import { MedicalDisclaimer } from "@/components/medical-disclaimer";
+import { ArticleMeta } from "@/components/article-meta";
 import {
   pregnancyWeeks,
   trimesterInfo,
@@ -590,6 +591,7 @@ export default function PregnancyCalendarPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
               妊娠カレンダー
             </h1>
+            <ArticleMeta updatedAt="2026-04-21" />
             <p className="text-muted-foreground leading-relaxed">
               出産予定日を入力すると、今の週数がハイライトされます。
               赤ちゃんの成長とママの体の変化を週ごとに確認できます。

@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav";
 import { ShareButtons } from "@/components/share-buttons";
+import { ArticleMeta } from "@/components/article-meta";
 import { getRecipeBySlug, getRecipesByMonth } from "@/lib/pregnancy-recipes";
 
 const trimesterColors: Record<string, string> = {
@@ -69,6 +70,7 @@ export default function RecipeDetailPage() {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2 leading-tight">
               {recipe.name}
             </h1>
+            <ArticleMeta updatedAt="2026-04-21" />
             <div className="flex flex-wrap gap-1.5 mb-4">
               {recipe.nutrients.split("・").map((n) => (
                 <span
