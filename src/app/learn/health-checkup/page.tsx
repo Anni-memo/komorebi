@@ -12,7 +12,7 @@ import { ShareButtons } from "@/components/share-buttons";
 import { MedicalDisclaimer } from "@/components/medical-disclaimer";
 
 export const metadata = {
-  title: "��幼児健診ガイド｜月齢別にわかる健診の流れと準備",
+  title: "乳幼児健診ガイド｜月齢別にわかる健診の流れと準備",
   description:
     "3-4ヶ月・6-7ヶ月・1歳半・3歳の乳幼児健診を月齢別に解説。当日の流れ、チェック項目、持ち物、よくある質問をまとめました。",
 };
@@ -160,6 +160,7 @@ export default function HealthCheckupPage() {
             { id: "overview", label: "乳幼児健診とは" },
             { id: "guide", label: "月齢別ガイド" },
             { id: "preparation", label: "どの健診にも共通の準備" },
+            { id: "references", label: "出典・参考文献" },
           ]} />
 
           {/* 概要カード */}
@@ -297,6 +298,34 @@ export default function HealthCheckupPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 出典 */}
+          <section id="references" className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4">出典・参考文献</h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 母子保健法（昭和四十年法律第百四十一号）第12条・第13条（1歳6ヶ月児・3歳児健康診査の法的根拠）.{" "}
+                    <a href="https://laws.e-gov.go.jp/document?lawid=340AC0000000141" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">e-Gov法令検索</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 厚生労働省「乳幼児健康診査 身体診察マニュアル」（母子保健課）.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 日本小児科学会「乳幼児健康診査身体診察マニュアル」（2018年）.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[4]</strong> 国立成育医療研究センター（乳幼児の発達・健診情報）.{" "}
+                    <a href="https://www.ncchd.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">ncchd.go.jp</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[5]</strong> 健やか親子21（第2次）母子保健情報サイト（厚生労働省推進事業）.
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

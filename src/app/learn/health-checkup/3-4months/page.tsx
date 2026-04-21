@@ -213,6 +213,38 @@ export default function Checkup34MonthsPage() {
             </div>
           </section>
 
+          {/* 出典 */}
+          <section id="references" className="mb-10">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <span aria-hidden>📚</span>
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 厚生労働省「乳幼児身体発育調査」（2010年）.{" "}
+                    <a href="https://www.mhlw.go.jp/toukei/list/73-22.html" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">厚生労働省</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 厚生労働省「乳幼児健康診査 身体診察マニュアル」（母子保健課）.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 日本小児整形外科学会「乳児股関節検診に関するガイドライン」（2018年）.{" "}
+                    <a href="https://www.jpoa.org/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">日本小児整形外科学会</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[4]</strong> 国立成育医療研究センター「胆道閉鎖症早期発見のための便色カード」.{" "}
+                    <a href="https://www.ncchd.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">国立成育医療研究センター</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[5]</strong> 日本小児科学会「乳幼児身体発育評価マニュアル」（2021年）.
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">

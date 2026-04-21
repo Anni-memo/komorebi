@@ -213,6 +213,37 @@ export default function Checkup67MonthsPage() {
             </div>
           </section>
 
+          {/* 出典 */}
+          <section id="references" className="mb-10">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <span aria-hidden>📚</span>
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 厚生労働省「授乳・離乳の支援ガイド」（2019年改定版）（雇用均等・児童家庭局母子保健課）.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 厚生労働省「乳幼児健康診査 身体診察マニュアル」（母子保健課）.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 日本小児科学会「乳幼児身体発育評価マニュアル」（2021年）.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[4]</strong> 日本小児アレルギー学会「食物アレルギー診療ガイドライン2021」.{" "}
+                    <a href="https://www.jspaci.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">日本小児アレルギー学会</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[5]</strong> 国立成育医療研究センター「乳児期の発達と離乳食」.{" "}
+                    <a href="https://www.ncchd.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">国立成育医療研究センター</a>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">

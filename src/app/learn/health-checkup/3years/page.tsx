@@ -322,6 +322,43 @@ export default function Checkup3YearsPage() {
             </CardContent>
           </Card>
 
+          {/* 出典 */}
+          <section id="references" className="mb-10">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <span aria-hidden>📚</span>
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 母子保健法（昭和四十年法律第百四十一号）第12条（3歳児健康診査の法的根拠）.{" "}
+                    <a href="https://laws.e-gov.go.jp/document?lawid=340AC0000000141" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">e-Gov法令検索</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 厚生労働省「3歳児健康診査における視力検査及び聴力検査の実施について」（母子保健課通知）.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 日本眼科医会「3歳児健康診査における視覚検査マニュアル」（2017年）.{" "}
+                    <a href="https://www.gankaikai.or.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">日本眼科医会</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[4]</strong> 日本耳鼻咽喉科頭頸部外科学会「幼児聴力検査の手引き」.{" "}
+                    <a href="https://www.jibika.or.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">日本耳鼻咽喉科頭頸部外科学会</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[5]</strong> 日本小児歯科学会「小児の歯科保健指導の手引き」.{" "}
+                    <a href="https://www.jspd.or.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">日本小児歯科学会</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[6]</strong> 国立成育医療研究センター「就学前健診と発達評価」.{" "}
+                    <a href="https://www.ncchd.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">国立成育医療研究センター</a>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">
