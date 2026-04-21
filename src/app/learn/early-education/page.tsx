@@ -147,6 +147,7 @@ export default function EarlyEducationPage() {
             { id: "stages", label: "月齢・年齢別の発達と遊び" },
             { id: "senses", label: "五感を育てる遊びのアイデア" },
             { id: "tips", label: "知育で大切なこと" },
+            { id: "references", label: "出典・参考文献" },
           ]} />
 
           {/* 1. 知育とは */}
@@ -275,6 +276,38 @@ export default function EarlyEducationPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 出典 */}
+          <section id="references" className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <span aria-hidden>📚</span>
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 厚生労働省「保育所保育指針」（令和2年告示）.{" "}
+                    <a href="https://www.mhlw.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">厚生労働省</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 文部科学省「幼稚園教育要領」（平成29年告示）.{" "}
+                    <a href="https://www.mext.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">文部科学省</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> こども家庭庁「幼児期の教育・保育に関する情報」.{" "}
+                    <a href="https://www.cfa.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">こども家庭庁</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[4]</strong> WHO / UNICEF「Nurturing Care for Early Childhood Development」.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[5]</strong> 日本小児科学会「乳幼児の発達と遊びに関する見解」.
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

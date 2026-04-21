@@ -86,7 +86,7 @@ const commonBenefits = [
     deadline: "育休開始後〜2ヶ月ごとに申請",
   },
   {
-    name: "一時保育・緊急保���",
+    name: "一時保育・緊急保育",
     overview: "リフレッシュや急用時に一時的に子どもを預けられる。1日2,000〜3,000円程度",
     where: "実施している保育園・自治体窓口に直接申し込み",
     deadline: "事前登録が必要な場合が多い",
@@ -160,7 +160,7 @@ export default function LocalSupportPage() {
         breadcrumbs={[
           { name: "トップ", href: "/" },
           { name: "学ぶ", href: "/learn" },
-          { name: "地域��子育て支援制度の調べかた" },
+          { name: "地域の子育て支援制度の調べかた" },
         ]}
       />
       <Header />
@@ -178,7 +178,7 @@ export default function LocalSupportPage() {
               <Badge variant="secondary">手続き</Badge>
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 leading-tight">
-              地域の子���て支援制度の調べかた
+              地域の子育て支援制度の調べかた
             </h1>
             <p className="text-muted-foreground leading-relaxed">
               子育て支援の制度は自治体によって大きく異なります。
@@ -194,6 +194,7 @@ export default function LocalSupportPage() {
             { id: "local-only", label: "自治体によってはこんな制度も" },
             { id: "checklist", label: "制度の調べ忘れチェックリスト" },
             { id: "faq", label: "よくある質問" },
+            { id: "references", label: "出典・参考文献" },
           ]} />
 
           {/* 大前提 */}
@@ -246,7 +247,7 @@ export default function LocalSupportPage() {
             </div>
           </section>
 
-          {/* 全国共通の主な��度 */}
+          {/* 全国共通の主な制度 */}
           <section id="common-benefits" className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4">
               まず確認したい主な制度
@@ -323,7 +324,7 @@ export default function LocalSupportPage() {
                     "乳幼児医療費助成の受給者証は届いていますか？",
                     "出産育児一時金の手続きは完了していますか？",
                     "自治体の子育てガイドブック（PDF）をダウンロードしましたか？",
-                    "最寄りの子育て支援センターの場所を確認しまし��か？",
+                    "最寄りの子育て支援センターの場所を確認しましたか？",
                     "ファミリー・サポート・センターへの登録は検討しましたか？",
                     "一時保育の事前登録が必要か確認しましたか？",
                     "産後ケア事業（デイケア・宿泊型）の有無を確認しましたか？",
@@ -369,10 +370,43 @@ export default function LocalSupportPage() {
                 <br />
                 「困ったときに、どこに聞けばいいか」を知っておくだけで十分です。
                 <br />
-                自治体の窓口や子育て支援センターは、いつでもあなたの味方���す。
+                自治体の窓口や子育て支援センターは、いつでもあなたの味方です。
               </p>
             </CardContent>
           </Card>
+
+          {/* 出典 */}
+          <section id="references" className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <span aria-hidden>📚</span>
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> こども家庭庁「子育て支援施策」公式情報.{" "}
+                    <a href="https://www.cfa.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">こども家庭庁</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 厚生労働省「地域子育て支援拠点事業」.{" "}
+                    <a href="https://www.mhlw.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">厚生労働省</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 内閣府「子ども・子育て支援新制度」.{" "}
+                    <a href="https://www.cao.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">内閣府</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[4]</strong> 全国社会福祉協議会「ファミリー・サポート・センター事業」.{" "}
+                    <a href="https://www.shakyo.or.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">全国社会福祉協議会</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[5]</strong> 各都道府県・市区町村の子ども家庭支援ウェブページ（地域別制度の一次情報）.
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
 
           <ShareButtons title="地域の子育て支援制度の調べかた" path="/learn/local-support" />
           <MedicalDisclaimer />
@@ -386,7 +420,7 @@ export default function LocalSupportPage() {
               制度を調べる
             </Link>
             <Link href="/concierge" className={buttonVariants({ variant: "ghost" })}>
-              AIに��談する
+              AIに相談する
             </Link>
           </div>
         </div>

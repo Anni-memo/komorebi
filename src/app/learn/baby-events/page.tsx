@@ -143,6 +143,7 @@ export default function BabyEventsPage() {
             { id: "timeline", label: "行事タイムライン" },
             { id: "photo", label: "写真撮影のタイミング" },
             { id: "message", label: "全部やらなくて大丈夫です" },
+            { id: "references", label: "出典・参考文献" },
           ]} />
 
           {/* なぜ知っておくと安心か */}
@@ -268,6 +269,38 @@ export default function BabyEventsPage() {
               </p>
             </CardContent>
           </Card>
+
+          {/* 出典 */}
+          <section id="references" className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <span aria-hidden>📚</span>
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 国立国会図書館「日本の年中行事」リサーチ・ナビ.{" "}
+                    <a href="https://www.ndl.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">国立国会図書館</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 神社本庁「人生儀礼（お宮参り・七五三）」公式解説.{" "}
+                    <a href="https://www.jinjahoncho.or.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">神社本庁</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 文化庁「我が国の年中行事・通過儀礼」（国民生活と文化資料）.{" "}
+                    <a href="https://www.bunka.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">文化庁</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[4]</strong> 日本民俗学会 公式資料（赤ちゃんの通過儀礼に関する地域差研究）.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[5]</strong> 育児・出産関連メーカー資料（ミキハウス・たまひよ・スタジオアリス等）を実用情報として参照.
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
 
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">

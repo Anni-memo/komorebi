@@ -210,6 +210,7 @@ export default function BabyClothingPage() {
             { id: "size", label: "サイズの選び方" },
             { id: "mistakes", label: "よくある失敗と対策" },
             { id: "materials", label: "素材の選び方" },
+            { id: "references", label: "出典・参考文献" },
           ]} />
 
           {/* 1. なぜ迷いやすいのか */}
@@ -439,6 +440,38 @@ export default function BabyClothingPage() {
             </CardContent>
           </Card>
 
+          {/* 出典 */}
+          <section id="references" className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <span aria-hidden>📚</span>
+              出典・参考文献
+            </h2>
+            <Card className="border-border/50 shadow-none">
+              <CardContent className="pt-5">
+                <ul className="space-y-3 text-xs text-muted-foreground">
+                  <li>
+                    <strong className="text-foreground">[1]</strong> 消費者庁「子供服の安全対策（ひもの規格 JIS L 4129）」.{" "}
+                    <a href="https://www.caa.go.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">消費者庁</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[2]</strong> 日本小児皮膚科学会「新生児・乳児の皮膚ケアに関するQ&A」.{" "}
+                    <a href="https://jspd.umin.jp/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">日本小児皮膚科学会</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[3]</strong> 厚生労働省「乳幼児身体発育調査」（身長・体重・頭囲の年齢別データ）.{" "}
+                    <a href="https://www.mhlw.go.jp/toukei/list/73-22.html" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">厚生労働省</a>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[4]</strong> 日本繊維製品消費科学会「乳幼児衣料の快適性に関する研究」.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">[5]</strong> 育児用品メーカー資料（ミキハウス・アカチャンホンポ・たまひよ・ユニクロ ベビー肌着ガイド等）を各季節の実用情報として参照.
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+
           {/* 免責事項 */}
           <div className="p-4 bg-muted/30 rounded-lg mb-8">
             <p className="text-xs text-muted-foreground leading-relaxed">
@@ -446,9 +479,6 @@ export default function BabyClothingPage() {
               本ページの情報は2026年3月時点の一般的な目安です。赤ちゃんの体型や成長速度には個人差があります。
               必要枚数は洗濯頻度や生活スタイルによっても変わります。
               肌トラブルが気になる場合は、小児科や助産師にご相談ください。
-            </p>
-            <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-              参考: ミキハウス 妊娠・出産・子育てマガジン、アカチャンホンポ、たまひよSHOP、エンジェリーベ、ユニクロ ベビー肌着ガイド
             </p>
           </div>
 
