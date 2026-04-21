@@ -481,7 +481,7 @@ export default function FeverGuidePage() {
               href="/learn/vaccination-schedule"
               className={buttonVariants({ variant: "outline" })}
             >
-              予防接種スケジュー��を見る
+              予防接種スケジュールを見る
             </Link>
             <Link href="/learn" className={buttonVariants({ variant: "ghost" })}>
               学ぶトップに戻る

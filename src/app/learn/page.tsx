@@ -157,7 +157,7 @@ const articles = [
     href: "/learn/baby-safety-guide",
   },
   {
-    title: "子どもがかかりやすい病気ガ���ド",
+    title: "子どもがかかりやすい病気ガイド",
     tag: "健康・病気",
     audience: "すべての親向け",
     readTime: "保存版",
