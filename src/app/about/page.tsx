@@ -63,6 +63,7 @@ AIは以下のことを行いません：
 ・最新の正確な情報は、公式窓口で確認してください
 
 このサービスは、必要な窓口や情報にたどり着くための案内を目的としています。`,
+    editorialLink: true,
   },
   {
     id: "operator",
@@ -139,6 +140,15 @@ export default function AboutPage() {
                           詳しくは
                           <Link href="/privacy" className="text-primary hover:underline">
                             プライバシーポリシー
+                          </Link>
+                          をご覧ください。
+                        </p>
+                      )}
+                      {section.editorialLink && (
+                        <p className="mt-3">
+                          記事の情報源・編集プロセス・監修体制は
+                          <Link href="/about/editorial-policy" className="text-primary hover:underline">
+                            編集方針・監修体制
                           </Link>
                           をご覧ください。
                         </p>

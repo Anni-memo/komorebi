@@ -15,6 +15,7 @@ const footerLinks = [
     title: "サポート",
     links: [
       { href: "/about", label: "このサービスについて" },
+      { href: "/about/editorial-policy", label: "編集方針・監修体制" },
       { href: "/about#ai", label: "AI利用について" },
       { href: "/about#privacy", label: "個人情報の扱い" },
       { href: "/privacy", label: "プライバシーポリシー" },
